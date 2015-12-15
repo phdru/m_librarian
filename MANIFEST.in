@@ -1,0 +1,2 @@
+include MANIFEST.in TODO
+recursive-include m_librarian
