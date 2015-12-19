@@ -39,6 +39,7 @@ setup(name='m_librarian',
           'Programming Language :: Python :: 2 :: Only',
       ],
       packages=['m_librarian'],
+      package_data={'m_librarian': ['data/*.txt', 'data/genres_*.glst']},
       scripts=[],
       requires=['SQLObject'],
       )
