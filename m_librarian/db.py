@@ -1,8 +1,8 @@
 #! /usr/bin/env python
 
 import os
-from sqlobject import SQLObject, StringCol, UnicodeCol, IntCol, \
-    connectionForURI, sqlhub
+from sqlobject import SQLObject, StringCol, UnicodeCol, IntCol, BoolCol, \
+    ForeignKey, DateCol, connectionForURI, sqlhub
 from .config import ml_conf
 
 try:
@@ -42,8 +42,25 @@ class Author(SQLObject):
     count = IntCol()
 
 
+class Genre(SQLObject):
+    name = StringCol()
+    title = UnicodeCol()
+    count = IntCol()
+
+
 class Book(SQLObject):
-    name = UnicodeCol()
+    author = ForeignKey('Author')
+    genre = ForeignKey('Genre')
+    title = UnicodeCol()
+    series = UnicodeCol()
+    ser_no = IntCol()
+    file = StringCol()
+    size = IntCol()
+    lib_id = StringCol()
+    deleted = BoolCol()
+    ext = ForeignKey('Extension')
+    date = DateCol()
+    language = ForeignKey('Language')
 
 
 class Extension(SQLObject):
