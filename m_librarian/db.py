@@ -32,7 +32,8 @@ if not db_uri:
         except OSError:  # Perhaps already exists
             pass
         db_file = os.path.join(db_dir, 'm_librarian.sqlite')
-        db_uri = 'sqlite://%s' % db_file.replace(os.sep, '/')
+
+    db_uri = 'sqlite://%s' % db_file.replace(os.sep, '/')
 
 sqlhub.processConnection = connectionForURI(db_uri)
 
