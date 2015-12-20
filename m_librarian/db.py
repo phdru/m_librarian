@@ -38,7 +38,7 @@ sqlhub.processConnection = connectionForURI(db_uri)
 
 
 class Author(SQLObject):
-    name = UnicodeCol()
+    name = UnicodeCol(unique=True)
     count = IntCol()
 
 
@@ -58,18 +58,18 @@ class Book(SQLObject):
 
 
 class Extension(SQLObject):
-    name = StringCol()
+    name = StringCol(unique=True)
     count = IntCol()
 
 
 class Genre(SQLObject):
-    name = StringCol()
+    name = StringCol(unique=True)
     title = UnicodeCol()
     count = IntCol()
 
 
 class Language(SQLObject):
-    name = StringCol()
+    name = StringCol(unique=True)
     count = IntCol()
 
 
