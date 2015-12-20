@@ -1,1 +1,7 @@
 Version 0.0.1 (2015-12-15)
+
+   The project started. Created DB schema.
+
+Version 0.0.2 (2015-12-21)
+
+   Import genres from glst files.
