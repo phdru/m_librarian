@@ -40,6 +40,6 @@ setup(name='m_librarian',
       ],
       packages=['m_librarian'],
       package_data={'m_librarian': ['data/*.txt', 'data/genres_*.glst']},
-      scripts=[],
+      scripts=['scripts/ml-initdb.py'],
       requires=['SQLObject'],
       )

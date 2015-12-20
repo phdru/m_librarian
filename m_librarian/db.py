@@ -2,7 +2,7 @@
 
 import os
 from sqlobject import SQLObject, StringCol, UnicodeCol, IntCol, BoolCol, \
-    ForeignKey, DateCol, connectionForURI, sqlhub
+    ForeignKey, DateCol, connectionForURI, sqlhub, dberrors
 from .config import ml_conf
 
 try:
@@ -42,12 +42,6 @@ class Author(SQLObject):
     count = IntCol()
 
 
-class Genre(SQLObject):
-    name = StringCol()
-    title = UnicodeCol()
-    count = IntCol()
-
-
 class Book(SQLObject):
     author = ForeignKey('Author')
     genre = ForeignKey('Genre')
@@ -68,9 +62,27 @@ class Extension(SQLObject):
     count = IntCol()
 
 
+class Genre(SQLObject):
+    name = StringCol()
+    title = UnicodeCol()
+    count = IntCol()
+
+
 class Language(SQLObject):
     name = StringCol()
     count = IntCol()
+
+
+def init_db():
+    try:
+        Book.select()[0]
+    except IndexError:  # Table exists but is empty
+        return
+    except dberrors.Error:
+        for table in Author, Extension, Genre, Language, Book:
+            table.createTable()
+    else:
+        return
 
 
 if __name__ == '__main__':
