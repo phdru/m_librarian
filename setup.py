@@ -30,7 +30,7 @@ setup(name='m_librarian',
       platforms=['any'],
       keywords=['books', 'library', 'Flibusta', 'LibRusEc', 'lib.rus.ec'],
       classifiers=[
-          'Development Status :: 1 - Planning',
+          'Development Status :: 2 - Pre-Alpha',
           'Environment :: Console',
           'Environment :: Web Environment',
           'Intended Audience :: End Users/Desktop',
