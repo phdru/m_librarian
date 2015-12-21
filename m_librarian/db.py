@@ -86,7 +86,10 @@ def init_db():
         return
 
 
-if __name__ == '__main__':
+def test():
     print "DB dirs:", db_dirs
     if db_uri:
         print "DB URI:", db_uri
+
+if __name__ == '__main__':
+    test()

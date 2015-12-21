@@ -54,6 +54,9 @@ def import_data():
     return sqlhub.doInTransaction(_import_data)
 
 
-if __name__ == '__main__':
+def test():
     ml_dir = os.path.dirname(__file__)
     print parse_glst_file(os.path.join(ml_dir, 'data', 'genres_fb2.glst'))
+
+if __name__ == '__main__':
+    test()

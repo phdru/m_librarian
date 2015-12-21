@@ -23,6 +23,10 @@ for d in config_dirs:
 else:
     ml_conf = ml_conf_file = None
 
-if __name__ == '__main__':
+
+def test():
     print "Config dirs:", config_dirs
     print "Config file:", ml_conf_file
+
+if __name__ == '__main__':
+    test()
