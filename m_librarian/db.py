@@ -53,6 +53,7 @@ class Book(SQLObject):
     title = UnicodeCol()
     series = UnicodeCol()
     ser_no = IntCol()
+    archive = StringCol()
     file = StringCol()
     size = IntCol()
     lib_id = StringCol()
