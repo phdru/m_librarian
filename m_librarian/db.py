@@ -1,5 +1,9 @@
 #! /usr/bin/env python
 
+__all__ = ['Author', 'Book', 'Extension', 'Genre', 'Language',
+           'init_db',
+           ]
+
 import os
 from sqlobject import SQLObject, StringCol, UnicodeCol, IntCol, BoolCol, \
     ForeignKey, DateCol, connectionForURI, sqlhub, dberrors

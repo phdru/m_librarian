@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 
+__all__ = ['import_data']
+
 import codecs
 import os
 from sqlobject import sqlhub, SQLObjectNotFound
