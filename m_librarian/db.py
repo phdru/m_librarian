@@ -1,12 +1,12 @@
 #! /usr/bin/env python
 
 __all__ = ['Author', 'Book', 'Extension', 'Genre', 'Language',
-           'init_db',
+           'init_db', 'insert_name',
            ]
 
 import os
 from sqlobject import SQLObject, StringCol, UnicodeCol, IntCol, BoolCol, \
-    ForeignKey, DateCol, connectionForURI, sqlhub, dberrors
+    ForeignKey, DateCol, connectionForURI, sqlhub, SQLObjectNotFound, dberrors
 from .config import ml_conf
 
 try:
@@ -89,6 +89,13 @@ def init_db():
             table.createTable()
     else:
         return
+
+
+def insert_name(table, name):
+    try:
+        return table.byName(name)
+    except SQLObjectNotFound:
+        return table(name=name, count=0)
 
 
 def test():
