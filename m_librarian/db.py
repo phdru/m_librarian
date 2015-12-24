@@ -102,11 +102,11 @@ def init_db():
         return
 
 
-def insert_name(table, name):
+def insert_name(table, name, **kw):
     try:
         return table.byName(name)
     except SQLObjectNotFound:
-        return table(name=name, count=0)
+        return table(name=name, count=0, **kw)
 
 
 def test():
