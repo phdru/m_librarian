@@ -114,6 +114,20 @@ def insert_name(table, name, **kw):
         return table(name=name, count=0, **kw)
 
 
+def update_counters():
+    for author in Author.select():
+        author.count = len(author.books)
+
+    for ext in Extension.select():
+        ext.count = Book.select(Book.q.extension == ext.name).count()
+
+    for genre in Genre.select():
+        genre.count = len(genre.books)
+
+    for language in Language.select():
+        language.count = Book.select(Book.q.language == language.name).count()
+
+
 def test():
     print "DB dirs:", db_dirs
     if db_uri:
