@@ -10,5 +10,6 @@ if __name__ == '__main__':
         sys.exit("Usage: %s file.inpx" % sys.argv[0])
     init_db()
     import_data()
-    import_inpx(sys.argv[1])
+    for inpx in sys.argv[1:]:
+        import_inpx(inpx)
     update_counters()
