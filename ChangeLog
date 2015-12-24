@@ -5,3 +5,7 @@ Version 0.0.1 (2015-12-15)
 Version 0.0.2 (2015-12-21)
 
    Import genres from glst files.
+
+Version 0.0.3 (2015-12-24)
+
+   Convert *.inp(x) to SQL.
