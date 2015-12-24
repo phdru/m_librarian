@@ -1,12 +1,12 @@
 #! /usr/bin/env python
 
 __all__ = ['Author', 'Book', 'Extension', 'Genre', 'Language',
-           'init_db', 'insert_name',
+           'init_db', 'insert_name', 'update_counters',
            ]
 
 import os
 from sqlobject import SQLObject, StringCol, UnicodeCol, IntCol, BoolCol, \
-    ForeignKey, DateCol, RelatedJoin, \
+    ForeignKey, DateCol, DatabaseIndex, RelatedJoin, \
     connectionForURI, sqlhub, SQLObjectNotFound, dberrors
 from .config import ml_conf
 
@@ -54,6 +54,7 @@ if connection.dbName == 'sqlite':
 class Author(SQLObject):
     name = UnicodeCol(unique=True)
     count = IntCol()
+    count_idx = DatabaseIndex('count')
     books = RelatedJoin('Book', otherColumn='book_id')
 
 
@@ -71,23 +72,27 @@ class Book(SQLObject):
     extension = ForeignKey('Extension')
     date = DateCol()
     language = ForeignKey('Language')
+    archive_file_idx = DatabaseIndex('archive', 'file', unique=True)
 
 
 class Extension(SQLObject):
     name = StringCol(unique=True)
     count = IntCol()
+    count_idx = DatabaseIndex('count')
 
 
 class Genre(SQLObject):
     name = StringCol(unique=True)
     title = UnicodeCol()
     count = IntCol()
+    count_idx = DatabaseIndex('count')
     books = RelatedJoin('Book', otherColumn='book_id')
 
 
 class Language(SQLObject):
     name = StringCol(unique=True)
     count = IntCol()
+    count_idx = DatabaseIndex('count')
 
 
 def init_db():
