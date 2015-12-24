@@ -40,7 +40,15 @@ if not db_uri:
 
     db_uri = 'sqlite://%s' % db_file.replace(os.sep, '/')
 
-sqlhub.processConnection = connectionForURI(db_uri)
+
+sqlhub.processConnection = connection = connectionForURI(db_uri)
+
+if connection.dbName == 'sqlite':
+    # Speedup SQLite connection
+    connection.query("PRAGMA synchronous=OFF")
+    connection.query("PRAGMA count_changes=OFF")
+    connection.query("PRAGMA journal_mode=MEMORY")
+    connection.query("PRAGMA temp_store=MEMORY")
 
 
 class Author(SQLObject):
