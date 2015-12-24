@@ -6,7 +6,8 @@ __all__ = ['Author', 'Book', 'Extension', 'Genre', 'Language',
 
 import os
 from sqlobject import SQLObject, StringCol, UnicodeCol, IntCol, BoolCol, \
-    ForeignKey, DateCol, connectionForURI, sqlhub, SQLObjectNotFound, dberrors
+    ForeignKey, DateCol, RelatedJoin, \
+    connectionForURI, sqlhub, SQLObjectNotFound, dberrors
 from .config import ml_conf
 
 try:
@@ -45,11 +46,12 @@ sqlhub.processConnection = connectionForURI(db_uri)
 class Author(SQLObject):
     name = UnicodeCol(unique=True)
     count = IntCol()
+    books = RelatedJoin('Book', otherColumn='book_id')
 
 
 class Book(SQLObject):
-    author = ForeignKey('Author')
-    genre = ForeignKey('Genre')
+    authors = RelatedJoin('Author')
+    genres = RelatedJoin('Genre')
     title = UnicodeCol()
     series = UnicodeCol()
     ser_no = IntCol()
@@ -58,7 +60,7 @@ class Book(SQLObject):
     size = IntCol()
     lib_id = StringCol()
     deleted = BoolCol()
-    ext = ForeignKey('Extension')
+    extension = ForeignKey('Extension')
     date = DateCol()
     language = ForeignKey('Language')
 
@@ -72,6 +74,7 @@ class Genre(SQLObject):
     name = StringCol(unique=True)
     title = UnicodeCol()
     count = IntCol()
+    books = RelatedJoin('Book', otherColumn='book_id')
 
 
 class Language(SQLObject):
