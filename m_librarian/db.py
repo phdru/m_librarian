@@ -55,10 +55,10 @@ if connection.dbName == 'sqlite':
 class Author(SQLObject):
     name = UnicodeCol(unique=True)
     count = IntCol()
-    count_idx = DatabaseIndex('count')
     books = RelatedJoin('Book', otherColumn='book_id',
                         intermediateTable='author_book',
                         createRelatedTable=False)
+    count_idx = DatabaseIndex(count)
 
 
 class AuthorBook(SQLObject):
@@ -66,6 +66,8 @@ class AuthorBook(SQLObject):
         table = "author_book"
     author = ForeignKey('Author', notNull=True, cascade=True)
     book = ForeignKey('Book', notNull=True, cascade=True)
+    author_idx = DatabaseIndex(author)
+    book_idx = DatabaseIndex(book)
     main_idx = DatabaseIndex(author, book, unique=True)
 
 
@@ -87,7 +89,11 @@ class Book(SQLObject):
     extension = ForeignKey('Extension')
     date = DateCol()
     language = ForeignKey('Language')
-    archive_file_idx = DatabaseIndex('archive', 'file', unique=True)
+    title_idx = DatabaseIndex(title)
+    series_idx = DatabaseIndex(series)
+    archive_file_idx = DatabaseIndex(archive, file, unique=True)
+    extension_idx = DatabaseIndex(extension)
+    language_idx = DatabaseIndex(language)
 
 
 class BookGenre(SQLObject):
@@ -95,29 +101,32 @@ class BookGenre(SQLObject):
         table = "book_genre"
     book = ForeignKey('Book', notNull=True, cascade=True)
     genre = ForeignKey('Genre', notNull=True, cascade=True)
+    book_idx = DatabaseIndex(book)
+    genre_idx = DatabaseIndex(genre)
     main_idx = DatabaseIndex(book, genre, unique=True)
 
 
 class Extension(SQLObject):
     name = StringCol(unique=True)
     count = IntCol()
-    count_idx = DatabaseIndex('count')
+    count_idx = DatabaseIndex(count)
 
 
 class Genre(SQLObject):
     name = StringCol(unique=True)
     title = UnicodeCol()
     count = IntCol()
-    count_idx = DatabaseIndex('count')
     books = RelatedJoin('Book', otherColumn='book_id',
                         intermediateTable='book_genre',
                         createRelatedTable=False)
+    title_idx = DatabaseIndex(title)
+    count_idx = DatabaseIndex(count)
 
 
 class Language(SQLObject):
     name = StringCol(unique=True)
     count = IntCol()
-    count_idx = DatabaseIndex('count')
+    count_idx = DatabaseIndex(count)
 
 
 def init_db():
