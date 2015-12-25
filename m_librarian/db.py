@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 __all__ = ['Author', 'Book', 'Extension', 'Genre', 'Language',
+           'AuthorBook', 'BookGenre',
            'init_db', 'insert_name', 'update_counters',
            ]
 
@@ -55,12 +56,26 @@ class Author(SQLObject):
     name = UnicodeCol(unique=True)
     count = IntCol()
     count_idx = DatabaseIndex('count')
-    books = RelatedJoin('Book', otherColumn='book_id')
+    books = RelatedJoin('Book', otherColumn='book_id',
+                        intermediateTable='author_book',
+                        createRelatedTable=False)
+
+
+class AuthorBook(SQLObject):
+    class sqlmeta:
+        table = "author_book"
+    author = ForeignKey('Author', notNull=True, cascade=True)
+    book = ForeignKey('Book', notNull=True, cascade=True)
+    main_idx = DatabaseIndex(author, book, unique=True)
 
 
 class Book(SQLObject):
-    authors = RelatedJoin('Author')
-    genres = RelatedJoin('Genre')
+    authors = RelatedJoin('Author',
+                          intermediateTable='author_book',
+                          createRelatedTable=False)
+    genres = RelatedJoin('Genre',
+                         intermediateTable='book_genre',
+                         createRelatedTable=False)
     title = UnicodeCol()
     series = UnicodeCol()
     ser_no = IntCol()
@@ -75,6 +90,14 @@ class Book(SQLObject):
     archive_file_idx = DatabaseIndex('archive', 'file', unique=True)
 
 
+class BookGenre(SQLObject):
+    class sqlmeta:
+        table = "book_genre"
+    book = ForeignKey('Book', notNull=True, cascade=True)
+    genre = ForeignKey('Genre', notNull=True, cascade=True)
+    main_idx = DatabaseIndex(book, genre, unique=True)
+
+
 class Extension(SQLObject):
     name = StringCol(unique=True)
     count = IntCol()
@@ -86,7 +109,9 @@ class Genre(SQLObject):
     title = UnicodeCol()
     count = IntCol()
     count_idx = DatabaseIndex('count')
-    books = RelatedJoin('Book', otherColumn='book_id')
+    books = RelatedJoin('Book', otherColumn='book_id',
+                        intermediateTable='book_genre',
+                        createRelatedTable=False)
 
 
 class Language(SQLObject):
@@ -101,7 +126,8 @@ def init_db():
     except IndexError:  # Table exists but is empty
         return
     except dberrors.Error:
-        for table in Author, Extension, Genre, Language, Book:
+        for table in Author, Extension, Genre, Language, Book, \
+                AuthorBook, BookGenre:
             table.createTable()
     else:
         return
