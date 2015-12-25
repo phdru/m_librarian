@@ -48,7 +48,9 @@ def _import_glst():
         os.path.join(ml_dir, 'glst', 'genres_fb2.glst'))
     old_nonfb2, new_nonfb2 = import_glst_file(
         os.path.join(ml_dir, 'glst', 'genres_nonfb2.glst'))
-    sqlhub.processConnection.query("VACUUM %s" % Genre.sqlmeta.table)
+    connection = sqlhub.processConnection
+    if connection.dbName in ('postgres', 'sqlite'):
+        connection.query("VACUUM %s" % Genre.sqlmeta.table)
     return old_fb2 + old_nonfb2, new_fb2 + new_nonfb2
 
 
