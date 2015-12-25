@@ -42,7 +42,7 @@ setup(name='m_librarian',
           'Programming Language :: Python :: 2 :: Only',
       ],
       packages=['m_librarian'],
-      package_data={'m_librarian': ['data/*.txt', 'data/genres_*.glst']},
+      package_data={'m_librarian': ['glst/*.txt', 'glst/genres_*.glst']},
       scripts=['scripts/ml-import.py', 'scripts/ml-initdb.py'],
       requires=['SQLObject'],
       )

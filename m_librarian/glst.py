@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-__all__ = ['import_data']
+__all__ = ['import_glst']
 
 import codecs
 import os
@@ -42,23 +42,23 @@ def import_glst_file(glst_filename):
     return old, new
 
 
-def _import_data():
+def _import_glst():
     ml_dir = os.path.dirname(__file__)
     old_fb2, new_fb2 = import_glst_file(
-        os.path.join(ml_dir, 'data', 'genres_fb2.glst'))
+        os.path.join(ml_dir, 'glst', 'genres_fb2.glst'))
     old_nonfb2, new_nonfb2 = import_glst_file(
-        os.path.join(ml_dir, 'data', 'genres_nonfb2.glst'))
+        os.path.join(ml_dir, 'glst', 'genres_nonfb2.glst'))
     sqlhub.processConnection.query("VACUUM %s" % Genre.sqlmeta.table)
     return old_fb2 + old_nonfb2, new_fb2 + new_nonfb2
 
 
-def import_data():
-    return sqlhub.doInTransaction(_import_data)
+def import_glst():
+    return sqlhub.doInTransaction(_import_glst)
 
 
 def test():
     ml_dir = os.path.dirname(__file__)
-    print parse_glst_file(os.path.join(ml_dir, 'data', 'genres_fb2.glst'))
+    print parse_glst_file(os.path.join(ml_dir, 'glst', 'genres_fb2.glst'))
 
 if __name__ == '__main__':
     test()
