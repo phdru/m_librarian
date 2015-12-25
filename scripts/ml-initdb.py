@@ -1,11 +1,11 @@
 #! /usr/bin/env python
 
 from m_librarian.db import init_db
-from m_librarian.glst import import_data
+from m_librarian.glst import import_glst
 
 if __name__ == '__main__':
     init_db()
-    old, new = import_data()
+    old, new = import_glst()
     if old:
         print "Imported %d genres (ignored %d existing)" % (new, old)
     else:
