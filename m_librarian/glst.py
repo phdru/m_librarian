@@ -10,7 +10,6 @@ from .db import Genre
 
 def parse_glst_file(glst_filename):
     glst_file = codecs.open(glst_filename, 'r', 'utf-8')
-    genre_list = []
     try:
         for line in glst_file:
             line = line.strip()
@@ -23,10 +22,9 @@ def parse_glst_file(glst_filename):
                 name, title = parts[1].split(';', 1)
             except (IndexError, ValueError):
                 continue
-            genre_list.append((name, title))
+            yield name, title
     finally:
         glst_file.close()
-    return genre_list
 
 
 def import_glst_file(glst_filename):
