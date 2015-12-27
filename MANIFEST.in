@@ -1,3 +1,3 @@
 include COPYING ChangeLog MANIFEST.in README.rus.txt README.txt
-include TODO requirements.txt sample/m_librarian.conf
+include TODO mk-distr requirements.txt sample/m_librarian.conf
 recursive-include m_librarian *.py
