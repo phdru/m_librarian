@@ -1,11 +1,11 @@
-Version 0.0.1 (2015-12-15)
+Version 0.0.3 (2015-12-24)
 
-   The project started. Created DB schema.
+   Convert *.inp(x) to SQL.
 
 Version 0.0.2 (2015-12-21)
 
    Import genres from glst files.
 
-Version 0.0.3 (2015-12-24)
+Version 0.0.1 (2015-12-15)
 
-   Convert *.inp(x) to SQL.
+   The project started. Created DB schema.
