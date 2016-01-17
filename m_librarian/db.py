@@ -91,8 +91,13 @@ class Book(SQLObject):
     language = ForeignKey('Language')
     title_idx = DatabaseIndex(title)
     series_idx = DatabaseIndex(series)
+    ser_no_idx = DatabaseIndex(ser_no)
     archive_file_idx = DatabaseIndex(archive, file, unique=True)
+    file_idx = DatabaseIndex(file)
+    size_idx = DatabaseIndex(size)
+    deleted_idx = DatabaseIndex(deleted)
     extension_idx = DatabaseIndex(extension)
+    date_idx = DatabaseIndex(date)
     language_idx = DatabaseIndex(language)
 
 
