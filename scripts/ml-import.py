@@ -6,8 +6,8 @@ from m_librarian.glst import import_glst
 from m_librarian.inp import import_inpx
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        sys.exit("Usage: %s file.inpx" % sys.argv[0])
+    if len(sys.argv) < 2:
+        sys.exit("Usage: %s file.inpx..." % sys.argv[0])
     init_db()
     import_glst()
     for inpx in sys.argv[1:]:
