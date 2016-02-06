@@ -63,7 +63,7 @@ def import_inpx(path):
     inpx = ZipFile(path)
     for name in inpx.namelist():
         archive, ext = os.path.splitext(name)
-        if ext != 'inp':
+        if ext != '.inp':
             continue
         inp = inpx.open(name)
         sqlhub.doInTransaction(import_inp, archive + '.zip', inp)
