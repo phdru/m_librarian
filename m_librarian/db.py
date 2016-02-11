@@ -53,8 +53,8 @@ if connection.dbName == 'sqlite':
 
 
 class Author(SQLObject):
-    name = UnicodeCol(unique=True)
-    count = IntCol()
+    name = UnicodeCol(notNull=True, unique=True)
+    count = IntCol(notNull=True)
     books = RelatedJoin('Book', otherColumn='book_id',
                         intermediateTable='author_book',
                         createRelatedTable=False)
@@ -78,16 +78,16 @@ class Book(SQLObject):
     genres = RelatedJoin('Genre',
                          intermediateTable='book_genre',
                          createRelatedTable=False)
-    title = UnicodeCol()
-    series = UnicodeCol()
+    title = UnicodeCol(notNull=True)
+    series = UnicodeCol(notNull=True)
     ser_no = IntCol()
-    archive = StringCol()
-    file = StringCol()
-    size = IntCol()
-    lib_id = StringCol()
-    deleted = BoolCol()
-    extension = ForeignKey('Extension')
-    date = DateCol()
+    archive = StringCol(notNull=True)
+    file = StringCol(notNull=True)
+    size = IntCol(notNull=True)
+    lib_id = StringCol(notNull=True)
+    deleted = BoolCol(notNull=True)
+    extension = ForeignKey('Extension', notNull=True)
+    date = DateCol(notNull=True)
     language = ForeignKey('Language')
     title_idx = DatabaseIndex(title)
     series_idx = DatabaseIndex(series)
@@ -112,15 +112,15 @@ class BookGenre(SQLObject):
 
 
 class Extension(SQLObject):
-    name = StringCol(unique=True)
-    count = IntCol()
+    name = StringCol(notNull=True, unique=True)
+    count = IntCol(notNull=True)
     count_idx = DatabaseIndex(count)
 
 
 class Genre(SQLObject):
-    name = StringCol(unique=True)
-    title = UnicodeCol()
-    count = IntCol()
+    name = StringCol(notNull=True, unique=True)
+    title = UnicodeCol(notNull=True)
+    count = IntCol(notNull=True)
     books = RelatedJoin('Book', otherColumn='book_id',
                         intermediateTable='book_genre',
                         createRelatedTable=False)
@@ -129,8 +129,8 @@ class Genre(SQLObject):
 
 
 class Language(SQLObject):
-    name = StringCol(unique=True)
-    count = IntCol()
+    name = StringCol(notNull=True, unique=True)
+    count = IntCol(notNull=True)
     count_idx = DatabaseIndex(count)
 
 
