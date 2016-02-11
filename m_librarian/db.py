@@ -53,11 +53,14 @@ if connection.dbName == 'sqlite':
 
 
 class Author(SQLObject):
-    name = UnicodeCol(notNull=True, unique=True)
+    surname = UnicodeCol(notNull=True)
+    name = UnicodeCol(notNull=True)
+    misc_name = UnicodeCol(notNull=True)
     count = IntCol(notNull=True)
     books = RelatedJoin('Book', otherColumn='book_id',
                         intermediateTable='author_book',
                         createRelatedTable=False)
+    full_name_idx = DatabaseIndex(surname, name, misc_name, unique=True)
     count_idx = DatabaseIndex(count)
 
 
