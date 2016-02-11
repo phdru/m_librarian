@@ -45,8 +45,13 @@ def import_inp_line(archive, parts):
                 lib_id=lib_id, deleted=deleted,
                 extension=extension_row, date=date,
                 language=language_row)
-    for author in authors.split(':'):
+    authors = authors.split(':')
+    seen_authors = set()
+    for author in authors:
         if author:
+            if author in seen_authors:
+                continue
+            seen_authors.add(author)
             alist = author.split(',', 2)
             surname = alist[0]
             if len(alist) > 1:
