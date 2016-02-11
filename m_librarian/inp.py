@@ -4,7 +4,8 @@ __all__ = ['import_inpx']
 import os
 from zipfile import ZipFile
 from sqlobject import sqlhub, SQLObjectNotFound
-from .db import Author, Book, Extension, Genre, Language, insert_name
+from .db import Author, Book, Extension, Genre, Language, \
+    insert_name, insert_author
 
 
 EOT = chr(4)  # INP field separator
@@ -46,7 +47,17 @@ def import_inp_line(archive, parts):
                 language=language_row)
     for author in authors.split(':'):
         if author:
-            author_row = insert_name(Author, author)
+            alist = author.split(',', 2)
+            surname = alist[0]
+            if len(alist) > 1:
+                name = alist[1]
+                if len(alist) == 3:
+                    misc_name = alist[2]
+                else:
+                    misc_name = ''
+            else:
+                name = misc_name = ''
+            author_row = insert_author(surname, name, misc_name)
             book.addAuthor(author_row)
     for genre in genres.split(':'):
         if genre:

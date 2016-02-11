@@ -2,7 +2,7 @@
 
 __all__ = ['Author', 'Book', 'Extension', 'Genre', 'Language',
            'AuthorBook', 'BookGenre',
-           'init_db', 'insert_name', 'update_counters',
+           'init_db', 'insert_name', 'insert_author', 'update_counters',
            ]
 
 import os
@@ -155,6 +155,14 @@ def insert_name(table, name, **kw):
         return table.byName(name)
     except SQLObjectNotFound:
         return table(name=name, count=0, **kw)
+
+
+def insert_author(surname, name, misc_name):
+    try:
+        return Author.full_name_idx.get(
+            surname=surname, name=name, misc_name=misc_name)
+    except SQLObjectNotFound:
+        return Author(surname=surname, name=name, misc_name=misc_name, count=0)
 
 
 def update_counters():
