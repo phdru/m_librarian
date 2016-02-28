@@ -1,4 +1,4 @@
-Broytman Librarian, Copyright (C) 2015 PhiloSoft Design
+Broytman Librarian, Copyright (C) 2015, 2016 PhiloSoft Design
 Author: Oleg Broytman <phd@phdru.name>
 License: GPL
 
