@@ -3,7 +3,8 @@ __all__ = ['import_inpx']
 
 import os
 from zipfile import ZipFile
-from sqlobject import sqlhub, SQLObjectNotFound
+from sqlobject import sqlhub
+from sqlobject.sqlbuilder import Select
 from .db import Author, Book, Extension, Genre, Language, \
     insert_name, insert_author
 
@@ -26,12 +27,6 @@ def split_line(line):
 def import_inp_line(archive, parts):
     authors, genres, title, series, ser_no, file, size, lib_id, deleted, \
         extension, date, language = parts
-    try:
-        Book.archive_file_idx.get(archive, file)
-    except SQLObjectNotFound:
-        pass
-    else:
-        return
     try:
         ser_no = int(ser_no)
     except ValueError:
@@ -71,8 +66,17 @@ def import_inp_line(archive, parts):
 
 
 def import_inp(archive, inp):
+    files = set()
+    connection = sqlhub.processConnection
+    for file, in connection.queryAll(connection.sqlrepr(
+            Select(Book.q.file, Book.q.archive == archive))):
+        files.add(file)
     for line in inp:
-        import_inp_line(archive, split_line(line))
+        parts = split_line(line)
+        file = parts[5]
+        if file not in files:
+            files.add(file)
+            import_inp_line(archive, parts)
 
 
 def import_inpx(path):

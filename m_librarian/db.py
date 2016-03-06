@@ -95,6 +95,7 @@ class Book(SQLObject):
     title_idx = DatabaseIndex(title)
     series_idx = DatabaseIndex(series)
     ser_no_idx = DatabaseIndex(ser_no)
+    archive_idx = DatabaseIndex(archive)
     archive_file_idx = DatabaseIndex(archive, file, unique=True)
     file_idx = DatabaseIndex(file)
     size_idx = DatabaseIndex(size)
