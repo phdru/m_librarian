@@ -45,6 +45,18 @@ if not db_uri:
 sqlhub.processConnection = connection = connectionForURI(db_uri)
 
 if connection.dbName == 'sqlite':
+    def lower(s):
+        return s.lower()
+
+    sqlite = connection.module
+
+    class MLConnection(sqlite.Connection):
+        def __init__(self, *args, **kwargs):
+            super(MLConnection, self).__init__(*args, **kwargs)
+            self.create_function('lower', 1, lower)
+
+    connection._connOptions['factory'] = MLConnection
+
     # Speedup SQLite connection
     connection.query("PRAGMA synchronous=OFF")
     connection.query("PRAGMA count_changes=OFF")
