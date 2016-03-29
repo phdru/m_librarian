@@ -1,20 +1,29 @@
 #! /usr/bin/env python
 
 import argparse
+import sys
 from m_lib.defenc import default_encoding
 from m_librarian.search import search_authors, search_books, \
     search_extensions, search_genres, search_languages
 import m_librarian.translations
 
 
-def _search_authors(args):
+def _guess_case_sensitivity(values):
+    for value in values.values():
+        if not value.islower():
+            return True
+    return False
+
+
+def _search_authors(case_sensitive, args):
     values = {}
     for column in 'surname', 'name', 'misc':
         value = getattr(args, column)
         if value:
             values[column] = unicode(value, default_encoding)
-    for author in search_authors(args.search_type, args.case_sensitive,
-                                 values):
+    if case_sensitive is None:
+        case_sensitive = _guess_case_sensitivity(values)
+    for author in search_authors(args.search_type, case_sensitive, values):
         full_name = filter(None,
                            (author.surname, author.name, author.misc_name))
         full_name = u' '.join(full_name)
@@ -24,10 +33,13 @@ def _search_authors(args):
 
 if __name__ == '__main__':
     main_parser = argparse.ArgumentParser(description='Search')
+    main_parser.add_argument('-i', '--ignore-case',
+                             action='store_true',
+                             help='ignore case '
+                             '(default is to guess)')
     main_parser.add_argument('-I', '--case-sensitive',
                              action='store_true',
-                             help='don\'t ignore case '
-                             '(default is case-insensitive search)')
+                             help='don\'t ignore case ')
     main_parser.add_argument('-t', '--search-type',
                              choices=['exact', 'start', 'substring'],
                              default='start',
@@ -43,4 +55,14 @@ if __name__ == '__main__':
     parser.set_defaults(func=_search_authors)
 
     args = main_parser.parse_args()
-    args.func(args)
+    if args.case_sensitive:
+        if args.ignore_case:
+            main_parser.print_help()
+            sys.exit(1)
+        else:
+            case_sensitive = True
+    elif args.ignore_case:
+        case_sensitive = False
+    else:
+        case_sensitive = None  # guess case sensitivity
+    args.func(case_sensitive, args)
