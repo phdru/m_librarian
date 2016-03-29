@@ -1,10 +1,10 @@
 #! /usr/bin/env python
-# coding: utf-8
 
 import argparse
 from m_lib.defenc import default_encoding
 from m_librarian.search import search_authors, search_books, \
     search_extensions, search_genres, search_languages
+import m_librarian.translations
 
 
 def _search_authors(args):
@@ -19,7 +19,7 @@ def _search_authors(args):
                            (author.surname, author.name, author.misc_name))
         full_name = u' '.join(full_name)
         print full_name.encode(default_encoding), \
-            u"(книг: %d)".encode(default_encoding) % author.count
+            (u"(%s: %d)" % (_('books'), author.count)).encode(default_encoding)
 
 
 if __name__ == '__main__':

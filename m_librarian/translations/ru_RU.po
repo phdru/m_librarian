@@ -1,0 +1,18 @@
+# Russian translation
+# Copyright 2016 (C) PhiloSoft Design
+# Created by Oleg Broytman <phd@phdru.name>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.0.3\n"
+"POT-Creation-Date: 2016-03-29\n"
+"PO-Revision-Date: 2016-03-29\n"
+"Last-Translator: Oleg Broytman <phd@phdru.name>\n"
+"Language-Team: None yet\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+msgid "books"
+msgstr "книг"
