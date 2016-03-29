@@ -8,40 +8,30 @@ from sqlobject.sqlbuilder import AND, func
 from .db import Author, Book, Extension, Genre, Language
 
 
-def _search_exact(table, case_sensitive, values):
+def _search_with_operator(table, case_sensitive, comparison_op, values):
     expressions = []
     if case_sensitive:
         for column, value in values.items():
-            expressions.append(getattr(table.q, column) == value)
+            expressions.append(
+                getattr(getattr(table.q, column), comparison_op)(value))
     else:
         for column, value in values.items():
             expressions.append(
-                func.lower(getattr(table.q, column)) == value.lower())
+                getattr(func.lower(
+                    getattr(table.q, column)), comparison_op)(value.lower()))
     return AND(*expressions)
+
+
+def _search_exact(table, case_sensitive, values):
+    return _search_with_operator(table, case_sensitive, '__eq__', values)
 
 
 def _search_start(table, case_sensitive, values):
-    expressions = []
-    if case_sensitive:
-        for column, value in values.items():
-            expressions.append(getattr(table.q, column).startswith(value))
-    else:
-        for column, value in values.items():
-            expressions.append(
-                func.lower(getattr(table.q, column)).startswith(value.lower()))
-    return AND(*expressions)
+    return _search_with_operator(table, case_sensitive, 'startswith', values)
 
 
 def _search_substring(table, case_sensitive, values):
-    expressions = []
-    if case_sensitive:
-        for column, value in values.items():
-            expressions.append(getattr(table.q, column).contains(value))
-    else:
-        for column, value in values.items():
-            expressions.append(
-                func.lower(getattr(table.q, column)).contains(value.lower()))
-    return AND(*expressions)
+    return _search_with_operator(table, case_sensitive, 'contains', values)
 
 
 def _search(table, search_type, case_sensitive, values):
