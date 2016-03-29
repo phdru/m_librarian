@@ -30,6 +30,7 @@ if __name__ == '__main__':
                              '(default is case-insensitive search)')
     main_parser.add_argument('-t', '--search-type',
                              choices=['exact', 'start', 'substring'],
+                             default='start',
                              help='search type: '
                              'exact match, substring at the start '
                              '(this is the default), substring anywhere')
