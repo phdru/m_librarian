@@ -5,7 +5,8 @@ import sys
 from m_lib.defenc import default_encoding
 from m_librarian.search import search_authors, search_books, \
     search_extensions, search_genres, search_languages
-import m_librarian.translations
+from m_librarian.translations import translations
+_ = translations.ugettext
 
 
 def _guess_case_sensitivity(values):

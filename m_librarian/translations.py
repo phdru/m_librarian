@@ -16,4 +16,3 @@ if language:
 
 if translations is None:
     translations = gettext.NullTranslations()
-translation.install(unicode=True)
