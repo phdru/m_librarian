@@ -12,6 +12,11 @@ Contents:
    :maxdepth: 2
 
 
+Здесь должен быть (и, надеюсь, будет) набор программ для индексации
+библиотек LibRusEc и Флибуста (точнее, zip-файлов из торрентов) и показа
+содержимого индексов в командной строке, в web-интерфейсе и в
+графическом интерфейсе.
+
 
 Indices and tables
 ==================
@@ -20,3 +25,18 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+
+Credits
+=======
+
+Автор: Олег Бройтман <phd@phdru.name>.
+
+Copyright (C) 2015, 2016 PhiloSoft Design.
+
+
+.. _license:
+
+License
+=======
+
+GPL.
