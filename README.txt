@@ -4,4 +4,4 @@ License: GPL
 
 This hopefully will be a collection of programs to index LibRusEc and
 Flibusta libraries (zipfiles from torrents, actually) and show their
-contents with command-line, GUI and web interfaces.
+contents with command-line, web interface and GUI.
