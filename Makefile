@@ -7,3 +7,7 @@ all:
 htmldoc:
 	PYTHONPATH="`pwd`" $(MAKE) -C doc html
 	PYTHONPATH="`pwd`" $(MAKE) -C doc-ru html
+
+.PHONY: test
+test:
+	$(MAKE) -C tests
