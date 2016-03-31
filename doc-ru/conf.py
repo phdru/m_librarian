@@ -50,6 +50,7 @@ copyright = u'2016, Oleg Broytman'
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
+sys.path.insert(0, os.path.abspath('..'))
 from m_librarian.__version__ import __version__
 # The short X.Y version.
 version = '.'.join(__version__.split('.')[:2])
