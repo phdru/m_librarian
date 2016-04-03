@@ -21,7 +21,7 @@ from m_librarian_version import __version__
 
 setup(name='m_librarian',
       version=__version__,
-      description='Librarian for LibRusEc/Flibusta libraries',
+      description='m_Librarian for LibRusEc/Flibusta libraries',
       long_description=open('README.txt', 'rtU').read(),
       author='Oleg Broytman',
       author_email='phd@phdru.name',

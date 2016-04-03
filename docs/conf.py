@@ -265,7 +265,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'm_Librarian', u'm_Librarian Documentation',
-   u'Oleg Broytman', 'm_Librarian', 'Broytman Librarian.',
+   u'Oleg Broytman', 'm_Librarian', 'Broytman m_Librarian.',
    'Miscellaneous'),
 ]
 
