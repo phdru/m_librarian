@@ -6,15 +6,17 @@
 Welcome to m_Librarian's documentation!
 =======================================
 
+This hopefully will be a collection of programs to index LibRusEc and
+Flibusta libraries (zipfiles from torrents, actually) and show their
+contents with command-line, web interface and GUI.
+
+
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-
-This hopefully will be a collection of programs to index LibRusEc and
-Flibusta libraries (zipfiles from torrents, actually) and show their
-contents with command-line, web interface and GUI.
+   before_begin
 
 
 Indices and tables
