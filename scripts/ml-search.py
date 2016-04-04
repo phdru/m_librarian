@@ -3,6 +3,7 @@
 import argparse
 import sys
 from m_lib.defenc import default_encoding
+from m_librarian.db import open_db
 from m_librarian.search import search_authors, search_books, \
     search_extensions, search_genres, search_languages
 from m_librarian.translations import translations
@@ -66,4 +67,5 @@ if __name__ == '__main__':
         case_sensitive = False
     else:
         case_sensitive = None  # guess case sensitivity
+    open_db()
     args.func(case_sensitive, args)

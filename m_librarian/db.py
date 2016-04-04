@@ -1,29 +1,36 @@
 #! /usr/bin/env python
 
 __all__ = ['Author', 'Book', 'Extension', 'Genre', 'Language',
-           'AuthorBook', 'BookGenre',
-           'init_db', 'insert_name', 'insert_author', 'update_counters',
+           'AuthorBook', 'BookGenre', 'open_db', 'init_db',
+           'insert_name', 'insert_author', 'update_counters',
            ]
 
 import os
 from sqlobject import SQLObject, StringCol, UnicodeCol, IntCol, BoolCol, \
     ForeignKey, DateCol, DatabaseIndex, RelatedJoin, \
     connectionForURI, sqlhub, SQLObjectNotFound, dberrors
-from .config import ml_conf
+from .config import get_config
 
-try:
-    db_uri = ml_conf.get('database', 'URI')
-except:
-    db_uri = None
 
-db_dirs = []
-if not db_uri:
+def _find_sqlite_db_dirs_posix():
+    db_dirs = []
     if 'XDG_CACHE_HOME' in os.environ:
         db_dirs.append(os.environ['XDG_CACHE_HOME'])
     home_cache = os.path.expanduser('~/.cache')
     if home_cache not in db_dirs:
         db_dirs.append(home_cache)
+    return db_dirs
 
+
+def find_sqlite_db_dirs():
+    if os.name == 'posix':
+        return _find_sqlite_db_dirs_posix()
+    raise OSError("Unknow OS")
+
+
+def find_sqlite_dburi(db_dirs=None):
+    if db_dirs is None:
+        db_dirs = find_sqlite_db_dirs()
     for d in db_dirs:
         db_file = os.path.join(d, 'm_librarian.sqlite')
         if os.path.exists(db_file):
@@ -39,29 +46,37 @@ if not db_uri:
             pass
         db_file = os.path.join(db_dir, 'm_librarian.sqlite')
 
-    db_uri = 'sqlite://%s' % db_file.replace(os.sep, '/')
+    return 'sqlite://%s' % db_file.replace(os.sep, '/')
 
 
-sqlhub.processConnection = connection = connectionForURI(db_uri)
+def open_db(db_uri=None):
+    if db_uri is None:
+        try:
+            db_uri = get_config().get('database', 'URI')
+        except:
+            db_uri = find_sqlite_dburi()
 
-if connection.dbName == 'sqlite':
-    def lower(s):
-        return s.lower()
+    sqlhub.processConnection = connection = connectionForURI(db_uri)
 
-    sqlite = connection.module
+    if connection.dbName == 'sqlite':
+        def lower(s):
+            return s.lower()
 
-    class MLConnection(sqlite.Connection):
-        def __init__(self, *args, **kwargs):
-            super(MLConnection, self).__init__(*args, **kwargs)
-            self.create_function('lower', 1, lower)
+        sqlite = connection.module
 
-    connection._connOptions['factory'] = MLConnection
+        class MLConnection(sqlite.Connection):
+            def __init__(self, *args, **kwargs):
+                super(MLConnection, self).__init__(*args, **kwargs)
+                self.create_function('lower', 1, lower)
 
-    # Speedup SQLite connection
-    connection.query("PRAGMA synchronous=OFF")
-    connection.query("PRAGMA count_changes=OFF")
-    connection.query("PRAGMA journal_mode=MEMORY")
-    connection.query("PRAGMA temp_store=MEMORY")
+        # This hack must be done at the very beginning, before the first query
+        connection._connOptions['factory'] = MLConnection
+
+        # Speedup SQLite connection
+        connection.query("PRAGMA synchronous=OFF")
+        connection.query("PRAGMA count_changes=OFF")
+        connection.query("PRAGMA journal_mode=MEMORY")
+        connection.query("PRAGMA temp_store=MEMORY")
 
 
 class Author(SQLObject):
@@ -193,9 +208,9 @@ def update_counters():
 
 
 def test():
+    db_dirs = find_sqlite_db_dirs()
     print "DB dirs:", db_dirs
-    if db_uri:
-        print "DB URI:", db_uri
+    print "DB URI:", find_sqlite_dburi()
 
 if __name__ == '__main__':
     test()
