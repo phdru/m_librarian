@@ -11,3 +11,6 @@ htmldoc:
 .PHONY: test
 test:
 	$(MAKE) -C tests
+
+.PHONY: tests
+tests: test

@@ -1,4 +1,4 @@
 
 .PHONY: all
 all:
-	@echo "Nothing to be done for 'all'"
+	./run_all.py
