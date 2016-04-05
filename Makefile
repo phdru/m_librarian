@@ -5,8 +5,8 @@ all:
 
 .PHONY: htmldoc
 htmldoc:
-	$(MAKE) -C doc html
-	$(MAKE) -C doc-ru html
+	$(MAKE) -C docs html
+	$(MAKE) -C docs-ru html
 
 .PHONY: test
 test:

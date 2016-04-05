@@ -52,5 +52,27 @@ m_Librarian пока не научился индексировать архив
 вам придётся создать самим. Для SQLite файл БД будет создан программой,
 так что это наиболее простой способ использования m_Librarian,
 
+Database URI
+^^^^^^^^^^^^
+
+Чтобы m_Librarian использовал сервер SQL создайте файл конфигурации и
+поместите его в $HOME/.config/ (если у вас POSIX-совместимая ОС). Файл
+должен называться ``m_librarian.conf``. Это должен быть файл в формате
+``ini``, в нём должна быть единственная секция ``[database]`` с
+единственным ключом ``URI``. Значением ключа должно быть Database URI в
+формате, который понимает SQLObject. Вот несколько примеров::
+
+   [database]
+   URI = mysql://user:password@host/database
+
+   [database]
+   URI = postgres://user@host/database
+
+   [database]
+   URI = sqlite:///full/path/to/database
+
+Больше примеров есть в файле sample/m_librarian.conf. Детальное описание
+DB URI есть в `документации на SQLObject
+<http://sqlobject.org/SQLObject.html#declaring-a-connection>`_.
 
 .. vim: set tw=72 :
