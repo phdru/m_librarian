@@ -12,73 +12,6 @@ from sqlobject import SQLObject, StringCol, UnicodeCol, IntCol, BoolCol, \
 from .config import get_config
 
 
-def _find_sqlite_db_dirs_posix():
-    db_dirs = []
-    if 'XDG_CACHE_HOME' in os.environ:
-        db_dirs.append(os.environ['XDG_CACHE_HOME'])
-    home_cache = os.path.expanduser('~/.cache')
-    if home_cache not in db_dirs:
-        db_dirs.append(home_cache)
-    return db_dirs
-
-
-def find_sqlite_db_dirs():
-    if os.name == 'posix':
-        return _find_sqlite_db_dirs_posix()
-    raise OSError("Unknow OS")
-
-
-def find_sqlite_dburi(db_dirs=None):
-    if db_dirs is None:
-        db_dirs = find_sqlite_db_dirs()
-    for d in db_dirs:
-        db_file = os.path.join(d, 'm_librarian.sqlite')
-        if os.path.exists(db_file):
-            break
-    else:
-        # octal; -rw-------;
-        # make the database file/directory readable/writeable only by the user
-        os.umask(0066)
-        db_dir = db_dirs[0]
-        try:
-            os.makedirs(db_dir)
-        except OSError:  # Perhaps already exists
-            pass
-        db_file = os.path.join(db_dir, 'm_librarian.sqlite')
-
-    return 'sqlite://%s' % db_file.replace(os.sep, '/')
-
-
-def open_db(db_uri=None):
-    if db_uri is None:
-        try:
-            db_uri = get_config().get('database', 'URI')
-        except:
-            db_uri = find_sqlite_dburi()
-
-    sqlhub.processConnection = connection = connectionForURI(db_uri)
-
-    if connection.dbName == 'sqlite':
-        def lower(s):
-            return s.lower()
-
-        sqlite = connection.module
-
-        class MLConnection(sqlite.Connection):
-            def __init__(self, *args, **kwargs):
-                super(MLConnection, self).__init__(*args, **kwargs)
-                self.create_function('lower', 1, lower)
-
-        # This hack must be done at the very beginning, before the first query
-        connection._connOptions['factory'] = MLConnection
-
-        # Speedup SQLite connection
-        connection.query("PRAGMA synchronous=OFF")
-        connection.query("PRAGMA count_changes=OFF")
-        connection.query("PRAGMA journal_mode=MEMORY")
-        connection.query("PRAGMA temp_store=MEMORY")
-
-
 class Author(SQLObject):
     surname = UnicodeCol(notNull=True)
     name = UnicodeCol(notNull=True)
@@ -163,6 +96,73 @@ class Language(SQLObject):
     name = StringCol(notNull=True, unique=True)
     count = IntCol(notNull=True)
     count_idx = DatabaseIndex(count)
+
+
+def _find_sqlite_db_dirs_posix():
+    db_dirs = []
+    if 'XDG_CACHE_HOME' in os.environ:
+        db_dirs.append(os.environ['XDG_CACHE_HOME'])
+    home_cache = os.path.expanduser('~/.cache')
+    if home_cache not in db_dirs:
+        db_dirs.append(home_cache)
+    return db_dirs
+
+
+def find_sqlite_db_dirs():
+    if os.name == 'posix':
+        return _find_sqlite_db_dirs_posix()
+    raise OSError("Unknow OS")
+
+
+def find_sqlite_dburi(db_dirs=None):
+    if db_dirs is None:
+        db_dirs = find_sqlite_db_dirs()
+    for d in db_dirs:
+        db_file = os.path.join(d, 'm_librarian.sqlite')
+        if os.path.exists(db_file):
+            break
+    else:
+        # octal; -rw-------;
+        # make the database file/directory readable/writeable only by the user
+        os.umask(0066)
+        db_dir = db_dirs[0]
+        try:
+            os.makedirs(db_dir)
+        except OSError:  # Perhaps already exists
+            pass
+        db_file = os.path.join(db_dir, 'm_librarian.sqlite')
+
+    return 'sqlite://%s' % db_file.replace(os.sep, '/')
+
+
+def open_db(db_uri=None):
+    if db_uri is None:
+        try:
+            db_uri = get_config().get('database', 'URI')
+        except:
+            db_uri = find_sqlite_dburi()
+
+    sqlhub.processConnection = connection = connectionForURI(db_uri)
+
+    if connection.dbName == 'sqlite':
+        def lower(s):
+            return s.lower()
+
+        sqlite = connection.module
+
+        class MLConnection(sqlite.Connection):
+            def __init__(self, *args, **kwargs):
+                super(MLConnection, self).__init__(*args, **kwargs)
+                self.create_function('lower', 1, lower)
+
+        # This hack must be done at the very beginning, before the first query
+        connection._connOptions['factory'] = MLConnection
+
+        # Speedup SQLite connection
+        connection.query("PRAGMA synchronous=OFF")
+        connection.query("PRAGMA count_changes=OFF")
+        connection.query("PRAGMA journal_mode=MEMORY")
+        connection.query("PRAGMA temp_store=MEMORY")
 
 
 def init_db():
