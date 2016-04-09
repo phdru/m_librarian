@@ -18,6 +18,7 @@ Contents:
    :maxdepth: 2
 
    before_begin
+   command_line
 
 
 Indices and tables
