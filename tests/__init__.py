@@ -5,6 +5,7 @@ __all__ = ['TestCase', 'main']
 import os
 import unittest
 from m_librarian.db import open_db, init_db
+from m_librarian.inp import import_inpx
 
 
 class TestCase(unittest.TestCase):
@@ -21,6 +22,9 @@ class TestCase(unittest.TestCase):
             os.remove('/tmp/m_librarian-test.sqlite')
         except OSError:
             pass
+
+    def import_inpx(self, inpx):
+        import_inpx(os.path.join(os.path.dirname(__file__), inpx))
 
 
 def main():
