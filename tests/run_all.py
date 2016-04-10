@@ -31,14 +31,8 @@ def main():
     os.environ["PYTHONPATH"] = os.curdir
 
     for test in sorted(tests):
-        sys.stdout.write("Test: %s... " % test)
-        sys.stdout.flush()
-        rc = subprocess.call((sys.executable, '-m', test))
-        if rc:
-            sys.stdout.write("ERROR\n")
-        else:
-            sys.stdout.write("Ok\n")
-        sys.stdout.flush()
+        print test
+        subprocess.call((sys.executable, '-m', test))
 
 if __name__ == '__main__':
     main()
