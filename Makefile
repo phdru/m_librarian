@@ -3,8 +3,8 @@
 all:
 	@echo "Nothing to be done for 'all'"
 
-.PHONY: htmldoc
-htmldoc:
+.PHONY: html
+html:
 	$(MAKE) -C docs html
 	$(MAKE) -C docs-ru html
 
