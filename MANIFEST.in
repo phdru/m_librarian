@@ -1,3 +1,7 @@
-include COPYING ChangeLog MANIFEST.in README.rus.txt README.txt
-include TODO mk-distr requirements.txt sample/m_librarian.conf
-recursive-include m_librarian *.py
+include docs/genapidocs
+include sample/m_librarian.conf
+include COPYING ChangeLog MANIFEST.in
+include TODO mk-distr
+include Makefile *.py *.rst *.txt *.css *.js *.html *.gif *.png
+recursive-include docs* *.txt
+recursive-include m_librarian *.mo
