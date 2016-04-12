@@ -25,4 +25,39 @@ Initialize database, import genres list and import a list of INPX files
 listed in the command line. On subsequent runs doesn't destroy DB or
 reimport genres; it also skips already import books but import new ones.
 
+
+ml-search.py
+------------
+
+Usage::
+
+    ml-search.py [-i] [-I] [-t {exact,start,substring}] ...
+
+Search through the database and display results. Currently can only
+search authors by name.
+
+Global options::
+
+    -i, --ignore-case     ignore case (default is to guess)
+    -I, --case-sensitive  don't ignore case
+    -t, --search-type {exact,start,substring}
+        search type: exact match, substring at the start (this is the default),
+        substring anywhere.
+
+Options ``-i/-I`` cannot be used together as they are the opposite. In
+case none of them are used the program guesses case-sensitivity by
+looking at the arguments. If all arguments are lowercase the program
+performs case-insensitive search. If there are UPPERCASE or MixedCase
+arguments the program performs case-sensitive search.
+
+Option ``-t/--search-type`` defines the search type. Search types are:
+
+* exact - search for exact match; i.e. searching for "duck" returns
+  results for "duck" but not for "duckling";
+* start - search for substring at the start of the search field; for
+  example searching for "duck" returns results for "duck" and "duckling"
+  but not for "McDuck"; this is the default search type.
+* substring - search for any substring; "duck" => "duck", "duckling",
+  "McDuck" (except for case-sensitive search, of course).
+
 .. vim: set tw=72 :
