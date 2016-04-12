@@ -17,6 +17,10 @@ the next script does all that too.
 ml-import.py
 ------------
 
+Usage::
+
+    ml-import.py [file.inpx ...]
+
 Initialize database, import genres list and import a list of INPX files
 listed in the command line. On subsequent runs doesn't destroy DB or
 reimport genres; it also skips already import books but import new ones.
