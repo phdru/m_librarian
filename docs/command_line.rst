@@ -60,4 +60,35 @@ Option ``-t/--search-type`` defines the search type. Search types are:
 * substring - search for any substring; "duck" => "duck", "duckling",
   "McDuck" (except for case-sensitive search, of course).
 
+
+Author search
+^^^^^^^^^^^^^
+
+Usage::
+
+    ml-search.py [-i] [-I] [-t ...] author [-s surname] [-n name] [-m misc]
+
+Search and print a list of authors by surname/name/misc name.
+
+Options::
+
+    -s, --surname surname  Search by surname
+    -n, --name name        Search by name
+    -m, --misc misc. name  Search by misc. name
+
+Example::
+
+    ml-search.py -i author -s duck
+
+Search and print a list of authors whose surname starts with "duck",
+case insensitive.
+
+If a few options are given the search is limited with operator AND.
+Example::
+
+    ml-search.py -i author -s duck -n mack
+
+Search and print a list of authors whose surname starts with "duck", and
+name starts with "mack", case insensitive.
+
 .. vim: set tw=72 :
