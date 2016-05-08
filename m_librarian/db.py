@@ -198,13 +198,13 @@ def update_counters():
         author.count = AuthorBook.select(AuthorBook.q.author == author).count()
 
     for ext in Extension.select():
-        ext.count = Book.select(Book.q.extension == ext.name).count()
+        ext.count = Book.select(Book.q.extension == ext.id).count()
 
     for genre in Genre.select():
         genre.count = BookGenre.select(BookGenre.q.genre == genre).count()
 
     for language in Language.select():
-        language.count = Book.select(Book.q.language == language.name).count()
+        language.count = Book.select(Book.q.language == language.id).count()
 
 
 def test():
