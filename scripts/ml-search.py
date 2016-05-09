@@ -18,7 +18,7 @@ def _guess_case_sensitivity(values):
 
 def _search_authors(case_sensitive, args):
     values = {}
-    for column in 'surname', 'name', 'misc':
+    for column in 'surname', 'name', 'misc_name':
         value = getattr(args, column)
         if value:
             values[column] = unicode(value, default_encoding)
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     parser = subparsers.add_parser('authors', help='Search authors')
     parser.add_argument('-s', '--surname', help='search by surname')
     parser.add_argument('-n', '--name', help='search by name')
-    parser.add_argument('-m', '--misc', help='search by misc. name')
+    parser.add_argument('-m', '--misc-name', help='search by misc. name')
     parser.set_defaults(func=_search_authors)
 
     args = main_parser.parse_args()

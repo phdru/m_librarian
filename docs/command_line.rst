@@ -66,15 +66,15 @@ Author search
 
 Usage::
 
-    ml-search.py [-i] [-I] [-t ...] author [-s surname] [-n name] [-m misc]
+    ml-search.py [-i] [-I] [-t ...] author [-s surname] [-n name] [-m misc-name]
 
 Search and print a list of authors by surname/name/misc name.
 
 Options::
 
-    -s, --surname surname  Search by surname
-    -n, --name name        Search by name
-    -m, --misc misc. name  Search by misc. name
+    -s, --surname surname       Search by surname
+    -n, --name name             Search by name
+    -m, --misc-name misc. name  Search by misc. name
 
 Example::
 
