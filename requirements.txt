@@ -1,2 +1,2 @@
-SQLObject
+SQLObject>=2.2.1
 m_lib

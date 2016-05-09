@@ -15,6 +15,10 @@ except ImportError:
     from distutils.core import setup
     is_setuptools = False
 
+kw = {}
+if is_setuptools:
+    kw['install_requires'] = ['SQLObject>=2.2.1', 'm_lib>=2.0']
+
 versionpath = join(abspath(dirname(__file__)), 'm_librarian', '__version__.py')
 load_source('m_librarian_version', versionpath)
 from m_librarian_version import __version__
@@ -44,5 +48,5 @@ setup(name='m_librarian',
       package_data={'m_librarian': ['glst/*.txt', 'glst/genres_*.glst']},
       scripts=['scripts/ml-import.py', 'scripts/ml-initdb.py',
                'scripts/ml-search.py'],
-      requires=['SQLObject', 'm_lib'],
+      **kw
       )
