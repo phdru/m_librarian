@@ -4,8 +4,7 @@ import argparse
 import sys
 from m_lib.defenc import default_encoding
 from m_librarian.db import open_db
-from m_librarian.search import search_authors, search_books, \
-    search_extensions, search_genres, search_languages
+from m_librarian.search import search_authors
 from m_librarian.translations import translations
 _ = translations.ugettext
 
