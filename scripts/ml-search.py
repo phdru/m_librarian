@@ -2,9 +2,12 @@
 
 import argparse
 import sys
+from sqlobject.sqlbuilder import CONCAT
+
 from m_lib.defenc import default_encoding
-from m_librarian.db import open_db
+from m_librarian.db import Author, open_db
 from m_librarian.search import search_authors
+
 from m_librarian.translations import translations
 _ = translations.ugettext
 
@@ -18,17 +21,26 @@ def _guess_case_sensitivity(values):
 
 def _search_authors(case_sensitive, args):
     values = {}
+    expressions = []
     for column in 'surname', 'name', 'misc_name':
         value = getattr(args, column)
         if value:
             values[column] = unicode(value, default_encoding)
+    if not values:
+        value = args.fullname
+        if value:
+            expressions.append((
+                CONCAT(Author.q.surname, ' ', Author.q.name, ' ',
+                       Author.q.misc_name),
+                unicode(value, default_encoding)
+            ))
     if case_sensitive is None:
         case_sensitive = _guess_case_sensitivity(values)
-    for author in search_authors(args.search_type, case_sensitive, values):
-        full_name = filter(None,
-                           (author.surname, author.name, author.misc_name))
-        full_name = u' '.join(full_name)
-        print full_name.encode(default_encoding), \
+    for author in search_authors(args.search_type, case_sensitive, values,
+                                 expressions):
+        names = filter(None, (author.surname, author.name, author.misc_name))
+        fullname = u' '.join(names)
+        print fullname.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), author.count)).encode(default_encoding)
 
 
@@ -53,6 +65,7 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--surname', help='search by surname')
     parser.add_argument('-n', '--name', help='search by name')
     parser.add_argument('-m', '--misc-name', help='search by misc. name')
+    parser.add_argument('fullname', nargs='?', help='search by full name')
     parser.set_defaults(func=_search_authors)
 
     args = main_parser.parse_args()
@@ -69,5 +82,10 @@ if __name__ == '__main__':
         case_sensitive = False
     else:
         case_sensitive = None  # guess case sensitivity
+    if (args.surname or args.name or args.misc_name) and args.fullname:
+        sys.stderr.write(
+            "Cannot search by names and full name at the same time\n")
+        main_parser.print_help()
+        sys.exit(1)
     open_db()
     args.func(case_sensitive, args)
