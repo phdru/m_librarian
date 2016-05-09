@@ -58,6 +58,9 @@ if __name__ == '__main__':
     args = main_parser.parse_args()
     if args.case_sensitive:
         if args.ignore_case:
+            sys.stderr.write(
+                "Cannot search case sensitive and case insensitive "
+                "at the same time\n")
             main_parser.print_help()
             sys.exit(1)
         else:
