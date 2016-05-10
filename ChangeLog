@@ -1,3 +1,7 @@
+Version 0.0.4 (2016-05-11)
+
+   Command-line script to search authors by surname/name/full name.
+
 Version 0.0.3 (2015-12-24)
 
    Convert *.inp(x) to SQL.
