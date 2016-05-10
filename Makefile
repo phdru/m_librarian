@@ -3,6 +3,10 @@
 all:
 	@echo "Nothing to be done for 'all'"
 
+.PHONY: distr
+distr:
+	./mk-distr
+
 .PHONY: html
 html:
 	$(MAKE) -C docs html
