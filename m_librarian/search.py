@@ -56,16 +56,16 @@ def search_authors(search_type, case_sensitive, values,
 
 
 def search_books(search_type, case_sensitive, values):
-    return _search(Book, search_type, case_sensitive, values)
+    return _search(Book, search_type, case_sensitive, values, [])
 
 
 def search_extensions(search_type, case_sensitive, values):
-    return _search(Extension, search_type, case_sensitive, values)
+    return _search(Extension, search_type, case_sensitive, values, [])
 
 
 def search_genres(search_type, case_sensitive, values):
-    return _search(Genre, search_type, case_sensitive, values)
+    return _search(Genre, search_type, case_sensitive, values, [])
 
 
 def search_languages(search_type, case_sensitive, values):
-    return _search(Language, search_type, case_sensitive, values)
+    return _search(Language, search_type, case_sensitive, values, [])
