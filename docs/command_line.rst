@@ -114,4 +114,13 @@ Options::
     -n, --name name    Search by name
     -t, --title title  Search by title
 
+Language search
+^^^^^^^^^^^^^^^
+
+Usage::
+
+    ml-search.py [-i] [-I] [-t ...] lang name
+
+Search and print a list of languages by name.
+
 .. vim: set tw=72 :
