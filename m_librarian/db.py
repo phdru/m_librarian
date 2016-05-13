@@ -82,7 +82,7 @@ class Extension(SQLObject):
 
 
 class Genre(SQLObject):
-    name = StringCol(notNull=True, unique=True)
+    name = UnicodeCol(notNull=True, unique=True)
     title = UnicodeCol(notNull=True)
     count = IntCol(notNull=True)
     books = RelatedJoin('Book', otherColumn='book_id',

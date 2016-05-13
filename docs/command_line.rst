@@ -100,4 +100,18 @@ Usage::
 
 Search and print a list of extensions by name.
 
+Genres search
+^^^^^^^^^^^^^
+
+Usage::
+
+    ml-search.py [-i] [-I] [-t ...] genres [-n name] [-t title]
+
+Search and print a list of genres by name and title.
+
+Options::
+
+    -n, --name name    Search by name
+    -t, --title title  Search by title
+
 .. vim: set tw=72 :

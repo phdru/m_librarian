@@ -6,7 +6,8 @@ from sqlobject.sqlbuilder import CONCAT
 
 from m_lib.defenc import default_encoding
 from m_librarian.db import Author, open_db
-from m_librarian.search import search_authors, search_extensions
+from m_librarian.search import search_authors, search_extensions, \
+    search_genres
 
 from m_librarian.translations import translations
 _ = translations.ugettext
@@ -58,6 +59,22 @@ def _search_extensions(case_sensitive, args):
             (u"(%s: %d)" % (_('books'), ext.count)).encode(default_encoding)
 
 
+def _search_genres(case_sensitive, args):
+    values = {}
+    expressions = []
+    for column in 'name', 'title':
+        value = getattr(args, column)
+        if value:
+            values[column] = unicode(value, default_encoding)
+    if case_sensitive is None:
+        case_sensitive = _guess_case_sensitivity(values)
+    for genre in search_genres(args.search_type, case_sensitive, values):
+        names = filter(None, (genre.name, genre.title))
+        fullname = u' '.join(names)
+        print fullname.encode(default_encoding), \
+            (u"(%s: %d)" % (_('books'), genre.count)).encode(default_encoding)
+
+
 if __name__ == '__main__':
     main_parser = argparse.ArgumentParser(description='Search')
     main_parser.add_argument('-i', '--ignore-case',
@@ -85,6 +102,11 @@ if __name__ == '__main__':
     parser = subparsers.add_parser('ext', help='Search extensions')
     parser.add_argument('name', help='search by name')
     parser.set_defaults(func=_search_extensions)
+
+    parser = subparsers.add_parser('genres', help='Search genres')
+    parser.add_argument('-n', '--name', help='search by name')
+    parser.add_argument('-t', '--title', help='search by title')
+    parser.set_defaults(func=_search_genres)
 
     args = main_parser.parse_args()
     if args.case_sensitive:
