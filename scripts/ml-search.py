@@ -6,7 +6,7 @@ from sqlobject.sqlbuilder import CONCAT
 
 from m_lib.defenc import default_encoding
 from m_librarian.db import Author, open_db
-from m_librarian.search import search_authors
+from m_librarian.search import search_authors, search_extensions
 
 from m_librarian.translations import translations
 _ = translations.ugettext
@@ -20,6 +20,11 @@ def _guess_case_sensitivity(values):
 
 
 def _search_authors(case_sensitive, args):
+    if (args.surname or args.name or args.misc_name) and args.fullname:
+        sys.stderr.write(
+            "Cannot search by names and full name at the same time\n")
+        main_parser.print_help()
+        sys.exit(1)
     values = {}
     expressions = []
     for column in 'surname', 'name', 'misc_name':
@@ -42,6 +47,15 @@ def _search_authors(case_sensitive, args):
         fullname = u' '.join(names)
         print fullname.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), author.count)).encode(default_encoding)
+
+
+def _search_extensions(case_sensitive, args):
+    values = {'name': args.name}
+    if case_sensitive is None:
+        case_sensitive = _guess_case_sensitivity(values)
+    for ext in search_extensions(args.search_type, case_sensitive, values):
+        print ext.name.encode(default_encoding), \
+            (u"(%s: %d)" % (_('books'), ext.count)).encode(default_encoding)
 
 
 if __name__ == '__main__':
@@ -68,6 +82,10 @@ if __name__ == '__main__':
     parser.add_argument('fullname', nargs='?', help='search by full name')
     parser.set_defaults(func=_search_authors)
 
+    parser = subparsers.add_parser('ext', help='Search extensions')
+    parser.add_argument('name', help='search by name')
+    parser.set_defaults(func=_search_extensions)
+
     args = main_parser.parse_args()
     if args.case_sensitive:
         if args.ignore_case:
@@ -82,10 +100,5 @@ if __name__ == '__main__':
         case_sensitive = False
     else:
         case_sensitive = None  # guess case sensitivity
-    if (args.surname or args.name or args.misc_name) and args.fullname:
-        sys.stderr.write(
-            "Cannot search by names and full name at the same time\n")
-        main_parser.print_help()
-        sys.exit(1)
     open_db()
     args.func(case_sensitive, args)
