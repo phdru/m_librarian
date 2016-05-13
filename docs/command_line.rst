@@ -91,4 +91,13 @@ Example::
 Search and print a list of authors whose surname starts with "duck", and
 name starts with "mack", case insensitive.
 
+Extension search
+^^^^^^^^^^^^^^^^
+
+Usage::
+
+    ml-search.py [-i] [-I] [-t ...] ext name
+
+Search and print a list of extensions by name.
+
 .. vim: set tw=72 :
