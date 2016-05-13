@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 
 
-import os
 from tests import TestCase, main
 from m_librarian.db import Author, Book
 
