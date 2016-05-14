@@ -66,7 +66,6 @@ def _search_extensions(case_sensitive, args):
 
 def _search_genres(case_sensitive, args):
     values = {}
-    expressions = []
     for column in 'name', 'title':
         value = getattr(args, column)
         if value:
