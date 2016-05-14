@@ -43,7 +43,8 @@ def _search_authors(case_sensitive, args):
     if case_sensitive is None:
         case_sensitive = _guess_case_sensitivity(values)
     for author in search_authors(args.search_type, case_sensitive, values,
-                                 expressions):
+                                 expressions,
+                                 orderBy=('surname', 'name', 'misc_name')):
         names = filter(None, (author.surname, author.name, author.misc_name))
         fullname = u' '.join(names)
         print fullname.encode(default_encoding), \
@@ -57,7 +58,8 @@ def _search_extensions(case_sensitive, args):
             case_sensitive = _guess_case_sensitivity(values)
     else:
         values = {}
-    for ext in search_extensions(args.search_type, case_sensitive, values):
+    for ext in search_extensions(args.search_type, case_sensitive, values,
+                                 orderBy='name'):
         print ext.name.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), ext.count)).encode(default_encoding)
 
@@ -71,7 +73,8 @@ def _search_genres(case_sensitive, args):
             values[column] = unicode(value, default_encoding)
     if case_sensitive is None:
         case_sensitive = _guess_case_sensitivity(values)
-    for genre in search_genres(args.search_type, case_sensitive, values):
+    for genre in search_genres(args.search_type, case_sensitive, values,
+                               orderBy='name'):
         names = filter(None, (genre.name, genre.title))
         fullname = u' '.join(names)
         print fullname.encode(default_encoding), \
@@ -85,7 +88,8 @@ def _search_languages(case_sensitive, args):
             case_sensitive = _guess_case_sensitivity(values)
     else:
         values = {}
-    for lang in search_languages(args.search_type, case_sensitive, values):
+    for lang in search_languages(args.search_type, case_sensitive, values,
+                                 orderBy='name'):
         print lang.name.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), lang.count)).encode(default_encoding)
 
