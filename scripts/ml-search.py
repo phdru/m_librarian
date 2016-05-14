@@ -51,9 +51,12 @@ def _search_authors(case_sensitive, args):
 
 
 def _search_extensions(case_sensitive, args):
-    values = {'name': args.name}
-    if case_sensitive is None:
-        case_sensitive = _guess_case_sensitivity(values)
+    if args.name:
+        values = {'name': args.name}
+        if case_sensitive is None:
+            case_sensitive = _guess_case_sensitivity(values)
+    else:
+        values = {}
     for ext in search_extensions(args.search_type, case_sensitive, values):
         print ext.name.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), ext.count)).encode(default_encoding)
@@ -76,9 +79,12 @@ def _search_genres(case_sensitive, args):
 
 
 def _search_languages(case_sensitive, args):
-    values = {'name': args.name}
-    if case_sensitive is None:
-        case_sensitive = _guess_case_sensitivity(values)
+    if args.name:
+        values = {'name': args.name}
+        if case_sensitive is None:
+            case_sensitive = _guess_case_sensitivity(values)
+    else:
+        values = {}
     for lang in search_languages(args.search_type, case_sensitive, values):
         print lang.name.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), lang.count)).encode(default_encoding)
@@ -109,7 +115,7 @@ if __name__ == '__main__':
     parser.set_defaults(func=_search_authors)
 
     parser = subparsers.add_parser('ext', help='Search extensions')
-    parser.add_argument('name', help='search by name')
+    parser.add_argument('name', nargs='?', help='search by name')
     parser.set_defaults(func=_search_extensions)
 
     parser = subparsers.add_parser('genres', help='Search genres')
@@ -118,7 +124,7 @@ if __name__ == '__main__':
     parser.set_defaults(func=_search_genres)
 
     parser = subparsers.add_parser('lang', help='Search languages')
-    parser.add_argument('name', help='search by name')
+    parser.add_argument('name', nargs='?', help='search by name')
     parser.set_defaults(func=_search_languages)
 
     args = main_parser.parse_args()

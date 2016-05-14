@@ -67,10 +67,10 @@ ml-search.py
 
 Использование::
 
-    ml-search.py [-i] [-I] [-t ...] author [-s surname] [-n name] [-m misc-name]
+    ml-search.py [-i] [-I] [-t ...] author [-s surname] [-n name] [-m misc-name] [fullname]
 
-Искать и печатать список авторов по фамилии, имени и доп. имени (обычно
-отчеству).
+Искать и печатать список авторов по фамилии, имени, доп. имени (обычно
+отчеству) или полному имени.
 
 Опции::
 
@@ -98,7 +98,7 @@ ml-search.py
 
 Использование::
 
-    ml-search.py [-i] [-I] [-t ...] ext name
+    ml-search.py [-i] [-I] [-t ...] ext [name]
 
 Искать и печатать список расширений имён файлов по имени.
 
@@ -121,7 +121,7 @@ ml-search.py
 
 Использование::
 
-    ml-search.py [-i] [-I] [-t ...] lang name
+    ml-search.py [-i] [-I] [-t ...] lang [name]
 
 Искать и печатать список языков по имени.
 

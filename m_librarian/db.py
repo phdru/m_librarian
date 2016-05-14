@@ -76,7 +76,7 @@ class BookGenre(SQLObject):
 
 
 class Extension(SQLObject):
-    name = StringCol(notNull=True, unique=True)
+    name = UnicodeCol(notNull=True, unique=True)
     count = IntCol(notNull=True)
     count_idx = DatabaseIndex(count)
 
@@ -93,7 +93,7 @@ class Genre(SQLObject):
 
 
 class Language(SQLObject):
-    name = StringCol(notNull=True, unique=True)
+    name = UnicodeCol(notNull=True, unique=True)
     count = IntCol(notNull=True)
     count_idx = DatabaseIndex(count)
 

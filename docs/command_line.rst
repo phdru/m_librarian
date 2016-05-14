@@ -66,9 +66,9 @@ Author search
 
 Usage::
 
-    ml-search.py [-i] [-I] [-t ...] author [-s surname] [-n name] [-m misc-name]
+    ml-search.py [-i] [-I] [-t ...] author [-s surname] [-n name] [-m misc-name] [fullname]
 
-Search and print a list of authors by surname/name/misc name.
+Search and print a list of authors by surname/name/misc name/full name.
 
 Options::
 
@@ -96,7 +96,7 @@ Extension search
 
 Usage::
 
-    ml-search.py [-i] [-I] [-t ...] ext name
+    ml-search.py [-i] [-I] [-t ...] ext [name]
 
 Search and print a list of extensions by name.
 
@@ -119,7 +119,7 @@ Language search
 
 Usage::
 
-    ml-search.py [-i] [-I] [-t ...] lang name
+    ml-search.py [-i] [-I] [-t ...] lang [name]
 
 Search and print a list of languages by name.
 
