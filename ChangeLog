@@ -1,3 +1,7 @@
+Version 0.0.5 (2016-05-14)
+
+   Extend script ml-serach.py to search extensions/genres/languages.
+
 Version 0.0.4 (2016-05-11)
 
    Command-line script to search authors by surname/name/full name.
