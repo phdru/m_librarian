@@ -91,6 +91,22 @@ Example::
 Search and print a list of authors whose surname starts with "duck", and
 name starts with "mack", case insensitive.
 
+Book search
+^^^^^^^^^^^
+
+Usage::
+
+    ml-search.py [-i] [-I] [-t ...] books [-t title] [-s series] [-a archive] [-f file]
+
+Search and print a list of books by title, series, archive or file name.
+
+Options::
+
+    -t, --title title      Search by title
+    -s, --series series    Search by series
+    -a, --archive archive  Search by archive (zip file)
+    -f, --file file        Search by file name (without extension)
+
 Extension search
 ^^^^^^^^^^^^^^^^
 

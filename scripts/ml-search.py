@@ -6,8 +6,8 @@ from sqlobject.sqlbuilder import CONCAT
 
 from m_lib.defenc import default_encoding
 from m_librarian.db import Author, open_db
-from m_librarian.search import search_authors, search_extensions, \
-    search_genres, search_languages
+from m_librarian.search import search_authors, search_books, \
+    search_extensions, search_genres, search_languages
 
 from m_librarian.translations import translations
 _ = translations.ugettext
@@ -49,6 +49,25 @@ def _search_authors(case_sensitive, args):
         fullname = u' '.join(names)
         print fullname.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), author.count)).encode(default_encoding)
+
+
+def _search_books(case_sensitive, args):
+    values = {}
+    for column in 'title', 'series', 'archive', 'file':
+        value = getattr(args, column)
+        if value:
+            values[column] = unicode(value, default_encoding)
+    if case_sensitive is None:
+        case_sensitive = _guess_case_sensitivity(values)
+    for book in search_books(args.search_type, case_sensitive, values,
+                             orderBy='title'):
+        print book.title.encode(default_encoding)
+        for author in book.authors:
+            names = filter(None,
+                           (author.surname, author.name, author.misc_name))
+            fullname = u' '.join(names)
+            print fullname.encode(default_encoding),
+        print
 
 
 def _search_extensions(case_sensitive, args):
@@ -116,6 +135,13 @@ if __name__ == '__main__':
     parser.add_argument('-m', '--misc-name', help='search by misc. name')
     parser.add_argument('fullname', nargs='?', help='search by full name')
     parser.set_defaults(func=_search_authors)
+
+    parser = subparsers.add_parser('books', help='Search books')
+    parser.add_argument('-t', '--title', help='search by title')
+    parser.add_argument('-s', '--series', help='search by series')
+    parser.add_argument('-a', '--archive', help='search by archive (zip file)')
+    parser.add_argument('-f', '--file', help='search by file name')
+    parser.set_defaults(func=_search_books)
 
     parser = subparsers.add_parser('ext', help='Search extensions')
     parser.add_argument('name', nargs='?', help='search by name')
