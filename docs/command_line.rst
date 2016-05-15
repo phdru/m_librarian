@@ -96,7 +96,7 @@ Book search
 
 Usage::
 
-    ml-search.py [-i] [-I] [-t ...] books [-t title] [-s series] [-a archive] [-f file]
+    ml-search.py [-i] [-I] [-t ...] books [-t title] [-s series] [-a archive] [-f file] [-d]
 
 Search and print a list of books by title, series, archive or file name.
 
@@ -106,6 +106,11 @@ Options::
     -s, --series series    Search by series
     -a, --archive archive  Search by archive (zip file)
     -f, --file file        Search by file name (without extension)
+    -d, --details          Output more details about books;
+                           repeat for even more details
+
+By default the program prints only titles of the found book. With one
+option `-d` it also prints the list of authors.
 
 Extension search
 ^^^^^^^^^^^^^^^^

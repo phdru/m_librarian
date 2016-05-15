@@ -62,12 +62,14 @@ def _search_books(case_sensitive, args):
     for book in search_books(args.search_type, case_sensitive, values,
                              orderBy='title'):
         print book.title.encode(default_encoding)
-        for author in book.authors:
-            names = filter(None,
-                           (author.surname, author.name, author.misc_name))
-            fullname = u' '.join(names)
-            print fullname.encode(default_encoding),
-        print
+        if args.details > 0:
+            print " ", _("Author(s)"), ":",
+            for author in book.authors:
+                names = filter(None,
+                               (author.surname, author.name, author.misc_name))
+                fullname = u' '.join(names)
+                print fullname.encode(default_encoding),
+            print
 
 
 def _search_extensions(case_sensitive, args):
@@ -141,6 +143,9 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--series', help='search by series')
     parser.add_argument('-a', '--archive', help='search by archive (zip file)')
     parser.add_argument('-f', '--file', help='search by file name')
+    parser.add_argument('-d', '--details', action='count',
+                        help='output more details about books; '
+                        'repeat for even more details')
     parser.set_defaults(func=_search_books)
 
     parser = subparsers.add_parser('ext', help='Search extensions')
