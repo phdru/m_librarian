@@ -18,3 +18,7 @@ test:
 
 .PHONY: tests
 tests: test
+
+.PHONY: clean
+clean:
+	find . -depth -type f -name '*.py[co]' -delete
