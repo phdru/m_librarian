@@ -20,7 +20,7 @@ def _guess_case_sensitivity(values):
     return False
 
 
-def _search_authors(case_sensitive, args):
+def _search_authors(case_sensitive, search_type, args):
     if (args.surname or args.name or args.misc_name) and args.fullname:
         sys.stderr.write(
             "Cannot search by names and full name at the same time\n")
@@ -42,7 +42,7 @@ def _search_authors(case_sensitive, args):
             ))
     if case_sensitive is None:
         case_sensitive = _guess_case_sensitivity(values)
-    for author in search_authors(args.search_type, case_sensitive, values,
+    for author in search_authors(search_type, case_sensitive, values,
                                  expressions,
                                  orderBy=('surname', 'name', 'misc_name')):
         names = filter(None, (author.surname, author.name, author.misc_name))
@@ -51,7 +51,7 @@ def _search_authors(case_sensitive, args):
             (u"(%s: %d)" % (_('books'), author.count)).encode(default_encoding)
 
 
-def _search_books(case_sensitive, args):
+def _search_books(case_sensitive, search_type, args):
     values = {}
     for column in 'title', 'series', 'archive', 'file':
         value = getattr(args, column)
@@ -59,7 +59,7 @@ def _search_books(case_sensitive, args):
             values[column] = unicode(value, default_encoding)
     if case_sensitive is None:
         case_sensitive = _guess_case_sensitivity(values)
-    for book in search_books(args.search_type, case_sensitive, values,
+    for book in search_books(search_type, case_sensitive, values,
                              orderBy='title'):
         print book.title.encode(default_encoding)
         if args.details > 0:
@@ -72,20 +72,20 @@ def _search_books(case_sensitive, args):
             print
 
 
-def _search_extensions(case_sensitive, args):
+def _search_extensions(case_sensitive, search_type, args):
     if args.name:
         values = {'name': args.name}
         if case_sensitive is None:
             case_sensitive = _guess_case_sensitivity(values)
     else:
         values = {}
-    for ext in search_extensions(args.search_type, case_sensitive, values,
+    for ext in search_extensions(search_type, case_sensitive, values,
                                  orderBy='name'):
         print ext.name.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), ext.count)).encode(default_encoding)
 
 
-def _search_genres(case_sensitive, args):
+def _search_genres(case_sensitive, search_type, args):
     values = {}
     for column in 'name', 'title':
         value = getattr(args, column)
@@ -93,7 +93,7 @@ def _search_genres(case_sensitive, args):
             values[column] = unicode(value, default_encoding)
     if case_sensitive is None:
         case_sensitive = _guess_case_sensitivity(values)
-    for genre in search_genres(args.search_type, case_sensitive, values,
+    for genre in search_genres(search_type, case_sensitive, values,
                                orderBy='name'):
         names = filter(None, (genre.name, genre.title))
         fullname = u' '.join(names)
@@ -101,14 +101,14 @@ def _search_genres(case_sensitive, args):
             (u"(%s: %d)" % (_('books'), genre.count)).encode(default_encoding)
 
 
-def _search_languages(case_sensitive, args):
+def _search_languages(case_sensitive, search_type, args):
     if args.name:
         values = {'name': args.name}
         if case_sensitive is None:
             case_sensitive = _guess_case_sensitivity(values)
     else:
         values = {}
-    for lang in search_languages(args.search_type, case_sensitive, values,
+    for lang in search_languages(search_type, case_sensitive, values,
                                  orderBy='name'):
         print lang.name.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), lang.count)).encode(default_encoding)
@@ -116,19 +116,18 @@ def _search_languages(case_sensitive, args):
 
 if __name__ == '__main__':
     main_parser = argparse.ArgumentParser(description='Search')
-    main_parser.add_argument('-i', '--ignore-case',
-                             action='store_true',
+    main_parser.add_argument('-i', '--ignore-case', action='store_true',
                              help='ignore case '
                              '(default is to guess)')
-    main_parser.add_argument('-I', '--case-sensitive',
-                             action='store_true',
-                             help='don\'t ignore case ')
-    main_parser.add_argument('-t', '--search-type',
-                             choices=['exact', 'start', 'substring'],
-                             default='start',
-                             help='search type: '
-                             'exact match, substring at the start '
-                             '(this is the default), substring anywhere')
+    main_parser.add_argument('-I', '--case-sensitive', action='store_true',
+                             help='don\'t ignore case')
+    main_parser.add_argument('-t', '--start', action='store_true',
+                             help='search substring at the start '
+                             '(this is the default)')
+    main_parser.add_argument('-s', '--substring', action='store_true',
+                             help='search substring anywhere')
+    main_parser.add_argument('-f', '--full', action='store_true',
+                             help='match the entire string')
     subparsers = main_parser.add_subparsers(help='Commands')
 
     parser = subparsers.add_parser('authors', help='Search authors')
@@ -162,6 +161,7 @@ if __name__ == '__main__':
     parser.set_defaults(func=_search_languages)
 
     args = main_parser.parse_args()
+
     if args.case_sensitive:
         if args.ignore_case:
             sys.stderr.write(
@@ -175,5 +175,21 @@ if __name__ == '__main__':
         case_sensitive = False
     else:
         case_sensitive = None  # guess case sensitivity
+
+    if int(args.start) + int(args.substring) + int(args.full) > 1:
+        sys.stderr.write(
+            "Cannot search case sensitive and case insensitive "
+            "at the same time\n")
+        main_parser.print_help()
+        sys.exit(1)
+    if args.start:
+        search_type = 'start'
+    elif args.substring:
+        search_type = 'substring'
+    elif args.full:
+        search_type = 'full'
+    else:
+        search_type = 'start'
+
     open_db()
-    args.func(case_sensitive, args)
+    args.func(case_sensitive, search_type, args)

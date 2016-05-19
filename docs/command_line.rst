@@ -31,7 +31,7 @@ ml-search.py
 
 Usage::
 
-    ml-search.py [-i] [-I] [-t {exact,start,substring}] ...
+    ml-search.py [-i] [-I] [-t] [-s] [-f] ...
 
 Search through the database and display results. Currently can only
 search authors by name.
@@ -40,9 +40,10 @@ Global options::
 
     -i, --ignore-case     ignore case (default is to guess)
     -I, --case-sensitive  don't ignore case
-    -t, --search-type {exact,start,substring}
-        search type: exact match, substring at the start (this is the default),
-        substring anywhere.
+    -t, --start           search type: substring at the start
+                          (this is the default)
+    -s, --substring       search type: substring anywhere
+    -f, --full            search type: match the full string
 
 Options ``-i/-I`` cannot be used together as they are the opposite. In
 case none of them are used the program guesses case-sensitivity by
@@ -50,15 +51,16 @@ looking at the arguments. If all arguments are lowercase the program
 performs case-insensitive search. If there are UPPERCASE or MixedCase
 arguments the program performs case-sensitive search.
 
-Option ``-t/--search-type`` defines the search type. Search types are:
+Options ``-t/-s/-f`` define the search type. Search types are:
 
-* exact - search for exact match; i.e. searching for "duck" returns
-  results for "duck" but not for "duckling";
 * start - search for substring at the start of the search field; for
   example searching for "duck" returns results for "duck" and "duckling"
   but not for "McDuck"; this is the default search type.
 * substring - search for any substring; "duck" => "duck", "duckling",
   "McDuck" (except for case-sensitive search, of course).
+* full - search for exact match, compare the entire strings;
+  i.e. searching for "duck" returns results for "duck" but not for
+  "duckling";
 
 
 Author search
@@ -66,7 +68,7 @@ Author search
 
 Usage::
 
-    ml-search.py [-i] [-I] [-t ...] author [-s surname] [-n name] [-m misc-name] [fullname]
+    ml-search.py [-i/-I] [-t/-s/-f] author [-s surname] [-n name] [-m misc-name] [fullname]
 
 Search and print a list of authors by surname/name/misc name/full name.
 
@@ -96,7 +98,7 @@ Book search
 
 Usage::
 
-    ml-search.py [-i] [-I] [-t ...] books [-t title] [-s series] [-a archive] [-f file] [-d]
+    ml-search.py [-i/-I] [-t/-s/-f] books [-t title] [-s series] [-a archive] [-f file] [-d]
 
 Search and print a list of books by title, series, archive or file name.
 
@@ -117,7 +119,7 @@ Extension search
 
 Usage::
 
-    ml-search.py [-i] [-I] [-t ...] ext [name]
+    ml-search.py [-i/-I] [-t/-s/-f] ext [name]
 
 Search and print a list of extensions by name.
 
@@ -126,7 +128,7 @@ Genres search
 
 Usage::
 
-    ml-search.py [-i] [-I] [-t ...] genres [-n name] [-t title]
+    ml-search.py [-i/-I] [-t/-s/-f] genres [-n name] [-t title]
 
 Search and print a list of genres by name and title.
 
@@ -140,7 +142,7 @@ Language search
 
 Usage::
 
-    ml-search.py [-i] [-I] [-t ...] lang [name]
+    ml-search.py [-i/-I] [-t/-s/-f] lang [name]
 
 Search and print a list of languages by name.
 

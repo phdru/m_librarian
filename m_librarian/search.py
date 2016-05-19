@@ -29,11 +29,6 @@ def _search_with_operator(table, case_sensitive, comparison_op, values,
     return AND(*_expressions)
 
 
-def _search_exact(table, case_sensitive, values, expressions):
-    return _search_with_operator(table, case_sensitive, '__eq__', values,
-                                 expressions)
-
-
 def _search_start(table, case_sensitive, values, expressions):
     return _search_with_operator(table, case_sensitive, 'startswith', values,
                                  expressions)
@@ -41,6 +36,11 @@ def _search_start(table, case_sensitive, values, expressions):
 
 def _search_substring(table, case_sensitive, values, expressions):
     return _search_with_operator(table, case_sensitive, 'contains', values,
+                                 expressions)
+
+
+def _search_full(table, case_sensitive, values, expressions):
+    return _search_with_operator(table, case_sensitive, '__eq__', values,
                                  expressions)
 
 
