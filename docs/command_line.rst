@@ -112,7 +112,8 @@ Options::
                            repeat for even more details
 
 By default the program prints only titles of the found book. With one
-option `-d` it also prints the list of authors and genres.
+option `-d` it also prints the list of authors and genres, and also
+series the book belongs to (if any).
 
 Extension search
 ^^^^^^^^^^^^^^^^

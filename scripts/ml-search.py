@@ -74,6 +74,9 @@ def _search_books(case_sensitive, search_type, args):
             for genre in book.genres:
                 print (genre.title or genre.name).encode(default_encoding),
             print
+            if book.series:
+                print " ", _("Series"), ":",
+                print book.series.encode(default_encoding)
 
 
 def _search_extensions(case_sensitive, search_type, args):
