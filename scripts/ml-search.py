@@ -70,6 +70,10 @@ def _search_books(case_sensitive, search_type, args):
                 fullname = u' '.join(names)
                 print fullname.encode(default_encoding),
             print
+            print " ", _("Genre(s)"), ":",
+            for genre in book.genres:
+                print (genre.title or genre.name).encode(default_encoding),
+            print
 
 
 def _search_extensions(case_sensitive, search_type, args):

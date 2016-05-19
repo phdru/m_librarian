@@ -17,5 +17,8 @@ msgstr ""
 msgid "Author(s)"
 msgstr "Автор(ы)"
 
+msgid "Genre(s)"
+msgstr "Жанр(ы)"
+
 msgid "books"
 msgstr "книг"
