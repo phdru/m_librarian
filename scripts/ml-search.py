@@ -60,7 +60,7 @@ def _search_books(case_sensitive, search_type, args):
     if case_sensitive is None:
         case_sensitive = _guess_case_sensitivity(values)
     for book in search_books(search_type, case_sensitive, values,
-                             orderBy='title'):
+                             orderBy=('series', 'ser_no', 'title')):
         print book.title.encode(default_encoding)
         if args.details >= 1:
             print " ", _("Author(s)"), ":",
