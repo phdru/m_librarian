@@ -114,7 +114,8 @@ Options::
 By default the program prints only titles of the found book. With one
 option `-d` it also prints the list of authors and genres, and also
 series the book belongs to (if any) and the serial number of the book in
-the series.
+the series. With two options `-d` (`-d -d` or simply `-dd`) it also
+prints the file date, language and file extension.
 
 Extension search
 ^^^^^^^^^^^^^^^^

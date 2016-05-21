@@ -20,6 +20,15 @@ msgstr "Автор(ы)"
 msgid "Genre(s)"
 msgstr "Жанр(ы)"
 
+msgid "Date"
+msgstr "Дата"
+
+msgid "Extension"
+msgstr "Расширение"
+
+msgid "Language"
+msgstr "Язык"
+
 msgid "Series"
 msgstr "Серия"
 

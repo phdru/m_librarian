@@ -62,7 +62,7 @@ def _search_books(case_sensitive, search_type, args):
     for book in search_books(search_type, case_sensitive, values,
                              orderBy='title'):
         print book.title.encode(default_encoding)
-        if args.details > 0:
+        if args.details >= 1:
             print " ", _("Author(s)"), ":",
             for author in book.authors:
                 names = filter(None,
@@ -78,6 +78,10 @@ def _search_books(case_sensitive, search_type, args):
                 print " ", _("Series"), ":",
                 print book.series.encode(default_encoding), \
                     "(%d)" % book.ser_no
+        if args.details >= 2:
+            print " ", _("Date"), ":", book.date
+            print " ", _("Language"), ":", book.language.name
+            print " ", _("Extension"), ":", book.extension.name
 
 
 def _search_extensions(case_sensitive, search_type, args):
