@@ -14,17 +14,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 "Generated-By: pygettext.py 1.5\n"
 
+msgid "Archive"
+msgstr "Архив"
+
 msgid "Author(s)"
 msgstr "Автор(ы)"
-
-msgid "Genre(s)"
-msgstr "Жанр(ы)"
 
 msgid "Date"
 msgstr "Дата"
 
+msgid "Deleted"
+msgstr "Удалена"
+
 msgid "Extension"
 msgstr "Расширение"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "False"
+msgstr "Нет"
+
+msgid "Genre(s)"
+msgstr "Жанр(ы)"
 
 msgid "Language"
 msgstr "Язык"
@@ -32,5 +44,14 @@ msgstr "Язык"
 msgid "Series"
 msgstr "Серия"
 
+msgid "Size"
+msgstr "Размер"
+
+msgid "True"
+msgstr "Да"
+
 msgid "books"
 msgstr "книг"
+
+msgid "bytes"
+msgstr "байт"

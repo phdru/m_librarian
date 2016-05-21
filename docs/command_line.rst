@@ -93,6 +93,7 @@ Example::
 Search and print a list of authors whose surname starts with "duck", and
 name starts with "mack", case insensitive.
 
+
 Book search
 ^^^^^^^^^^^
 
@@ -115,7 +116,10 @@ By default the program prints only titles of the found book. With one
 option `-d` it also prints the list of authors and genres, and also
 series the book belongs to (if any) and the serial number of the book in
 the series. With two options `-d` (`-d -d` or simply `-dd`) it also
-prints the file date, language and file extension.
+prints the file date and language. With three `-d` it prints archive
+name, file name, extension and size, and flag if the book is marked to
+be deleted.
+
 
 Extension search
 ^^^^^^^^^^^^^^^^
@@ -125,6 +129,7 @@ Usage::
     ml-search.py [-i/-I] [-t/-s/-f] ext [name]
 
 Search and print a list of extensions by name.
+
 
 Genres search
 ^^^^^^^^^^^^^
@@ -139,6 +144,7 @@ Options::
 
     -n, --name name    Search by name
     -t, --title title  Search by title
+
 
 Language search
 ^^^^^^^^^^^^^^^

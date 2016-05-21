@@ -78,10 +78,17 @@ def _search_books(case_sensitive, search_type, args):
                 print " ", _("Series"), ":",
                 print book.series.encode(default_encoding), \
                     "(%d)" % book.ser_no
+
         if args.details >= 2:
             print " ", _("Date"), ":", book.date
             print " ", _("Language"), ":", book.language.name
+
+        if args.details >= 3:
+            print " ", _("Archive"), ":", book.archive
+            print " ", _("File"), ":", book.file
             print " ", _("Extension"), ":", book.extension.name
+            print " ", _("Size"), ":", book.size, _("bytes")
+            print " ", _("Deleted"), ":", _(str(book.deleted))
 
 
 def _search_extensions(case_sensitive, search_type, args):
