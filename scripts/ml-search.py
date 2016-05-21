@@ -76,7 +76,8 @@ def _search_books(case_sensitive, search_type, args):
             print
             if book.series:
                 print " ", _("Series"), ":",
-                print book.series.encode(default_encoding)
+                print book.series.encode(default_encoding), \
+                    "(%d)" % book.ser_no
 
 
 def _search_extensions(case_sensitive, search_type, args):
