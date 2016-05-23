@@ -5,7 +5,7 @@ import sys
 from sqlobject.sqlbuilder import CONCAT
 
 from m_lib.defenc import default_encoding
-from m_librarian.db import Author, Book, Extension, open_db
+from m_librarian.db import Author, Book, Extension, Language, open_db
 from m_librarian.search import mk_search_conditions, \
     search_authors, search_books, \
     search_extensions, search_genres, search_languages
@@ -61,7 +61,7 @@ def _search_books(case_sensitive, search_type, args):
             values[column] = unicode(value, default_encoding)
     if case_sensitive is None:
         test_values = values.copy()
-        for column in 'ext', :
+        for column in 'ext', 'lang':
             value = getattr(args, column)
             if value:
                 test_values[column] = unicode(value, default_encoding)
@@ -71,6 +71,12 @@ def _search_books(case_sensitive, search_type, args):
         conditions = mk_search_conditions(
             Extension, search_type, case_sensitive,
             {'name': args.ext})
+        join_expressions.extend(conditions)
+    if args.lang:
+        join_expressions.append(Book.j.language)
+        conditions = mk_search_conditions(
+            Language, search_type, case_sensitive,
+            {'name': args.lang})
         join_expressions.extend(conditions)
     for book in search_books(search_type, case_sensitive, values,
                              join_expressions,
@@ -179,6 +185,7 @@ if __name__ == '__main__':
                         help='output more details about books; '
                         'repeat for even more details')
     parser.add_argument('-e', '--ext', help='search by file extension')
+    parser.add_argument('-l', '--lang', help='search by language')
     parser.set_defaults(func=_search_books)
 
     parser = subparsers.add_parser('ext', help='Search extensions')

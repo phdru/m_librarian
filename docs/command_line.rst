@@ -99,7 +99,7 @@ Book search
 
 Usage::
 
-    ml-search.py [-i/-I] [-t/-s/-f] books [-t title] [-s series] [-a archive] [-f file] [-d] [-e ext]
+    ml-search.py [-i/-I] [-t/-s/-f] books [-t title] [-s series] [-a archive] [-f file] [-d] [-e ext] [-l lang]
 
 Search and print a list of books by title, series, archive or file name.
 
@@ -112,6 +112,7 @@ Options::
     -d, --details          Output more details about books;
                            repeat for even more details
     -e, --ext ext          Search by file extension
+    -l, --lang lang        Search by language
 
 By default the program prints only titles of the found book. With one
 option `-d` it also prints the list of authors and genres, and also
