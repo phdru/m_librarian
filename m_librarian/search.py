@@ -1,5 +1,6 @@
 
 __all__ = [
+    'mk_search_conditions',
     'search_authors', 'search_books', 'search_extensions',
     'search_genres', 'search_languages',
 ]
@@ -8,8 +9,8 @@ from sqlobject.sqlbuilder import AND, func
 from .db import Author, Book, Extension, Genre, Language
 
 
-def _search_with_operator(table, case_sensitive, comparison_op, values,
-                          expressions):
+def _mk_search_conditions_with_operator(table, case_sensitive, comparison_op,
+                                        values, expressions):
     _expressions = []
     if case_sensitive:
         for column, value in values.items():
@@ -26,29 +27,28 @@ def _search_with_operator(table, case_sensitive, comparison_op, values,
         for expr, value in expressions:
             _expressions.append(
                 getattr(func.lower(expr), comparison_op)(value.lower()))
-    return AND(*_expressions)
+    return _expressions
 
 
-def _search_start(table, case_sensitive, values, expressions):
-    return _search_with_operator(table, case_sensitive, 'startswith', values,
-                                 expressions)
+_search_conditions_dict = {
+    'start': 'startswith',
+    'substring': 'contains',
+    'full': '__eq__',
+}
 
 
-def _search_substring(table, case_sensitive, values, expressions):
-    return _search_with_operator(table, case_sensitive, 'contains', values,
-                                 expressions)
-
-
-def _search_full(table, case_sensitive, values, expressions):
-    return _search_with_operator(table, case_sensitive, '__eq__', values,
-                                 expressions)
+def mk_search_conditions(table, search_type, case_sensitive, values,
+                         expressions):
+    return _mk_search_conditions_with_operator(
+        table, case_sensitive, _search_conditions_dict[search_type],
+        values, expressions)
 
 
 def _search(table, search_type, case_sensitive, values,
             expressions, orderBy=None):
-    _search_f = globals()['_search_%s' % search_type]
-    conditions = _search_f(table, case_sensitive, values, expressions)
-    return table.select(conditions, orderBy=orderBy)
+    conditions = mk_search_conditions(
+        table, search_type, case_sensitive, values, expressions)
+    return table.select(AND(*conditions), orderBy=orderBy)
 
 
 def search_authors(search_type, case_sensitive, values,
