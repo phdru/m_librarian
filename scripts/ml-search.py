@@ -5,8 +5,9 @@ import sys
 from sqlobject.sqlbuilder import CONCAT
 
 from m_lib.defenc import default_encoding
-from m_librarian.db import Author, open_db
-from m_librarian.search import search_authors, search_books, \
+from m_librarian.db import Author, Book, Extension, open_db
+from m_librarian.search import mk_search_conditions, \
+    search_authors, search_books, \
     search_extensions, search_genres, search_languages
 
 from m_librarian.translations import translations
@@ -53,13 +54,26 @@ def _search_authors(case_sensitive, search_type, args):
 
 def _search_books(case_sensitive, search_type, args):
     values = {}
+    join_expressions = []
     for column in 'title', 'series', 'archive', 'file':
         value = getattr(args, column)
         if value:
             values[column] = unicode(value, default_encoding)
     if case_sensitive is None:
-        case_sensitive = _guess_case_sensitivity(values)
+        test_values = values.copy()
+        for column in 'ext', :
+            value = getattr(args, column)
+            if value:
+                test_values[column] = unicode(value, default_encoding)
+        case_sensitive = _guess_case_sensitivity(test_values)
+    if args.ext:
+        join_expressions.append(Book.j.extension)
+        conditions = mk_search_conditions(
+            Extension, search_type, case_sensitive,
+            {'name': args.ext})
+        join_expressions.extend(conditions)
     for book in search_books(search_type, case_sensitive, values,
+                             join_expressions,
                              orderBy=('series', 'ser_no', 'title')):
         print book.title.encode(default_encoding)
         if args.details >= 1:
@@ -164,6 +178,7 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--details', action='count',
                         help='output more details about books; '
                         'repeat for even more details')
+    parser.add_argument('-e', '--ext', help='search by file extension')
     parser.set_defaults(func=_search_books)
 
     parser = subparsers.add_parser('ext', help='Search extensions')

@@ -40,16 +40,19 @@ _search_conditions_dict = {
 
 
 def mk_search_conditions(table, search_type, case_sensitive, values,
-                         expressions=None):
+                         expressions=None, join_expressions=None):
+    if join_expressions is None:
+        join_expressions = []
     return _mk_search_conditions_with_operator(
         table, case_sensitive, _search_conditions_dict[search_type],
-        values, expressions)
+        values, expressions) + join_expressions
 
 
 def _search(table, search_type, case_sensitive, values,
-            expressions=None, orderBy=None):
+            expressions=None, join_expressions=None, orderBy=None):
     conditions = mk_search_conditions(
-        table, search_type, case_sensitive, values, expressions=expressions)
+        table, search_type, case_sensitive, values, expressions=expressions,
+        join_expressions=join_expressions)
     return table.select(AND(*conditions), orderBy=orderBy)
 
 
@@ -59,9 +62,10 @@ def search_authors(search_type, case_sensitive, values,
                    expressions=None, orderBy=orderBy)
 
 
-def search_books(search_type, case_sensitive, values, orderBy=None):
+def search_books(search_type, case_sensitive, values, join_expressions=None,
+                 orderBy=None):
     return _search(Book, search_type, case_sensitive, values,
-                   orderBy=orderBy)
+                   join_expressions=join_expressions, orderBy=orderBy)
 
 
 def search_extensions(search_type, case_sensitive, values, orderBy=None):
