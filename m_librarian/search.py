@@ -11,6 +11,8 @@ from .db import Author, Book, Extension, Genre, Language
 
 def _mk_search_conditions_with_operator(table, case_sensitive, comparison_op,
                                         values, expressions):
+    if expressions is None:
+        expressions = []
     _expressions = []
     if case_sensitive:
         for column, value in values.items():
@@ -38,40 +40,40 @@ _search_conditions_dict = {
 
 
 def mk_search_conditions(table, search_type, case_sensitive, values,
-                         expressions):
+                         expressions=None):
     return _mk_search_conditions_with_operator(
         table, case_sensitive, _search_conditions_dict[search_type],
         values, expressions)
 
 
 def _search(table, search_type, case_sensitive, values,
-            expressions, orderBy=None):
+            expressions=None, orderBy=None):
     conditions = mk_search_conditions(
-        table, search_type, case_sensitive, values, expressions)
+        table, search_type, case_sensitive, values, expressions=expressions)
     return table.select(AND(*conditions), orderBy=orderBy)
 
 
 def search_authors(search_type, case_sensitive, values,
-                   expressions, orderBy=None):
+                   expressions=None, orderBy=None):
     return _search(Author, search_type, case_sensitive, values,
-                   expressions, orderBy)
+                   expressions=None, orderBy=orderBy)
 
 
 def search_books(search_type, case_sensitive, values, orderBy=None):
     return _search(Book, search_type, case_sensitive, values,
-                   [], orderBy)
+                   orderBy=orderBy)
 
 
 def search_extensions(search_type, case_sensitive, values, orderBy=None):
     return _search(Extension, search_type, case_sensitive, values,
-                   [], orderBy)
+                   orderBy=orderBy)
 
 
 def search_genres(search_type, case_sensitive, values, orderBy=None):
     return _search(Genre, search_type, case_sensitive, values,
-                   [], orderBy)
+                   orderBy=orderBy)
 
 
 def search_languages(search_type, case_sensitive, values, orderBy=None):
     return _search(Language, search_type, case_sensitive, values,
-                   [], orderBy)
+                   orderBy=orderBy)
