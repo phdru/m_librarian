@@ -59,7 +59,7 @@ def _search(table, search_type, case_sensitive, values,
 def search_authors(search_type, case_sensitive, values,
                    expressions=None, orderBy=None):
     return _search(Author, search_type, case_sensitive, values,
-                   expressions=None, orderBy=orderBy)
+                   expressions=expressions, orderBy=orderBy)
 
 
 def search_books(search_type, case_sensitive, values, join_expressions=None,
