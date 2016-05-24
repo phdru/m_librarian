@@ -1,3 +1,8 @@
+Version 0.0.7 (2016-05-25)
+
+   Extend ml-serach.py to search books by authors, extensions, genres,
+   languages.
+
 Version 0.0.6 (2016-05-21)
 
    Extend ml-serach.py to search books by title, series, archive, file.
