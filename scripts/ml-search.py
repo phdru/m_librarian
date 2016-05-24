@@ -14,6 +14,15 @@ from m_librarian.translations import translations
 _ = translations.ugettext
 
 
+def _get_values(args, *columns):
+    values = {}
+    for column in columns:
+        value = getattr(args, column)
+        if value:
+            values[column] = unicode(value, default_encoding)
+    return values
+
+
 def _guess_case_sensitivity(values):
     for value in values.values():
         if not value.islower():
@@ -27,12 +36,8 @@ def _search_authors(case_sensitive, search_type, args):
             "Cannot search by names and full name at the same time\n")
         main_parser.print_help()
         sys.exit(1)
-    values = {}
     expressions = []
-    for column in 'surname', 'name', 'misc_name':
-        value = getattr(args, column)
-        if value:
-            values[column] = unicode(value, default_encoding)
+    values = _get_values(args, 'surname', 'name', 'misc_name')
     if not values:
         value = args.fullname
         if value:
@@ -53,18 +58,11 @@ def _search_authors(case_sensitive, search_type, args):
 
 
 def _search_books(case_sensitive, search_type, args):
-    values = {}
     join_expressions = []
-    for column in 'title', 'series', 'archive', 'file':
-        value = getattr(args, column)
-        if value:
-            values[column] = unicode(value, default_encoding)
+    values = _get_values(args, 'title', 'series', 'archive', 'file')
     if case_sensitive is None:
         test_values = values.copy()
-        for column in 'ext', 'lang':
-            value = getattr(args, column)
-            if value:
-                test_values[column] = unicode(value, default_encoding)
+        test_values.update(_get_values(args, 'ext', 'lang'))
         case_sensitive = _guess_case_sensitivity(test_values)
     if args.ext:
         join_expressions.append(Book.j.extension)
@@ -125,11 +123,7 @@ def _search_extensions(case_sensitive, search_type, args):
 
 
 def _search_genres(case_sensitive, search_type, args):
-    values = {}
-    for column in 'name', 'title':
-        value = getattr(args, column)
-        if value:
-            values[column] = unicode(value, default_encoding)
+    values = _get_values(args, 'name', 'title')
     if case_sensitive is None:
         case_sensitive = _guess_case_sensitivity(values)
     for genre in search_genres(search_type, case_sensitive, values,
