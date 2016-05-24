@@ -100,7 +100,7 @@ ml-search.py
 
 Использование::
 
-    ml-search.py [-i/-I] [-t/-s/-f] books [-t title] [-s series] [-a archive] [-f file] [-d] [-e ext] [-l lang]
+    ml-search.py [-i/-I] [-t/-s/-f] books [-t title] [-s series] [-a archive] [-f file] [-d] [--surname name] [--name name] [--misc-name name] [--fullname name] [-e ext] [-l lang]
 
 Искать и печатать список книг по заголовку, серии, архиву, имени файла.
 
@@ -113,6 +113,10 @@ ml-search.py
     -d, --details          Выводить больше информации о найденных книгах;
                            повторите эту опцию несколько раз, чтобы
                            получить ещё больше деталей
+    --surname surname      Искать по фамилии автора
+    --name name            Искать по имени автора
+    --misc-name misc. name Искать по доп. имени автора
+    --fullname name        Искать по полному имени автора
     -e, --ext ext          Искать по расширению имени файла
     -l, --lang lang        Искать по языку
 
