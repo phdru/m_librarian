@@ -5,7 +5,7 @@ import sys
 from sqlobject.sqlbuilder import CONCAT
 
 from m_lib.defenc import default_encoding
-from m_librarian.db import Author, Book, Extension, Language, open_db
+from m_librarian.db import Author, Book, Extension, Genre, Language, open_db
 from m_librarian.search import mk_search_conditions, \
     search_authors, search_books, \
     search_extensions, search_genres, search_languages
@@ -63,7 +63,8 @@ def _search_books(case_sensitive, search_type, args):
     if case_sensitive is None:
         test_values = values.copy()
         test_values.update(_get_values(args, 'surname', 'name', 'misc_name',
-                                       'fullname', 'ext', 'lang'))
+                                       'fullname', 'ext', 'gname', 'gtitle',
+                                       'lang'))
         case_sensitive = _guess_case_sensitivity(test_values)
     avalues = _get_values(args, 'surname', 'name', 'misc_name', 'fullname')
     if avalues:
@@ -89,6 +90,16 @@ def _search_books(case_sensitive, search_type, args):
         conditions = mk_search_conditions(
             Extension, search_type, case_sensitive,
             {'name': args.ext})
+        join_expressions.extend(conditions)
+    gvalues = {}
+    for column in 'name', 'title':
+        value = getattr(args, 'g' + column)
+        if value:
+            gvalues[column] = unicode(value, default_encoding)
+    if gvalues:
+        join_expressions.append(Book.j.genres)
+        conditions = mk_search_conditions(
+            Genre, search_type, case_sensitive, gvalues)
         join_expressions.extend(conditions)
     if args.lang:
         join_expressions.append(Book.j.language)
@@ -203,6 +214,8 @@ if __name__ == '__main__':
     parser.add_argument('--misc-name', help='search by author\'s misc. name')
     parser.add_argument('--fullname', help='search by author\'s full name')
     parser.add_argument('-e', '--ext', help='search by file extension')
+    parser.add_argument('--gname', help='search by genre\'s name')
+    parser.add_argument('--gtitle', help='search by genre\'s title')
     parser.add_argument('-l', '--lang', help='search by language')
     parser.set_defaults(func=_search_books)
 
