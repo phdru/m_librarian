@@ -10,7 +10,7 @@ class TestSearch(TestCase):
     def test_search_authors(self):
         self.import_inpx('test.inpx')
         self.assertEqual(
-            search_authors('exact', True, {'surname': u'Друг'}).count(), 1)
+            search_authors('full', True, {'surname': u'Друг'}).count(), 1)
         self.assertEqual(
             search_authors('start', True, {'surname': u'Друг'}).count(), 2)
         self.assertEqual(
