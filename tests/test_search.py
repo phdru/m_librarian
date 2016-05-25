@@ -3,7 +3,9 @@
 
 
 from tests import TestCase, main
-from m_librarian.search import search_authors
+from m_librarian.db import Author, Book
+from m_librarian.search import mk_search_conditions, \
+    search_authors, search_books
 
 
 class TestSearch(TestCase):
@@ -18,6 +20,16 @@ class TestSearch(TestCase):
         self.assertEqual(
             search_authors('substring', False, {'surname': u'друг'}).count(),
             3)
+
+        join_expressions = []
+        join_expressions.append(Book.j.authors)
+        conditions = mk_search_conditions(
+            Author, 'start', False, {'surname': u'друг'})
+        join_expressions.extend(conditions)
+        self.assertEqual(
+            search_books('start', False,
+                         {'title': u'тест'}, join_expressions).count(),
+            2)
 
 
 if __name__ == "__main__":
