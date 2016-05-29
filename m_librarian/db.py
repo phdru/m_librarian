@@ -146,7 +146,9 @@ def open_db(db_uri=None):
 
     if connection.dbName == 'sqlite':
         def lower(s):
-            return s.lower()
+            if isinstance(s, basestring):
+                return s.lower()
+            return s
 
         sqlite = connection.module
 

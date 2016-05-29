@@ -66,7 +66,7 @@ def _search_authors(case_sensitive, search_type, args):
 
 def _search_books(case_sensitive, search_type, args):
     join_expressions = []
-    values = _get_values(args, 'title', 'series', 'archive', 'file')
+    values = _get_values(args, 'title', 'series', 'archive', 'file', 'id')
     if case_sensitive is None:
         test_values = values.copy()
         test_values.update(_get_values(args, 'surname', 'name', 'misc_name',
@@ -74,6 +74,8 @@ def _search_books(case_sensitive, search_type, args):
                                        'lang'))
         case_sensitive = _guess_case_sensitivity(test_values)
     avalues = _get_values(args, 'surname', 'name', 'misc_name', 'fullname')
+    if args.aid:
+        avalues['id'] = args.aid
     if avalues:
         if (args.surname or args.name or args.misc_name) and args.fullname:
             sys.stderr.write(
@@ -92,27 +94,37 @@ def _search_books(case_sensitive, search_type, args):
         conditions = mk_search_conditions(
             Author, search_type, case_sensitive, avalues, expressions)
         join_expressions.extend(conditions)
+    evalues = {}
     if args.ext:
+        evalues['name'] = args.ext
+    if args.eid:
+        evalues['id'] = args.eid
+    if evalues:
         join_expressions.append(Book.j.extension)
         conditions = mk_search_conditions(
-            Extension, search_type, case_sensitive,
-            {'name': args.ext})
+            Extension, search_type, case_sensitive, evalues)
         join_expressions.extend(conditions)
     gvalues = {}
     for column in 'name', 'title':
         value = getattr(args, 'g' + column)
         if value:
             gvalues[column] = unicode(value, default_encoding)
+    if args.gid:
+        gvalues['id'] = args.gid
     if gvalues:
         join_expressions.append(Book.j.genres)
         conditions = mk_search_conditions(
             Genre, search_type, case_sensitive, gvalues)
         join_expressions.extend(conditions)
+    lvalues = {}
     if args.lang:
+        lvalues['name'] = args.lang
+    if args.lid:
+        lvalues['id'] = args.lid
+    if lvalues:
         join_expressions.append(Book.j.language)
         conditions = mk_search_conditions(
-            Language, search_type, case_sensitive,
-            {'name': args.lang})
+            Language, search_type, case_sensitive, lvalues)
         join_expressions.extend(conditions)
     books = search_books(search_type, case_sensitive, values, join_expressions,
                          orderBy=('series', 'ser_no', 'title'))
@@ -244,14 +256,19 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--series', help='search by series')
     parser.add_argument('-a', '--archive', help='search by archive (zip file)')
     parser.add_argument('-f', '--file', help='search by file name')
+    parser.add_argument('--id', help='search by database id')
     parser.add_argument('--surname', help='search by author\'s surname')
     parser.add_argument('--name', help='search by author\'s name')
     parser.add_argument('--misc-name', help='search by author\'s misc. name')
     parser.add_argument('--fullname', help='search by author\'s full name')
+    parser.add_argument('--aid', help='search by author\'s id')
     parser.add_argument('-e', '--ext', help='search by file extension')
+    parser.add_argument('--eid', help='search by extension\'s id')
     parser.add_argument('--gname', help='search by genre\'s name')
     parser.add_argument('--gtitle', help='search by genre\'s title')
+    parser.add_argument('--gid', help='search by genre\'s id')
     parser.add_argument('-l', '--lang', help='search by language')
+    parser.add_argument('--lid', help='search by language\'s id')
     parser.set_defaults(func=_search_books)
 
     parser = subparsers.add_parser('ext', help='Search extensions')
