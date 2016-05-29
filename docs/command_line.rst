@@ -92,8 +92,10 @@ Example::
 
     ml-search.py -i author -s duck -n mack
 
-Search and print a list of authors whose surname starts with "duck", and
+Search and print a list of authors whose surname starts with "duck" and
 name starts with "mack", case insensitive.
+
+With one option `-d` it also prints database id.
 
 
 Book search
@@ -121,12 +123,12 @@ Options::
     -l, --lang lang        Search by language
 
 By default the program prints only titles of the found book. With one
-option `-d` it also prints the list of authors and genres, and also
-series the book belongs to (if any) and the serial number of the book in
-the series. With two options `-d` (`-d -d` or simply `-dd`) it also
-prints the file date and language. With three `-d` it prints archive
-name, file name, extension and size, and flag if the book is marked to
-be deleted.
+option `-d` it also prints database id, the list of authors and genres,
+and also series the book belongs to (if any) and the serial number of
+the book in the series. With two options `-d` (`-d -d` or simply `-dd`)
+it also prints the file date and language. With three `-d` it prints
+archive name, file name, extension and size, and flag if the book is
+marked to be deleted.
 
 
 Extension search
@@ -137,6 +139,8 @@ Usage::
     ml-search.py [-i/-I] [-t/-s/-f] ext [name]
 
 Search and print a list of extensions by name.
+
+With one option `-d` it also prints database id.
 
 
 Genres search
@@ -153,6 +157,8 @@ Options::
     -n, --name name    Search by name
     -t, --title title  Search by title
 
+With one option `-d` it also prints database id.
+
 
 Language search
 ^^^^^^^^^^^^^^^
@@ -162,5 +168,7 @@ Usage::
     ml-search.py [-i/-I] [-t/-s/-f] lang [name]
 
 Search and print a list of languages by name.
+
+With one option `-d` it also prints database id.
 
 .. vim: set tw=72 :

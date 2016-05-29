@@ -54,7 +54,11 @@ def _search_authors(case_sensitive, search_type, args):
         names = filter(None, (author.surname, author.name, author.misc_name))
         fullname = u' '.join(names)
         print fullname.encode(default_encoding), \
-            (u"(%s: %d)" % (_('books'), author.count)).encode(default_encoding)
+            (u"(%s: %d)" % (_('books'), author.count))\
+            .encode(default_encoding),
+        if args.details >= 1:
+            print "(id=%d)" % author.id,
+        print
 
 
 def _search_books(case_sensitive, search_type, args):
@@ -110,7 +114,10 @@ def _search_books(case_sensitive, search_type, args):
     for book in search_books(search_type, case_sensitive, values,
                              join_expressions,
                              orderBy=('series', 'ser_no', 'title')):
-        print book.title.encode(default_encoding)
+        print book.title.encode(default_encoding),
+        if args.details >= 1:
+            print "(id=%d)" % book.id,
+        print
         if args.details >= 1:
             print " ", _("Author(s)"), ":",
             for author in book.authors:
@@ -150,7 +157,10 @@ def _search_extensions(case_sensitive, search_type, args):
     for ext in search_extensions(search_type, case_sensitive, values,
                                  orderBy='name'):
         print ext.name.encode(default_encoding), \
-            (u"(%s: %d)" % (_('books'), ext.count)).encode(default_encoding)
+            (u"(%s: %d)" % (_('books'), ext.count)).encode(default_encoding),
+        if args.details >= 1:
+            print "(id=%d)" % ext.id,
+        print
 
 
 def _search_genres(case_sensitive, search_type, args):
@@ -162,7 +172,10 @@ def _search_genres(case_sensitive, search_type, args):
         names = filter(None, (genre.name, genre.title))
         fullname = u' '.join(names)
         print fullname.encode(default_encoding), \
-            (u"(%s: %d)" % (_('books'), genre.count)).encode(default_encoding)
+            (u"(%s: %d)" % (_('books'), genre.count)).encode(default_encoding),
+        if args.details >= 1:
+            print "(id=%d)" % genre.id,
+        print
 
 
 def _search_languages(case_sensitive, search_type, args):
@@ -175,7 +188,10 @@ def _search_languages(case_sensitive, search_type, args):
     for lang in search_languages(search_type, case_sensitive, values,
                                  orderBy='name'):
         print lang.name.encode(default_encoding), \
-            (u"(%s: %d)" % (_('books'), lang.count)).encode(default_encoding)
+            (u"(%s: %d)" % (_('books'), lang.count)).encode(default_encoding),
+        if args.details >= 1:
+            print "(id=%d)" % lang.id,
+        print
 
 
 if __name__ == '__main__':
