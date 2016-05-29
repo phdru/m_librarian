@@ -48,9 +48,12 @@ def _search_authors(case_sensitive, search_type, args):
             ))
     if case_sensitive is None:
         case_sensitive = _guess_case_sensitivity(values)
-    for author in search_authors(search_type, case_sensitive, values,
-                                 expressions,
-                                 orderBy=('surname', 'name', 'misc_name')):
+    authors = search_authors(search_type, case_sensitive, values, expressions,
+                             orderBy=('surname', 'name', 'misc_name'))
+    if args.count:
+        print authors.count()
+        return
+    for author in authors:
         names = filter(None, (author.surname, author.name, author.misc_name))
         fullname = u' '.join(names)
         print fullname.encode(default_encoding), \
@@ -111,9 +114,12 @@ def _search_books(case_sensitive, search_type, args):
             Language, search_type, case_sensitive,
             {'name': args.lang})
         join_expressions.extend(conditions)
-    for book in search_books(search_type, case_sensitive, values,
-                             join_expressions,
-                             orderBy=('series', 'ser_no', 'title')):
+    books = search_books(search_type, case_sensitive, values, join_expressions,
+                         orderBy=('series', 'ser_no', 'title'))
+    if args.count:
+        print books.count()
+        return
+    for book in books:
         print book.title.encode(default_encoding),
         if args.details >= 1:
             print "(id=%d)" % book.id,
@@ -158,8 +164,12 @@ def _search_extensions(case_sensitive, search_type, args):
             case_sensitive = _guess_case_sensitivity(values)
     else:
         values = {}
-    for ext in search_extensions(search_type, case_sensitive, values,
-                                 orderBy='name'):
+    extensions = search_extensions(search_type, case_sensitive, values,
+                                   orderBy='name')
+    if args.count:
+        print extensions.count()
+        return
+    for ext in extensions:
         print ext.name.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), ext.count)).encode(default_encoding),
         if args.details >= 1:
@@ -171,8 +181,11 @@ def _search_genres(case_sensitive, search_type, args):
     values = _get_values(args, 'name', 'title')
     if case_sensitive is None:
         case_sensitive = _guess_case_sensitivity(values)
-    for genre in search_genres(search_type, case_sensitive, values,
-                               orderBy='name'):
+    genres = search_genres(search_type, case_sensitive, values, orderBy='name')
+    if args.count:
+        print genres.count()
+        return
+    for genre in genres:
         names = filter(None, (genre.name, genre.title))
         fullname = u' '.join(names)
         print fullname.encode(default_encoding), \
@@ -215,6 +228,8 @@ if __name__ == '__main__':
     main_parser.add_argument('-d', '--details', action='count',
                              help='output more details about books; '
                              'repeat for even more details')
+    main_parser.add_argument('-c', '--count', action='store_true',
+                             help='count instead of output')
     subparsers = main_parser.add_subparsers(help='Commands')
 
     parser = subparsers.add_parser('authors', help='Search authors')

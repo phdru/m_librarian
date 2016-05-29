@@ -31,7 +31,7 @@ ml-search.py
 
 Usage::
 
-    ml-search.py [-i] [-I] [-t] [-s] [-f] [-d] ...
+    ml-search.py [-i] [-I] [-t] [-s] [-f] [-d] [-c] ...
 
 Search through the database and display results. Currently can only
 search authors by name.
@@ -46,6 +46,7 @@ Global options::
     -f, --full            search type: match the full string
     -d, --details         Output more details about found objects;
                           repeat for even more details
+    -c, --count           Output count of found objects
 
 Options ``-i/-I`` cannot be used together as they are the opposite. In
 case none of them are used the program guesses case-sensitivity by
