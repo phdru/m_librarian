@@ -192,6 +192,9 @@ if __name__ == '__main__':
                              help='search substring anywhere')
     main_parser.add_argument('-f', '--full', action='store_true',
                              help='match the entire string')
+    main_parser.add_argument('-d', '--details', action='count',
+                             help='output more details about books; '
+                             'repeat for even more details')
     subparsers = main_parser.add_subparsers(help='Commands')
 
     parser = subparsers.add_parser('authors', help='Search authors')
@@ -206,9 +209,6 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--series', help='search by series')
     parser.add_argument('-a', '--archive', help='search by archive (zip file)')
     parser.add_argument('-f', '--file', help='search by file name')
-    parser.add_argument('-d', '--details', action='count',
-                        help='output more details about books; '
-                        'repeat for even more details')
     parser.add_argument('--surname', help='search by author\'s surname')
     parser.add_argument('--name', help='search by author\'s name')
     parser.add_argument('--misc-name', help='search by author\'s misc. name')

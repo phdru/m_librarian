@@ -31,7 +31,7 @@ ml-search.py
 
 Usage::
 
-    ml-search.py [-i] [-I] [-t] [-s] [-f] ...
+    ml-search.py [-i] [-I] [-t] [-s] [-f] [-d] ...
 
 Search through the database and display results. Currently can only
 search authors by name.
@@ -44,6 +44,8 @@ Global options::
                           (this is the default)
     -s, --substring       search type: substring anywhere
     -f, --full            search type: match the full string
+    -d, --details         Output more details about found objects;
+                          repeat for even more details
 
 Options ``-i/-I`` cannot be used together as they are the opposite. In
 case none of them are used the program guesses case-sensitivity by
@@ -99,7 +101,7 @@ Book search
 
 Usage::
 
-    ml-search.py [-i/-I] [-t/-s/-f] books [-t title] [-s series] [-a archive] [-f file] [-d] [--surname name] [--name name] [--misc-name name] [--fullname name] [-e ext] [--gname name] [--gtitle title] [-l lang]
+    ml-search.py [-i/-I] [-t/-s/-f] books [-t title] [-s series] [-a archive] [-f file] [--surname name] [--name name] [--misc-name name] [--fullname name] [-e ext] [--gname name] [--gtitle title] [-l lang]
 
 Search and print a list of books by title, series, archive or file name.
 
@@ -109,8 +111,6 @@ Options::
     -s, --series series    Search by series
     -a, --archive archive  Search by archive (zip file)
     -f, --file file        Search by file name (without extension)
-    -d, --details          Output more details about books;
-                           repeat for even more details
     --surname surname      Search by author's surname
     --name name            Search by author's name
     --misc-name misc. name Search by author's misc. name
