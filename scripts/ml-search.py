@@ -119,32 +119,36 @@ def _search_books(case_sensitive, search_type, args):
             print "(id=%d)" % book.id,
         print
         if args.details >= 1:
-            print " ", _("Author(s)"), ":",
+            print " ", _("Author(s)").encode(default_encoding), ":",
             for author in book.authors:
                 names = filter(None,
                                (author.surname, author.name, author.misc_name))
                 fullname = u' '.join(names)
                 print fullname.encode(default_encoding),
             print
-            print " ", _("Genre(s)"), ":",
+            print " ", _("Genre(s)").encode(default_encoding), ":",
             for genre in book.genres:
                 print (genre.title or genre.name).encode(default_encoding),
             print
             if book.series:
-                print " ", _("Series"), ":",
+                print " ", _("Series").encode(default_encoding), ":",
                 print book.series.encode(default_encoding), \
                     "(%d)" % book.ser_no
 
         if args.details >= 2:
-            print " ", _("Date"), ":", book.date
-            print " ", _("Language"), ":", book.language.name
+            print " ", _("Date").encode(default_encoding), ":", book.date
+            print " ", _("Language").encode(default_encoding), ":", \
+                book.language.name.encode(default_encoding)
 
         if args.details >= 3:
-            print " ", _("Archive"), ":", book.archive
-            print " ", _("File"), ":", book.file
-            print " ", _("Extension"), ":", book.extension.name
-            print " ", _("Size"), ":", book.size, _("bytes")
-            print " ", _("Deleted"), ":", _(str(book.deleted))
+            print " ", _("Archive").encode(default_encoding), ":", book.archive
+            print " ", _("File").encode(default_encoding), ":", book.file
+            print " ", _("Extension").encode(default_encoding), ":", \
+                book.extension.name.encode(default_encoding)
+            print " ", _("Size").encode(default_encoding), ":", \
+                book.size, _("bytes").encode(default_encoding)
+            print " ", _("Deleted").encode(default_encoding), ":", \
+                _(str(book.deleted)).encode(default_encoding)
 
 
 def _search_extensions(case_sensitive, search_type, args):
