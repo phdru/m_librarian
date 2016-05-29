@@ -19,19 +19,21 @@ def _mk_search_conditions_with_operator(table, case_sensitive, comparison_op,
             _expressions.append(table.q.id == value)
     if case_sensitive:
         for column, value in values.items():
-            if column != 'id':
-                _expressions.append(
-                    getattr(getattr(table.q, column), comparison_op)(value))
+            if column == 'id':
+                continue
+            _expressions.append(
+                getattr(getattr(table.q, column), comparison_op)(value))
         for expr, value in expressions:
             _expressions.append(
                 getattr(expr, comparison_op)(value))
     else:
         for column, value in values.items():
-            if column != 'id':
-                _expressions.append(
-                    getattr(func.lower(
-                        getattr(table.q, column)),
-                        comparison_op)(value.lower()))
+            if column == 'id':
+                continue
+            _expressions.append(
+                getattr(func.lower(
+                    getattr(table.q, column)),
+                    comparison_op)(value.lower()))
         for expr, value in expressions:
             _expressions.append(
                 getattr(func.lower(expr), comparison_op)(value.lower()))
