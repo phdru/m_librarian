@@ -1,12 +1,12 @@
 
+from sqlobject.sqlbuilder import AND, func
+from .db import Author, Book, Extension, Genre, Language
+
 __all__ = [
     'mk_search_conditions',
     'search_authors', 'search_books', 'search_extensions',
     'search_genres', 'search_languages',
 ]
-
-from sqlobject.sqlbuilder import AND, func
-from .db import Author, Book, Extension, Genre, Language
 
 
 def _mk_search_conditions_with_operator(table, case_sensitive, comparison_op,

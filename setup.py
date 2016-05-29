@@ -21,7 +21,8 @@ if is_setuptools:
 
 versionpath = join(abspath(dirname(__file__)), 'm_librarian', '__version__.py')
 load_source('m_librarian_version', versionpath)
-from m_librarian_version import __version__
+# Ignore: E402 module level import not at top of file
+from m_librarian_version import __version__  # noqa
 
 setup(name='m_librarian',
       version=__version__,

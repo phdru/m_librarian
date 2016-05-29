@@ -1,12 +1,12 @@
 
-__all__ = ['import_inpx']
-
 import os
 from zipfile import ZipFile
 from sqlobject import sqlhub
 from sqlobject.sqlbuilder import Select
 from .db import Author, Book, Extension, Genre, Language, \
     insert_name, insert_author
+
+__all__ = ['import_inpx']
 
 
 EOT = chr(4)  # INP field separator

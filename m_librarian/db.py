@@ -1,15 +1,15 @@
 #! /usr/bin/env python
 
-__all__ = ['Author', 'Book', 'Extension', 'Genre', 'Language',
-           'AuthorBook', 'BookGenre', 'open_db', 'init_db',
-           'insert_name', 'insert_author', 'update_counters',
-           ]
-
 import os
 from sqlobject import SQLObject, StringCol, UnicodeCol, IntCol, BoolCol, \
     ForeignKey, DateCol, DatabaseIndex, RelatedJoin, \
     connectionForURI, sqlhub, SQLObjectNotFound, dberrors
 from .config import get_config
+
+__all__ = ['Author', 'Book', 'Extension', 'Genre', 'Language',
+           'AuthorBook', 'BookGenre', 'open_db', 'init_db',
+           'insert_name', 'insert_author', 'update_counters',
+           ]
 
 
 class Author(SQLObject):

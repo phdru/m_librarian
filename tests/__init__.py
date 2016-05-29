@@ -1,11 +1,10 @@
 
-__all__ = ['TestCase', 'main']
-
-
 import os
 import unittest
 from m_librarian.db import open_db, init_db
 from m_librarian.inp import import_inpx
+
+__all__ = ['TestCase', 'main']
 
 
 class TestCase(unittest.TestCase):

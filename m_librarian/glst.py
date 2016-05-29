@@ -1,11 +1,11 @@
 #! /usr/bin/env python
 
-__all__ = ['import_glst']
-
 import codecs
 import os
 from sqlobject import sqlhub, SQLObjectNotFound
 from .db import Genre
+
+__all__ = ['import_glst']
 
 
 def parse_glst_file(glst_filename):

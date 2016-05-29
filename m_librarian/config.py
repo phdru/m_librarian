@@ -1,9 +1,9 @@
 #! /usr/bin/env python
 
-__all__ = ['get_config']
-
 import os
 from ConfigParser import SafeConfigParser
+
+__all__ = ['get_config']
 
 
 def _find_config_dirs_posix():
