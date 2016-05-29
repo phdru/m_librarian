@@ -10,7 +10,7 @@ Command-line scripts
 ml-initdb.py
 ------------
 
-Initialize database and import genres list. Doesn't really needed as
+Initialize database and import genres list. Isn’t really needed as
 the next script does all that too.
 
 
@@ -22,7 +22,7 @@ Usage::
     ml-import.py [file.inpx ...]
 
 Initialize database, import genres list and import a list of INPX files
-listed in the command line. On subsequent runs doesn't destroy DB or
+listed in the command line. On subsequent runs doesn’t destroy DB or
 reimport genres; it also skips already import books but import new ones.
 
 
@@ -39,7 +39,7 @@ search authors by name.
 Global options::
 
     -i, --ignore-case     ignore case (default is to guess)
-    -I, --case-sensitive  don't ignore case
+    -I, --case-sensitive  don’t ignore case
     -t, --start           search type: substring at the start
                           (this is the default)
     -s, --substring       search type: substring anywhere
@@ -111,13 +111,13 @@ Options::
     -s, --series series    Search by series
     -a, --archive archive  Search by archive (zip file)
     -f, --file file        Search by file name (without extension)
-    --surname surname      Search by author's surname
-    --name name            Search by author's name
-    --misc-name misc. name Search by author's misc. name
-    --fullname name        Search by author's full name
+    --surname surname      Search by author’s surname
+    --name name            Search by author’s name
+    --misc-name misc. name Search by author’s misc. name
+    --fullname name        Search by author’s full name
     -e, --ext ext          Search by file extension
-    --gname name           Search by genre's name
-    --gtitle title         Search by genre's title
+    --gname name           Search by genre’s name
+    --gtitle title         Search by genre’s title
     -l, --lang lang        Search by language
 
 By default the program prints only titles of the found book. With one
