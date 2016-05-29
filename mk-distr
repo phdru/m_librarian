@@ -8,5 +8,7 @@ git archive --format=tar --prefix=m_librarian/ "${1:-HEAD}" |
 cp -ap docs* "$HOME/tmp/m_librarian" &&
 
 cd "$HOME/tmp/m_librarian" &&
+chmod -R u=rwX,go=rX docs* &&
+
 python setup.py sdist --formats=bztar &&
 cd dist && mv m_librarian-*.tar.bz2 ../.. && cd ../.. && exec rm -rf m_librarian
