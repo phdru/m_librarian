@@ -44,9 +44,9 @@ Global options::
                           (this is the default)
     -s, --substring       search type: substring anywhere
     -f, --full            search type: match the full string
-    -d, --details         Output more details about found objects;
-                          repeat for even more details
     -c, --count           Output count of found objects
+    -v, --verbose         Output more details about found objects;
+                          repeat for even more details
 
 Options ``-i/-I`` cannot be used together as they are the opposite. In
 case none of them are used the program guesses case-sensitivity by

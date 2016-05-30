@@ -59,7 +59,7 @@ def _search_authors(case_sensitive, search_type, args):
         print fullname.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), author.count))\
             .encode(default_encoding),
-        if args.details >= 1:
+        if args.verbose >= 1:
             print "(id=%d)" % author.id,
         print
 
@@ -133,10 +133,10 @@ def _search_books(case_sensitive, search_type, args):
         return
     for book in books:
         print book.title.encode(default_encoding),
-        if args.details >= 1:
+        if args.verbose >= 1:
             print "(id=%d)" % book.id,
         print
-        if args.details >= 1:
+        if args.verbose >= 1:
             print " ", _("Author(s)").encode(default_encoding), ":",
             for author in book.authors:
                 names = filter(None,
@@ -153,12 +153,12 @@ def _search_books(case_sensitive, search_type, args):
                 print book.series.encode(default_encoding), \
                     "(%d)" % book.ser_no
 
-        if args.details >= 2:
+        if args.verbose >= 2:
             print " ", _("Date").encode(default_encoding), ":", book.date
             print " ", _("Language").encode(default_encoding), ":", \
                 book.language.name.encode(default_encoding)
 
-        if args.details >= 3:
+        if args.verbose >= 3:
             print " ", _("Archive").encode(default_encoding), ":", book.archive
             print " ", _("File").encode(default_encoding), ":", book.file
             print " ", _("Extension").encode(default_encoding), ":", \
@@ -183,7 +183,7 @@ def _search_extensions(case_sensitive, search_type, args):
     for ext in extensions:
         print ext.name.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), ext.count)).encode(default_encoding),
-        if args.details >= 1:
+        if args.verbose >= 1:
             print "(id=%d)" % ext.id,
         print
 
@@ -201,7 +201,7 @@ def _search_genres(case_sensitive, search_type, args):
         fullname = u' '.join(names)
         print fullname.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), genre.count)).encode(default_encoding),
-        if args.details >= 1:
+        if args.verbose >= 1:
             print "(id=%d)" % genre.id,
         print
 
@@ -216,7 +216,7 @@ def _search_languages(case_sensitive, search_type, args):
                                  orderBy='name'):
         print lang.name.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), lang.count)).encode(default_encoding),
-        if args.details >= 1:
+        if args.verbose >= 1:
             print "(id=%d)" % lang.id,
         print
 
@@ -235,11 +235,11 @@ if __name__ == '__main__':
                              help='search substring anywhere')
     main_parser.add_argument('-f', '--full', action='store_true',
                              help='match the entire string')
-    main_parser.add_argument('-d', '--details', action='count',
-                             help='output more details about books; '
-                             'repeat for even more details')
     main_parser.add_argument('-c', '--count', action='store_true',
                              help='count instead of output')
+    main_parser.add_argument('-v', '--verbose', action='count',
+                             help='output more details about books; '
+                             'repeat for even more details')
     subparsers = main_parser.add_subparsers(help='Commands')
 
     parser = subparsers.add_parser('authors', help='Search authors')
