@@ -71,7 +71,7 @@ Author search
 
 Usage::
 
-    ml-search.py [-i/-I] [-t/-s/-f] author [-s surname] [-n name] [-m misc-name] [fullname]
+    ml-search.py [-i/-I] [-t/-s/-f] author [-s surname] [-n name] [-m misc-name] [--id id] [fullname]
 
 Search and print a list of authors by surname/name/misc name/full name.
 
@@ -80,6 +80,7 @@ Options::
     -s, --surname surname       Search by surname
     -n, --name name             Search by name
     -m, --misc-name misc. name  Search by misc. name
+    --id id                     Search by database id
 
 Example::
 
@@ -142,7 +143,11 @@ Extension search
 
 Usage::
 
-    ml-search.py [-i/-I] [-t/-s/-f] ext [name]
+    ml-search.py [-i/-I] [-t/-s/-f] ext [name] [--id id]
+
+Options::
+
+    --id id                Search by database id
 
 Search and print a list of extensions by name.
 
@@ -154,7 +159,7 @@ Genres search
 
 Usage::
 
-    ml-search.py [-i/-I] [-t/-s/-f] genres [-n name] [-t title]
+    ml-search.py [-i/-I] [-t/-s/-f] genres [-n name] [-t title] [--id id]
 
 Search and print a list of genres by name and title.
 
@@ -162,6 +167,7 @@ Options::
 
     -n, --name name    Search by name
     -t, --title title  Search by title
+    --id id            Search by database id
 
 With one option `-d` it also prints database id.
 
@@ -171,9 +177,13 @@ Language search
 
 Usage::
 
-    ml-search.py [-i/-I] [-t/-s/-f] lang [name]
+    ml-search.py [-i/-I] [-t/-s/-f] lang [name] [--id id]
 
 Search and print a list of languages by name.
+
+Options::
+
+    --id id                Search by database id
 
 With one option `-d` it also prints database id.
 

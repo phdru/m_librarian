@@ -37,7 +37,7 @@ def _search_authors(case_sensitive, search_type, args):
         main_parser.print_help()
         sys.exit(1)
     expressions = []
-    values = _get_values(args, 'surname', 'name', 'misc_name')
+    values = _get_values(args, 'surname', 'name', 'misc_name', 'id')
     if not values:
         value = args.fullname
         if value:
@@ -170,10 +170,9 @@ def _search_books(case_sensitive, search_type, args):
 
 
 def _search_extensions(case_sensitive, search_type, args):
-    if args.name:
-        values = {'name': args.name}
-        if case_sensitive is None:
-            case_sensitive = _guess_case_sensitivity(values)
+    values = _get_values(args, 'name', 'id')
+    if case_sensitive is None:
+        case_sensitive = _guess_case_sensitivity(values)
     else:
         values = {}
     extensions = search_extensions(search_type, case_sensitive, values,
@@ -190,7 +189,7 @@ def _search_extensions(case_sensitive, search_type, args):
 
 
 def _search_genres(case_sensitive, search_type, args):
-    values = _get_values(args, 'name', 'title')
+    values = _get_values(args, 'name', 'title', 'id')
     if case_sensitive is None:
         case_sensitive = _guess_case_sensitivity(values)
     genres = search_genres(search_type, case_sensitive, values, orderBy='name')
@@ -208,10 +207,9 @@ def _search_genres(case_sensitive, search_type, args):
 
 
 def _search_languages(case_sensitive, search_type, args):
-    if args.name:
-        values = {'name': args.name}
-        if case_sensitive is None:
-            case_sensitive = _guess_case_sensitivity(values)
+    values = _get_values(args, 'name', 'id')
+    if case_sensitive is None:
+        case_sensitive = _guess_case_sensitivity(values)
     else:
         values = {}
     for lang in search_languages(search_type, case_sensitive, values,
@@ -248,6 +246,7 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--surname', help='search by surname')
     parser.add_argument('-n', '--name', help='search by name')
     parser.add_argument('-m', '--misc-name', help='search by misc. name')
+    parser.add_argument('--id', help='search by database id')
     parser.add_argument('fullname', nargs='?', help='search by full name')
     parser.set_defaults(func=_search_authors)
 
@@ -273,15 +272,18 @@ if __name__ == '__main__':
 
     parser = subparsers.add_parser('ext', help='Search extensions')
     parser.add_argument('name', nargs='?', help='search by name')
+    parser.add_argument('--id', help='search by database id')
     parser.set_defaults(func=_search_extensions)
 
     parser = subparsers.add_parser('genres', help='Search genres')
     parser.add_argument('-n', '--name', help='search by name')
     parser.add_argument('-t', '--title', help='search by title')
+    parser.add_argument('--id', help='search by database id')
     parser.set_defaults(func=_search_genres)
 
     parser = subparsers.add_parser('lang', help='Search languages')
     parser.add_argument('name', nargs='?', help='search by name')
+    parser.add_argument('--id', help='search by database id')
     parser.set_defaults(func=_search_languages)
 
     args = main_parser.parse_args()

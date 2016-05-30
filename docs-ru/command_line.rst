@@ -73,7 +73,7 @@ ml-search.py
 
 Использование::
 
-    ml-search.py [-i/-I] [-t/-s/-f] author [-s surname] [-n name] [-m misc-name] [fullname]
+    ml-search.py [-i/-I] [-t/-s/-f] author [-s surname] [-n name] [-m misc-name] [--id id] [fullname]
 
 Искать и печатать список авторов по фамилии, имени, доп. имени (обычно
 отчеству) или полному имени.
@@ -83,6 +83,7 @@ ml-search.py
     -s, --surname фамилия       Искать по фамилии
     -n, --name имя              Искать по имени
     -m, --misc-name доп. имени  Искать по доп. имени
+    --id id                     Искать по id автора
 
 Пример::
 
@@ -145,7 +146,11 @@ ml-search.py
 
 Использование::
 
-    ml-search.py [-i/-I] [-t/-s/-f] ext [name]
+    ml-search.py [-i/-I] [-t/-s/-f] ext [name] [--id id]
+
+Опции::
+
+    --id id                Искать по id расширения
 
 Искать и печатать список расширений имён файлов по имени.
 
@@ -157,7 +162,7 @@ ml-search.py
 
 Использование::
 
-    ml-search.py [-i/-I] [-t/-s/-f] genres [-n name] [-t title]
+    ml-search.py [-i/-I] [-t/-s/-f] genres [-n name] [-t title] [--id id]
 
 Искать и печатать список жанров по имени и заголовку.
 
@@ -165,6 +170,7 @@ ml-search.py
 
     -n, --name имя         Искать по названию
     -t, --title заголовок  Искать по заголовку
+    --id id                Искать по id жанра
 
 При использовании опции `-d` также выводится id из БД.
 
@@ -174,7 +180,11 @@ ml-search.py
 
 Использование::
 
-    ml-search.py [-i/-I] [-t/-s/-f] lang [name]
+    ml-search.py [-i/-I] [-t/-s/-f] lang [name] [--id id]
+
+Опции::
+
+    --id id                Искать по id языка
 
 Искать и печатать список языков по имени.
 
