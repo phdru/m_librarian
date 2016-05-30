@@ -1,5 +1,7 @@
 Version 0.0.10 (2016-05-??)
 
+   Print count after the list
+
    Rename -d/--details options to -v/--verbose
 
 Version 0.0.9 (2016-05-30)

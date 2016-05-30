@@ -29,11 +29,14 @@ msgstr "Удалена"
 msgid "Extension"
 msgstr "Расширение"
 
+msgid "False"
+msgstr "Нет"
+
 msgid "File"
 msgstr "Файл"
 
-msgid "False"
-msgstr "Нет"
+msgid "Found"
+msgstr "Найдено"
 
 msgid "Genre(s)"
 msgstr "Жанр(ы)"
