@@ -142,6 +142,14 @@ def open_db(db_uri=None):
         except:
             db_uri = find_sqlite_dburi()
 
+    if db_uri.startswith(os.sep) or db_uri.startswith(os.altsep) \
+            or db_uri.startswith(os.pardir + os.sep) \
+            or db_uri.startswith(os.pardir + os.altsep):
+        if db_uri.startswith(os.pardir + os.sep) \
+        or db_uri.startswith(os.pardir + os.altsep):
+            db_uri = os.path.abspath(db_uri)
+        db_uri = 'sqlite://' + db_uri.replace(os.sep, '/')
+
     sqlhub.processConnection = connection = connectionForURI(db_uri)
 
     if connection.dbName == 'sqlite':
