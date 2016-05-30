@@ -1,20 +1,22 @@
 Version 0.0.10 (2016-05-??)
 
-   Print count after the list
+   Multidatabase - every script can open a database by pathname or DB URI.
 
-   Rename -d/--details options to -v/--verbose
+   Print count after the list.
+
+   Rename -d/--details options to -v/--verbose.
 
 Version 0.0.9 (2016-05-30)
 
-   Search authors/extensions/genres/languages by database id
+   Search authors/extensions/genres/languages by database id.
 
 Version 0.0.8 (2016-05-29)
 
-    Search by author's, book's, extension's, language's id
+    Search by author's, book's, extension's, language's id.
 
-    Output count of found objects
+    Output count of found objects.
 
-    Use option -d to output database id
+    Use option -d to output database id.
 
 Version 0.0.7 (2016-05-25)
 

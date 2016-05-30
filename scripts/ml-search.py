@@ -236,6 +236,7 @@ def _search_languages(case_sensitive, search_type, args):
 
 if __name__ == '__main__':
     main_parser = argparse.ArgumentParser(description='Search')
+    main_parser.add_argument('-d', '--database', help='database URI')
     main_parser.add_argument('-i', '--ignore-case', action='store_true',
                              help='ignore case '
                              '(default is to guess)')
@@ -330,5 +331,5 @@ if __name__ == '__main__':
     else:
         search_type = 'start'
 
-    open_db()
+    open_db(args.database)
     args.func(case_sensitive, search_type, args)

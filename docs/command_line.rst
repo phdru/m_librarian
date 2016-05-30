@@ -10,6 +10,14 @@ Command-line scripts
 ml-initdb.py
 ------------
 
+Usage::
+
+    ml-initdb.py [-d]
+
+Options::
+
+    -d, --database database  Open this database by pathname/db uri
+
 Initialize database and import genres list. Isn’t really needed as
 the next script does all that too.
 
@@ -19,7 +27,11 @@ ml-import.py
 
 Usage::
 
-    ml-import.py [file.inpx ...]
+    ml-import.py [-d] [file.inpx ...]
+
+Options::
+
+    -d, --database database  Open this database by pathname/db uri
 
 Initialize database, import genres list and import a list of INPX files
 listed in the command line. On subsequent runs doesn’t destroy DB or
@@ -31,22 +43,23 @@ ml-search.py
 
 Usage::
 
-    ml-search.py [-i] [-I] [-t] [-s] [-f] [-d] [-c] ...
+    ml-search.py [-d] [-i] [-I] [-t] [-s] [-f] [-v] [-c] ...
 
 Search through the database and display results. Currently can only
 search authors by name.
 
 Global options::
 
-    -i, --ignore-case     ignore case (default is to guess)
-    -I, --case-sensitive  don’t ignore case
-    -t, --start           search type: substring at the start
-                          (this is the default)
-    -s, --substring       search type: substring anywhere
-    -f, --full            search type: match the full string
-    -c, --count           Output count of found objects
-    -v, --verbose         Output more details about found objects;
-                          repeat for even more details
+    -d, --database database  Open this database by pathname/db uri
+    -i, --ignore-case        ignore case (default is to guess)
+    -I, --case-sensitive     don’t ignore case
+    -t, --start              search type: substring at the start
+                             (this is the default)
+    -s, --substring          search type: substring anywhere
+    -f, --full               search type: match the full string
+    -c, --count              Output count of found objects
+    -v, --verbose            Output more details about found objects;
+                             repeat for even more details
 
 Options ``-i/-I`` cannot be used together as they are the opposite. In
 case none of them are used the program guesses case-sensitivity by
@@ -71,7 +84,7 @@ Author search
 
 Usage::
 
-    ml-search.py [-i/-I] [-t/-s/-f] author [-s surname] [-n name] [-m misc-name] [--id id] [fullname]
+    ml-search.py author [-s surname] [-n name] [-m misc-name] [--id id] [fullname]
 
 Search and print a list of authors by surname/name/misc name/full name.
 
@@ -97,7 +110,7 @@ Example::
 Search and print a list of authors whose surname starts with "duck" and
 name starts with "mack", case insensitive.
 
-With one option `-d` it also prints database id.
+With one option `-v` it also prints database id.
 
 
 Book search
@@ -105,7 +118,7 @@ Book search
 
 Usage::
 
-    ml-search.py [-i/-I] [-t/-s/-f] books [-t title] [-s series] [-a archive] [-f file] [--id id] [--surname name] [--name name] [--misc-name name] [--fullname name] [--aid aid] [-e ext] [--eid eid] [--gname name] [--gtitle title] [--gid gid] [-l lang] [--lid lid]
+    ml-search.py books [-t title] [-s series] [-a archive] [-f file] [--id id] [--surname name] [--name name] [--misc-name name] [--fullname name] [--aid aid] [-e ext] [--eid eid] [--gname name] [--gtitle title] [--gid gid] [-l lang] [--lid lid]
 
 Search and print a list of books by title, series, archive or file name.
 
@@ -130,10 +143,10 @@ Options::
     --lid lid              Search by language’s id
 
 By default the program prints only titles of the found book. With one
-option `-d` it also prints database id, the list of authors and genres,
+option `-v` it also prints database id, the list of authors and genres,
 and also series the book belongs to (if any) and the serial number of
-the book in the series. With two options `-d` (`-d -d` or simply `-dd`)
-it also prints the file date and language. With three `-d` it prints
+the book in the series. With two options `-v` (`-v -v` or simply `-vv`)
+it also prints the file date and language. With three `-v` it prints
 archive name, file name, extension and size, and flag if the book is
 marked to be deleted.
 
@@ -143,7 +156,7 @@ Extension search
 
 Usage::
 
-    ml-search.py [-i/-I] [-t/-s/-f] ext [name] [--id id]
+    ml-search.py ext [name] [--id id]
 
 Options::
 
@@ -151,7 +164,7 @@ Options::
 
 Search and print a list of extensions by name.
 
-With one option `-d` it also prints database id.
+With one option `-v` it also prints database id.
 
 
 Genres search
@@ -159,7 +172,7 @@ Genres search
 
 Usage::
 
-    ml-search.py [-i/-I] [-t/-s/-f] genres [-n name] [-t title] [--id id]
+    ml-search.py genres [-n name] [-t title] [--id id]
 
 Search and print a list of genres by name and title.
 
@@ -169,7 +182,7 @@ Options::
     -t, --title title  Search by title
     --id id            Search by database id
 
-With one option `-d` it also prints database id.
+With one option `-v` it also prints database id.
 
 
 Language search
@@ -177,7 +190,7 @@ Language search
 
 Usage::
 
-    ml-search.py [-i/-I] [-t/-s/-f] lang [name] [--id id]
+    ml-search.py lang [name] [--id id]
 
 Search and print a list of languages by name.
 
@@ -185,6 +198,6 @@ Options::
 
     --id id                Search by database id
 
-With one option `-d` it also prints database id.
+With one option `-v` it also prints database id.
 
 .. vim: set tw=72 :

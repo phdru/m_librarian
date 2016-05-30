@@ -1,10 +1,15 @@
 #! /usr/bin/env python
 
+import argparse
 from m_librarian.db import open_db, init_db
 from m_librarian.glst import import_glst
 
 if __name__ == '__main__':
-    open_db()
+    parser = argparse.ArgumentParser(description='Init')
+    parser.add_argument('-d', '--database', help='database URI')
+    args = parser.parse_args()
+
+    open_db(args.database)
     init_db()
     old, new = import_glst()
     if old:

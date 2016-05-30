@@ -1,10 +1,6 @@
 Web interface for listing authors, books, series, etc.
 
 
-Multidatabase: LRE FB2, Flibusta FB2, LRE all, Flibusta all,
-LRE+Flibusta FB2, LRE+Flibusta all.
-
-
 Import from SQL instead of INPX. Import annotations and illustrations.
 
 
