@@ -104,7 +104,7 @@ Book search
 
 Usage::
 
-    ml-search.py [-i/-I] [-t/-s/-f] books [-t title] [-s series] [-a archive] [-f file] [--surname name] [--name name] [--misc-name name] [--fullname name] [-e ext] [--gname name] [--gtitle title] [-l lang]
+    ml-search.py [-i/-I] [-t/-s/-f] books [-t title] [-s series] [-a archive] [-f file] [--id id] [--surname name] [--name name] [--misc-name name] [--fullname name] [--aid aid] [-e ext] [--eid eid] [--gname name] [--gtitle title] [--gid gid] [-l lang] [--lid lid]
 
 Search and print a list of books by title, series, archive or file name.
 
@@ -114,14 +114,19 @@ Options::
     -s, --series series    Search by series
     -a, --archive archive  Search by archive (zip file)
     -f, --file file        Search by file name (without extension)
+    --id id                Search by database id
     --surname surname      Search by author’s surname
     --name name            Search by author’s name
     --misc-name misc. name Search by author’s misc. name
     --fullname name        Search by author’s full name
+    --aid aid              Search by author’s id
     -e, --ext ext          Search by file extension
+    --eid eid              Search by extension’s id
     --gname name           Search by genre’s name
     --gtitle title         Search by genre’s title
+    --gid gid              Search by genre’s id
     -l, --lang lang        Search by language
+    --lid lid              Search by language’s id
 
 By default the program prints only titles of the found book. With one
 option `-d` it also prints database id, the list of authors and genres,

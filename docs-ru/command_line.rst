@@ -107,7 +107,7 @@ ml-search.py
 
 Использование::
 
-    ml-search.py [-i/-I] [-t/-s/-f] books [-t title] [-s series] [-a archive] [-f file] [--surname name] [--name name] [--misc-name name] [--fullname name] [--gname name] [--gtitle title] [-e ext] [-l lang]
+    ml-search.py [-i/-I] [-t/-s/-f] books [-t title] [-s series] [-a archive] [-f file] [--id id] [--surname name] [--name name] [--misc-name name] [--fullname name] [--aid aid] [-e ext] [--eid eid] [--gname name] [--gtitle title] [--gid gid] [-l lang] [--lid lid]
 
 Искать и печатать список книг по заголовку, серии, архиву, имени файла.
 
@@ -117,14 +117,19 @@ ml-search.py
     -s, --series серия     Искать по серии
     -a, --archive архив    Искать по имени архива (zip-файла)
     -f, --file файл        Искать по имени файла (без расширения)
+    --id id                Искать по id книги
     --surname surname      Искать по фамилии автора
     --name name            Искать по имени автора
     --misc-name misc. name Искать по доп. имени автора
     --fullname name        Искать по полному имени автора
+    --aid aid              Искать по id автора
     -e, --ext ext          Искать по расширению имени файла
+    --eid eid              Искать по id расширения
     --gname name           Искать по названию жанра
     --gtitle title         Искать по заголовку жанра
+    --gid gid              Искать по id жанра
     -l, --lang lang        Искать по языку
+    --lid lid              Искать по id языка
 
 По умолчанию программы выводит список заголовков найденных книг. При
 использовании опции `-d` также выводится id из БД, список авторов и
