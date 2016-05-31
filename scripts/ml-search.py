@@ -30,8 +30,8 @@ def _guess_case_sensitivity(values):
     return False
 
 
-def print_count(query):
-    print _("Found").encode(default_encoding), ":", query.count()
+def print_count(count):
+    print _("Found").encode(default_encoding), ":", count
 
 
 def _search_authors(case_sensitive, search_type, args):
@@ -55,8 +55,9 @@ def _search_authors(case_sensitive, search_type, args):
     authors = search_authors(search_type, case_sensitive, values, expressions,
                              orderBy=('surname', 'name', 'misc_name'))
     if args.count:
-        print_count(authors)
+        print_count(authors.count())
         return
+    count = 0
     for author in authors:
         names = filter(None, (author.surname, author.name, author.misc_name))
         fullname = u' '.join(names)
@@ -66,7 +67,8 @@ def _search_authors(case_sensitive, search_type, args):
         if args.verbose >= 1:
             print "(id=%d)" % author.id,
         print
-    print_count(authors)
+        count += 1
+    print_count(count)
 
 
 def _search_books(case_sensitive, search_type, args):
@@ -134,8 +136,9 @@ def _search_books(case_sensitive, search_type, args):
     books = search_books(search_type, case_sensitive, values, join_expressions,
                          orderBy=('series', 'ser_no', 'title'))
     if args.count:
-        print_count(books)
+        print_count(books.count())
         return
+    count = 0
     for book in books:
         print book.title.encode(default_encoding),
         if args.verbose >= 1:
@@ -172,7 +175,8 @@ def _search_books(case_sensitive, search_type, args):
                 book.size, _("bytes").encode(default_encoding)
             print " ", _("Deleted").encode(default_encoding), ":", \
                 _(str(book.deleted)).encode(default_encoding)
-    print_count(books)
+        count += 1
+    print_count(count)
 
 
 def _search_extensions(case_sensitive, search_type, args):
@@ -184,15 +188,17 @@ def _search_extensions(case_sensitive, search_type, args):
     extensions = search_extensions(search_type, case_sensitive, values,
                                    orderBy='name')
     if args.count:
-        print_count(extensions)
+        print_count(extensions.count())
         return
+    count = 0
     for ext in extensions:
         print ext.name.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), ext.count)).encode(default_encoding),
         if args.verbose >= 1:
             print "(id=%d)" % ext.id,
         print
-    print_count(extensions)
+        count += 1
+    print_count(count)
 
 
 def _search_genres(case_sensitive, search_type, args):
@@ -201,8 +207,9 @@ def _search_genres(case_sensitive, search_type, args):
         case_sensitive = _guess_case_sensitivity(values)
     genres = search_genres(search_type, case_sensitive, values, orderBy='name')
     if args.count:
-        print_count(genres)
+        print_count(genres.count())
         return
+    count = 0
     for genre in genres:
         names = filter(None, (genre.name, genre.title))
         fullname = u' '.join(names)
@@ -211,7 +218,8 @@ def _search_genres(case_sensitive, search_type, args):
         if args.verbose >= 1:
             print "(id=%d)" % genre.id,
         print
-    print_count(genres)
+        count += 1
+    print_count(count)
 
 
 def _search_languages(case_sensitive, search_type, args):
@@ -223,15 +231,17 @@ def _search_languages(case_sensitive, search_type, args):
     languages = search_languages(search_type, case_sensitive, values,
                                  orderBy='name')
     if args.count:
-        print_count(languages)
+        print_count(languages.count())
         return
+    count = 0
     for lang in languages:
         print lang.name.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), lang.count)).encode(default_encoding),
         if args.verbose >= 1:
             print "(id=%d)" % lang.id,
         print
-    print_count(languages)
+        count += 1
+    print_count(count)
 
 
 if __name__ == '__main__':
