@@ -17,6 +17,7 @@ def _mk_search_conditions_with_operator(table, case_sensitive, comparison_op,
     for column, value in values.items():
         if column == 'id':
             _expressions.append(table.q.id == value)
+            break
     if case_sensitive:
         for column, value in values.items():
             if column == 'id':
