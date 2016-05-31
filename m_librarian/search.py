@@ -41,7 +41,7 @@ def _mk_search_conditions_with_operator(table, case_sensitive, comparison_op,
     return _expressions
 
 
-_search_conditions_dict = {
+_comparison_operators = {
     'start': 'startswith',
     'substring': 'contains',
     'full': '__eq__',
@@ -53,7 +53,7 @@ def mk_search_conditions(table, search_type, case_sensitive, values,
     if join_expressions is None:
         join_expressions = []
     return _mk_search_conditions_with_operator(
-        table, case_sensitive, _search_conditions_dict[search_type],
+        table, case_sensitive, _comparison_operators[search_type],
         values, expressions) + join_expressions
 
 
