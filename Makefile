@@ -3,9 +3,16 @@
 all:
 	@echo "Nothing to be done for 'all'"
 
+.PHONY: release
+release: tests flake8 html distr
+
 .PHONY: distr
 distr:
 	./mk-distr
+
+.PHONY: flake8
+flake8:
+	flake8
 
 .PHONY: html
 html:
