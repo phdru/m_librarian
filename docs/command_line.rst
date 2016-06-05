@@ -118,7 +118,7 @@ Book search
 
 Usage::
 
-    ml-search.py books [-t title] [-s series] [-a archive] [-f file] [--id id] [--surname name] [--name name] [--misc-name name] [--fullname name] [--aid aid] [-e ext] [--eid eid] [--gname name] [--gtitle title] [--gid gid] [-l lang] [--lid lid]
+    ml-search.py books [-t title] [-s series] [-a archive] [-f file] [-p path] [--get] [--id id] [--surname name] [--name name] [--misc-name name] [--fullname name] [--aid aid] [-e ext] [--eid eid] [--gname name] [--gtitle title] [--gid gid] [-l lang] [--lid lid]
 
 Search and print a list of books by title, series, archive or file name.
 
@@ -128,6 +128,9 @@ Options::
     -s, --series series    Search by series
     -a, --archive archive  Search by archive (zip file)
     -f, --file file        Search by file name (without extension)
+    -p, --path path        Path to the directory with the library
+                           archives
+    --get                  Download exactly one book
     --id id                Search by database id
     --surname surname      Search by author’s surname
     --name name            Search by author’s name
@@ -149,6 +152,20 @@ the book in the series. With two options `-v` (`-v -v` or simply `-vv`)
 it also prints the file date and language. With three `-v` it prints
 archive name, file name, extension and size, and flag if the book is
 marked to be deleted.
+
+Option `-p` provides the path to the directory with the library
+archives. By default the path is extracted from `m_librarian.conf`,
+section `[library]`, key `path`::
+
+    [library]
+    path = /var/lib/archives
+
+The option is useful for multiple databases (global option `-d`).
+
+Option `--get` allows to download a book from the library to a local
+file. The option allows to download exactly one book. The simplest way
+to use it is via option `--id`. The file is downloaded into the current
+directory with the name from the library.
 
 
 Extension search
