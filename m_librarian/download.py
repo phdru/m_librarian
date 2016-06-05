@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 import os
+from time import mktime
 from shutil import copyfileobj
 from zipfile import ZipFile
 from .config import get_config
@@ -11,7 +12,7 @@ __all__ = ['download']
 _library_path = None
 
 
-def download(archive, filename, path=None):
+def download(archive, filename, date, path=None):
     if path is None:
         global _library_path
         if _library_path is None:
@@ -25,3 +26,5 @@ def download(archive, filename, path=None):
     outfile.close()
     infile.close()
     zf.close()
+    dt = mktime(date.timetuple())
+    os.utime(filename, (dt, dt))
