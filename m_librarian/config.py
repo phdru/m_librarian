@@ -35,12 +35,17 @@ def find_config_file(config_dirs=None):
         raise IOError("Cannot find m_librarian.conf in %s" % config_dirs)
 
 
+_ml_config = None
+
+
 def get_config(config_filename=None):
-    if config_filename is None:
-        config_filename = find_config_file()
-    ml_conf = SafeConfigParser()
-    ml_conf.read(config_filename)
-    return ml_conf
+    global _ml_config
+    if _ml_config is None:
+        if config_filename is None:
+            config_filename = find_config_file()
+        _ml_config = SafeConfigParser()
+        _ml_config.read(config_filename)
+    return _ml_config
 
 
 def test():
