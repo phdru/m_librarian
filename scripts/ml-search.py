@@ -146,7 +146,8 @@ def _search_books(case_sensitive, search_type, args):
                              "(found %d).\n" % count)
             sys.exit(1)
         book = books[0]
-        download(book.archive, '%s.%s' % (book.file, book.extension.name))
+        download(book.archive, '%s.%s' % (book.file, book.extension.name),
+                 args.path)
         return
     count = 0
     for book in books:
@@ -289,6 +290,7 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--series', help='search by series')
     parser.add_argument('-a', '--archive', help='search by archive (zip file)')
     parser.add_argument('-f', '--file', help='search by file name')
+    parser.add_argument('-p', '--path', help='path to the library archives')
     parser.add_argument('--get', action='store_true',
                         help='download exactly one book')
     parser.add_argument('--id', help='search by database id')
