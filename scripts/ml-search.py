@@ -6,6 +6,7 @@ from sqlobject.sqlbuilder import CONCAT
 
 from m_lib.defenc import default_encoding
 from m_librarian.db import Author, Book, Extension, Genre, Language, open_db
+from m_librarian.download import download
 from m_librarian.search import mk_search_conditions, \
     search_authors, search_books, \
     search_extensions, search_genres, search_languages
@@ -137,6 +138,15 @@ def _search_books(case_sensitive, search_type, args):
                          orderBy=('series', 'ser_no', 'title'))
     if args.count:
         print_count(books.count())
+        return
+    if args.get:
+        count = books.count()
+        if count != 1:
+            sys.stderr.write("There must be exactly 1 book for --get; "
+                             "(found %d).\n" % count)
+            sys.exit(1)
+        book = books[0]
+        download(book.archive, '%s.%s' % (book.file, book.extension.name))
         return
     count = 0
     for book in books:
@@ -279,6 +289,8 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--series', help='search by series')
     parser.add_argument('-a', '--archive', help='search by archive (zip file)')
     parser.add_argument('-f', '--file', help='search by file name')
+    parser.add_argument('--get', action='store_true',
+                        help='download exactly one book')
     parser.add_argument('--id', help='search by database id')
     parser.add_argument('--surname', help='search by author\'s surname')
     parser.add_argument('--name', help='search by author\'s name')
