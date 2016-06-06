@@ -1,3 +1,7 @@
+Version 0.0.11 (2016-06-06)
+
+   Download exactly one book.
+
 Version 0.0.10 (2016-05-31)
 
    Multidatabase - every script can open a database by pathname or DB URI.
