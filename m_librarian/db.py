@@ -20,6 +20,12 @@ class Author(SQLObject):
     books = RelatedJoin('Book', otherColumn='book_id',
                         intermediateTable='author_book',
                         createRelatedTable=False)
+
+    @property
+    def fullname(self):
+        fullnames = filter(None, (self.surname, self.name, self.misc_name))
+        return ' '.join(fullnames)
+
     full_name_idx = DatabaseIndex(surname, name, misc_name, unique=True)
     count_idx = DatabaseIndex(count)
 

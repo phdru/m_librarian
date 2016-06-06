@@ -60,9 +60,7 @@ def _search_authors(case_sensitive, search_type, args):
         return
     count = 0
     for author in authors:
-        names = filter(None, (author.surname, author.name, author.misc_name))
-        fullname = u' '.join(names)
-        print fullname.encode(default_encoding), \
+        print author.fullname.encode(default_encoding), \
             (u"(%s: %d)" % (_('books'), author.count))\
             .encode(default_encoding),
         if args.verbose >= 1:
@@ -158,10 +156,7 @@ def _search_books(case_sensitive, search_type, args):
         if args.verbose >= 1:
             print " ", _("Author(s)").encode(default_encoding), ":",
             for author in book.authors:
-                names = filter(None,
-                               (author.surname, author.name, author.misc_name))
-                fullname = u' '.join(names)
-                print fullname.encode(default_encoding),
+                print author.fullname.encode(default_encoding),
             print
             print " ", _("Genre(s)").encode(default_encoding), ":",
             for genre in book.genres:
