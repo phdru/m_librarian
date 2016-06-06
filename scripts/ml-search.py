@@ -144,8 +144,7 @@ def _search_books(case_sensitive, search_type, args):
                              "(found %d).\n" % count)
             sys.exit(1)
         book = books[0]
-        download(book.archive, '%s.%s' % (book.file, book.extension.name),
-                 book.date, args.path)
+        download(book, args.path)
         return
     count = 0
     for book in books:

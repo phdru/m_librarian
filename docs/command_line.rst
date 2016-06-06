@@ -113,8 +113,8 @@ name starts with "mack", case insensitive.
 With one option `-v` it also prints database id.
 
 
-Book search
-^^^^^^^^^^^
+Book searching and downloading
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Usage::
 
@@ -166,6 +166,29 @@ Option `--get` allows to download a book from the library to a local
 file. The option allows to download exactly one book. The simplest way
 to use it is via option `--id`. The file is downloaded into the current
 directory with the name from the library.
+
+Configuration key
+
+|    [download]
+|    format = %a/%s/%n %t
+
+allows to set format for the download file pathname. Default format is
+`%f`, i.e. just filename. Other format specifiers are::
+
+    %a - author (one of if many)
+    %e - file extension
+    %f - file name in archive
+    %G - genre (one of if many), name
+    %g - genre (one of if many), title
+    %l - language
+    %n - series number (or 0)
+    %s - series
+    %t - title
+
+Format must not end in directory separator (`/` or `\\`). If specifier
+`%e` (extension) is not found in the format it is appended
+unconditionally with a dot. That is, format `%f` is equivalent to
+`%f.%e`.
 
 
 Extension search

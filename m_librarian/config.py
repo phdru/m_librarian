@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 import os
-from ConfigParser import SafeConfigParser
+from ConfigParser import RawConfigParser
 
 __all__ = ['get_config']
 
@@ -43,7 +43,7 @@ def get_config(config_filename=None):
     if _ml_config is None:
         if config_filename is None:
             config_filename = find_config_file()
-        _ml_config = SafeConfigParser()
+        _ml_config = RawConfigParser()
         _ml_config.read(config_filename)
     return _ml_config
 
