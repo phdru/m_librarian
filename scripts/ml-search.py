@@ -189,7 +189,7 @@ def _search_books(case_sensitive, search_type, args):
             print " ", _("Deleted").encode(default_encoding), ":", \
                 _(str(book.deleted)).encode(default_encoding)
         if args.get or args.get_many:
-            download(book, args.path)
+            download(book, args.path, args.format)
         count += 1
     print_count(count)
 
@@ -295,6 +295,7 @@ if __name__ == '__main__':
     parser.add_argument('-a', '--archive', help='search by archive (zip file)')
     parser.add_argument('-f', '--file', help='search by file name')
     parser.add_argument('-p', '--path', help='path to the library archives')
+    parser.add_argument('--format', help='download format, default is %f')
     parser.add_argument('--get', action='store_true',
                         help='download exactly one book')
     parser.add_argument('--get-many', type=int,

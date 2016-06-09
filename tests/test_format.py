@@ -9,8 +9,8 @@ from m_librarian import config, download
 class TestFormat(unittest.TestCase):
     def test_compile_format(self):
         config.get_config().set('download', 'format', '%a/%s/%n %t')
-        download._do_compile_format()
-        self.assertEqual(download._compiled_format,
+        download._compile_format()
+        self.assertEqual(download.compiled_format,
                          u'%(author)s/%(series)s/%(ser_no)d %(title)s')
 
 

@@ -121,7 +121,7 @@ ml-search.py
 
 Использование::
 
-    ml-search.py books [-t title] [-s series] [-a archive] [-f file] [-p path] [--get] [--get-many N] [--id id] [--surname name] [--name name] [--misc-name name] [--fullname name] [--aid aid] [-e ext] [--eid eid] [--gname name] [--gtitle title] [--gid gid] [-l lang] [--lid lid]
+    ml-search.py books [-t title] [-s series] [-a archive] [-f file] [-p path] [--format f] [--get] [--get-many N] [--id id] [--surname name] [--name name] [--misc-name name] [--fullname name] [--aid aid] [-e ext] [--eid eid] [--gname name] [--gtitle title] [--gid gid] [-l lang] [--lid lid]
 
 Искать и печатать список книг по заголовку, серии, архиву, имени файла.
 
@@ -132,6 +132,7 @@ ml-search.py
     -a, --archive архив    Искать по имени архива (zip-файла)
     -f, --file файл        Искать по имени файла (без расширения)
     -p, --path path        Путь к директории с архивами библиотеки
+    --format format        Формат имени сохраняемого файла
     --get                  Загрузить ровно один файл
     --get-many N           Загрузить не больше указанного числа файлов
     --id id                Искать по id книги
@@ -194,6 +195,8 @@ ml-search.py
 Если спецификатор `%e` (расширение) не найден в формате, он добавляется
 в конец с точкой в качестве разделителя. Т.о. формат `%f` эквивалентен
 формату `%f.%e`.
+
+Опция `--format format` позволяет указать формат в командной строке.
 
 Опция `--get-many N` позволяет загрузить указанное число книг (не больше
 чем N, где N — целое число.) Опции `--get-many N` и `--get` взаимно

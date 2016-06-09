@@ -9,22 +9,22 @@ from .config import get_config
 __all__ = ['download']
 
 
-_format = '%f'
-_compile_format = True
-_compiled_format = '%(file)s'
+format = '%f'
+compile_format = True
+compiled_format = '%(file)s'
 
 
-def _do_compile_format():
-    global _format, _compile_format, _compiled_format
-    if _compile_format:
-        _compile_format = False
+def _compile_format():
+    global format, compile_format, compiled_format
+    if compile_format:
+        compile_format = False
         try:
-            _format = get_config().get('download', 'format')
+            format = get_config().get('download', 'format')
         except:
             return
     got_percent = False
     compiled = []
-    for c in _format:
+    for c in format:
         if c == '%':
             if got_percent:
                 got_percent = False
@@ -57,23 +57,26 @@ def _do_compile_format():
                 compiled.append(new_format)
             else:
                 compiled.append(c)
-    _compiled_format = ''.join(compiled)
+    compiled_format = ''.join(compiled)
 
 
 _library_path = None
 
 
-def download(book, path=None):
+def download(book, path=None, a_format=None):
     if path is None:
         global _library_path
         if _library_path is None:
             _library_path = get_config().get('library', 'path')
         path = _library_path
 
-    global _compiled_format
-    _do_compile_format()
-    if _compiled_format[-1] in ('\0', '\\', '/'):
-        raise ValueError('Bad format: "%s"' % _compiled_format)
+    global format, compile_format, compiled_format
+    if a_format:
+        format = a_format
+        compile_format = True
+    _compile_format()
+    if compiled_format[-1] in ('\0', '\\', '/'):
+        raise ValueError('Bad format: "%s"' % compiled_format)
     bdict = {}
     bdict['author'] = book.authors[0].fullname
     bdict['extension'] = book.extension.name
@@ -85,9 +88,9 @@ def download(book, path=None):
     bdict['ser_no'] = book.ser_no or 0
     bdict['series'] = book.series
     bdict['title'] = book.title
-    if '%(extension)s' not in _compiled_format:
-        _compiled_format += '.%(extension)s'
-    filename = _compiled_format % bdict
+    if '%(extension)s' not in compiled_format:
+        compiled_format += '.%(extension)s'
+    filename = compiled_format % bdict
     try:
         os.makedirs(os.path.dirname(filename))
     except OSError:
@@ -104,8 +107,8 @@ def download(book, path=None):
 
 
 def test():
-    _do_compile_format()
-    print _compiled_format
+    _compile_format()
+    print compiled_format
 
 if __name__ == '__main__':
     test()
