@@ -73,6 +73,11 @@ def _search_authors(case_sensitive, search_type, args):
 
 
 def _search_books(case_sensitive, search_type, args):
+    if args.get and args.get_many:
+        sys.stderr.write(
+            "Cannot get one book and many books at the same time\n")
+        main_parser.print_help()
+        sys.exit(1)
     join_expressions = []
     values = _get_values(args, 'title', 'series', 'archive', 'file', 'id')
     if case_sensitive is None:
@@ -139,15 +144,16 @@ def _search_books(case_sensitive, search_type, args):
     if args.count:
         print_count(books.count())
         return
-    if args.get:
+    if args.get_many:
+        books = books[:args.get_many]
+    elif args.get:
         count = books.count()
         if count != 1:
             sys.stderr.write("There must be exactly 1 book for --get; "
                              "(found %d).\n" % count)
+            sys.stderr.write("Use --get-many N to download more than one "
+                             "book.\n")
             sys.exit(1)
-        book = books[0]
-        download(book, args.path)
-        return
     count = 0
     for book in books:
         print book.title.encode(default_encoding),
@@ -182,6 +188,8 @@ def _search_books(case_sensitive, search_type, args):
                 book.size, _("bytes").encode(default_encoding)
             print " ", _("Deleted").encode(default_encoding), ":", \
                 _(str(book.deleted)).encode(default_encoding)
+        if args.get or args.get_many:
+            download(book, args.path)
         count += 1
     print_count(count)
 
@@ -289,6 +297,8 @@ if __name__ == '__main__':
     parser.add_argument('-p', '--path', help='path to the library archives')
     parser.add_argument('--get', action='store_true',
                         help='download exactly one book')
+    parser.add_argument('--get-many', type=int,
+                        help='download at most this many books')
     parser.add_argument('--id', type=int, help='search by database id')
     parser.add_argument('--surname', help='search by author\'s surname')
     parser.add_argument('--name', help='search by author\'s name')

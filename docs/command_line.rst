@@ -118,7 +118,7 @@ Book searching and downloading
 
 Usage::
 
-    ml-search.py books [-t title] [-s series] [-a archive] [-f file] [-p path] [--get] [--id id] [--surname name] [--name name] [--misc-name name] [--fullname name] [--aid aid] [-e ext] [--eid eid] [--gname name] [--gtitle title] [--gid gid] [-l lang] [--lid lid]
+    ml-search.py books [-t title] [-s series] [-a archive] [-f file] [-p path] [--get] [--get-many N] [--id id] [--surname name] [--name name] [--misc-name name] [--fullname name] [--aid aid] [-e ext] [--eid eid] [--gname name] [--gtitle title] [--gid gid] [-l lang] [--lid lid]
 
 Search and print a list of books by title, series, archive or file name.
 
@@ -131,6 +131,7 @@ Options::
     -p, --path path        Path to the directory with the library
                            archives
     --get                  Download exactly one book
+    --get-many N           Download at most this many books
     --id id                Search by database id
     --surname surname      Search by author’s surname
     --name name            Search by author’s name
@@ -189,6 +190,10 @@ Format must not end in directory separator (`/` or `\\`). If specifier
 `%e` (extension) is not found in the format it is appended
 unconditionally with a dot. That is, format `%f` is equivalent to
 `%f.%e`.
+
+Option `--get-many N` allows to download many books (at most N, where N
+is an integer). Options `--get-many N` and `--get` are, of course,
+mutually incompatible.
 
 
 Extension search
