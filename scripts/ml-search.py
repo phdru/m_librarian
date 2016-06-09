@@ -20,13 +20,15 @@ def _get_values(args, *columns):
     for column in columns:
         value = getattr(args, column)
         if value:
-            values[column] = unicode(value, default_encoding)
+            if isinstance(value, basestring):
+                value = unicode(value, default_encoding)
+            values[column] = value
     return values
 
 
 def _guess_case_sensitivity(values):
     for value in values.values():
-        if not value.islower():
+        if isinstance(value, basestring) and not value.islower():
             return True
     return False
 
@@ -275,7 +277,7 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--surname', help='search by surname')
     parser.add_argument('-n', '--name', help='search by name')
     parser.add_argument('-m', '--misc-name', help='search by misc. name')
-    parser.add_argument('--id', help='search by database id')
+    parser.add_argument('--id', type=int, help='search by database id')
     parser.add_argument('fullname', nargs='?', help='search by full name')
     parser.set_defaults(func=_search_authors)
 
@@ -287,35 +289,35 @@ if __name__ == '__main__':
     parser.add_argument('-p', '--path', help='path to the library archives')
     parser.add_argument('--get', action='store_true',
                         help='download exactly one book')
-    parser.add_argument('--id', help='search by database id')
+    parser.add_argument('--id', type=int, help='search by database id')
     parser.add_argument('--surname', help='search by author\'s surname')
     parser.add_argument('--name', help='search by author\'s name')
     parser.add_argument('--misc-name', help='search by author\'s misc. name')
     parser.add_argument('--fullname', help='search by author\'s full name')
-    parser.add_argument('--aid', help='search by author\'s id')
+    parser.add_argument('--aid', type=int, help='search by author\'s id')
     parser.add_argument('-e', '--ext', help='search by file extension')
-    parser.add_argument('--eid', help='search by extension\'s id')
+    parser.add_argument('--eid', type=int, help='search by extension\'s id')
     parser.add_argument('--gname', help='search by genre\'s name')
     parser.add_argument('--gtitle', help='search by genre\'s title')
-    parser.add_argument('--gid', help='search by genre\'s id')
+    parser.add_argument('--gid', type=int, help='search by genre\'s id')
     parser.add_argument('-l', '--lang', help='search by language')
-    parser.add_argument('--lid', help='search by language\'s id')
+    parser.add_argument('--lid', type=int, help='search by language\'s id')
     parser.set_defaults(func=_search_books)
 
     parser = subparsers.add_parser('ext', help='Search extensions')
     parser.add_argument('name', nargs='?', help='search by name')
-    parser.add_argument('--id', help='search by database id')
+    parser.add_argument('--id', type=int, help='search by database id')
     parser.set_defaults(func=_search_extensions)
 
     parser = subparsers.add_parser('genres', help='Search genres')
     parser.add_argument('-n', '--name', help='search by name')
     parser.add_argument('-t', '--title', help='search by title')
-    parser.add_argument('--id', help='search by database id')
+    parser.add_argument('--id', type=int, help='search by database id')
     parser.set_defaults(func=_search_genres)
 
     parser = subparsers.add_parser('lang', help='Search languages')
     parser.add_argument('name', nargs='?', help='search by name')
-    parser.add_argument('--id', help='search by database id')
+    parser.add_argument('--id', type=int, help='search by database id')
     parser.set_defaults(func=_search_languages)
 
     args = main_parser.parse_args()
