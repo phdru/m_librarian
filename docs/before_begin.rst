@@ -8,6 +8,7 @@ Before you begin you need some preparations.
 .. contents::
    :local:
 
+.. highlight:: none
 
 Software
 --------

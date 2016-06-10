@@ -6,6 +6,7 @@
 .. contents::
    :local:
 
+.. highlight:: none
 
 ml-initdb.py
 ------------
