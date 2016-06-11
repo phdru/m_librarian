@@ -13,10 +13,11 @@ ml-initdb.py
 
 Usage::
 
-    ml-initdb.py [-D]
+    ml-initdb.py [-C] [-D]
 
 Options::
 
+    -C, --config config      Configuration file
     -D, --database database  Open this database by pathname/db uri
 
 Initialize database and import genres list. Isn’t really needed as
@@ -28,10 +29,11 @@ ml-import.py
 
 Usage::
 
-    ml-import.py [-D] [file.inpx ...]
+    ml-import.py [-C] [-D] [file.inpx ...]
 
 Options::
 
+    -C, --config config      Configuration file
     -D, --database database  Open this database by pathname/db uri
 
 Initialize database, import genres list and import a list of INPX files
@@ -44,13 +46,14 @@ ml-search.py
 
 Usage::
 
-    ml-search.py [-D] [-i] [-I] [-t] [-s] [-f] [-v] [-c] ...
+    ml-search.py [-C] [-D] [-i] [-I] [-t] [-s] [-f] [-v] [-c] ...
 
 Search through the database and display results. Currently can only
 search authors by name.
 
 Global options::
 
+    -C, --config config      Configuration file
     -D, --database database  Open this database by pathname/db uri
     -i, --ignore-case        ignore case (default is to guess)
     -I, --case-sensitive     don’t ignore case
@@ -157,7 +160,7 @@ archive name, file name, extension and size, and flag if the book is
 marked to be deleted.
 
 Option `-P` provides the path to the directory with the library
-archives. By default the path is extracted from `m_librarian.conf`,
+archives. By default the path is extracted from configuration file,
 section `[library]`, key `path`::
 
     [library]

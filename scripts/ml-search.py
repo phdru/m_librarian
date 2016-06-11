@@ -5,6 +5,7 @@ import sys
 from sqlobject.sqlbuilder import CONCAT
 
 from m_lib.defenc import default_encoding
+from m_librarian.config import get_config
 from m_librarian.db import Author, Book, Extension, Genre, Language, open_db
 from m_librarian.download import download
 from m_librarian.search import mk_search_conditions, \
@@ -261,6 +262,7 @@ def _search_languages(case_sensitive, search_type, args):
 
 if __name__ == '__main__':
     main_parser = argparse.ArgumentParser(description='Search')
+    main_parser.add_argument('-C', '--config', help='configuration file')
     main_parser.add_argument('-D', '--database', help='database URI')
     main_parser.add_argument('-i', '--ignore-case', action='store_true',
                              help='ignore case '
@@ -333,6 +335,9 @@ if __name__ == '__main__':
     parser.set_defaults(func=_search_languages)
 
     args = main_parser.parse_args()
+
+    if args.config:
+        get_config(args.config)  # Get and cache config file
 
     if args.case_sensitive:
         if args.ignore_case:

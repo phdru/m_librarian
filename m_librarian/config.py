@@ -38,13 +38,13 @@ def find_config_file(config_dirs=None):
 _ml_config = None
 
 
-def get_config(config_filename=None):
+def get_config(config_path=None):
     global _ml_config
     if _ml_config is None:
-        if config_filename is None:
-            config_filename = find_config_file()
+        if config_path is None:
+            config_path = find_config_file()
         _ml_config = RawConfigParser()
-        _ml_config.read(config_filename)
+        _ml_config.read(config_path)
     return _ml_config
 
 
