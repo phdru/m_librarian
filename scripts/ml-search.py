@@ -261,7 +261,7 @@ def _search_languages(case_sensitive, search_type, args):
 
 if __name__ == '__main__':
     main_parser = argparse.ArgumentParser(description='Search')
-    main_parser.add_argument('-d', '--database', help='database URI')
+    main_parser.add_argument('-D', '--database', help='database URI')
     main_parser.add_argument('-i', '--ignore-case', action='store_true',
                              help='ignore case '
                              '(default is to guess)')
@@ -294,12 +294,6 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--series', help='search by series')
     parser.add_argument('-a', '--archive', help='search by archive (zip file)')
     parser.add_argument('-f', '--file', help='search by file name')
-    parser.add_argument('-p', '--path', help='path to the library archives')
-    parser.add_argument('--format', help='download format, default is %f')
-    parser.add_argument('--get', action='store_true',
-                        help='download exactly one book')
-    parser.add_argument('--get-many', type=int,
-                        help='download at most this many books')
     parser.add_argument('--id', type=int, help='search by database id')
     parser.add_argument('--surname', help='search by author\'s surname')
     parser.add_argument('--name', help='search by author\'s name')
@@ -313,6 +307,13 @@ if __name__ == '__main__':
     parser.add_argument('--gid', type=int, help='search by genre\'s id')
     parser.add_argument('-l', '--lang', help='search by language')
     parser.add_argument('--lid', type=int, help='search by language\'s id')
+    parser.add_argument('-P', '--path', help='path to the library archives')
+    parser.add_argument('-F', '--format',
+                        help='download format, default is %f')
+    parser.add_argument('--get', action='store_true',
+                        help='download exactly one book')
+    parser.add_argument('--get-many', type=int,
+                        help='download at most this many books')
     parser.set_defaults(func=_search_books)
 
     parser = subparsers.add_parser('ext', help='Search extensions')

@@ -13,11 +13,11 @@ ml-initdb.py
 
 Usage::
 
-    ml-initdb.py [-d]
+    ml-initdb.py [-D]
 
 Options::
 
-    -d, --database database  Open this database by pathname/db uri
+    -D, --database database  Open this database by pathname/db uri
 
 Initialize database and import genres list. Isn’t really needed as
 the next script does all that too.
@@ -28,11 +28,11 @@ ml-import.py
 
 Usage::
 
-    ml-import.py [-d] [file.inpx ...]
+    ml-import.py [-D] [file.inpx ...]
 
 Options::
 
-    -d, --database database  Open this database by pathname/db uri
+    -D, --database database  Open this database by pathname/db uri
 
 Initialize database, import genres list and import a list of INPX files
 listed in the command line. On subsequent runs doesn’t destroy DB or
@@ -44,14 +44,14 @@ ml-search.py
 
 Usage::
 
-    ml-search.py [-d] [-i] [-I] [-t] [-s] [-f] [-v] [-c] ...
+    ml-search.py [-D] [-i] [-I] [-t] [-s] [-f] [-v] [-c] ...
 
 Search through the database and display results. Currently can only
 search authors by name.
 
 Global options::
 
-    -d, --database database  Open this database by pathname/db uri
+    -D, --database database  Open this database by pathname/db uri
     -i, --ignore-case        ignore case (default is to guess)
     -I, --case-sensitive     don’t ignore case
     -t, --start              search type: substring at the start
@@ -119,7 +119,7 @@ Book searching and downloading
 
 Usage::
 
-    ml-search.py books [-t title] [-s series] [-a archive] [-f file] [-p path] [--format f] [--get] [--get-many N] [--id id] [--surname name] [--name name] [--misc-name name] [--fullname name] [--aid aid] [-e ext] [--eid eid] [--gname name] [--gtitle title] [--gid gid] [-l lang] [--lid lid]
+    ml-search.py books [-t title] [-s series] [-a archive] [-f file] [--id id] [--surname name] [--name name] [--misc-name name] [--fullname name] [--aid aid] [-e ext] [--eid eid] [--gname name] [--gtitle title] [--gid gid] [-l lang] [--lid lid] [-P path] [-F format] [--get] [--get-many N]
 
 Search and print a list of books by title, series, archive or file name.
 
@@ -129,11 +129,6 @@ Options::
     -s, --series series    Search by series
     -a, --archive archive  Search by archive (zip file)
     -f, --file file        Search by file name (without extension)
-    -p, --path path        Path to the directory with the library
-                           archives
-    --format format        Format of the downloaded file name
-    --get                  Download exactly one book
-    --get-many N           Download at most this many books
     --id id                Search by database id
     --surname surname      Search by author’s surname
     --name name            Search by author’s name
@@ -147,6 +142,11 @@ Options::
     --gid gid              Search by genre’s id
     -l, --lang lang        Search by language
     --lid lid              Search by language’s id
+    -P, --path path        Path to the directory with the library
+                           archives
+    -F, --format format    Format of the downloaded file name
+    --get                  Download exactly one book
+    --get-many N           Download at most this many books
 
 By default the program prints only titles of the found book. With one
 option `-v` it also prints database id, the list of authors and genres,
@@ -156,14 +156,14 @@ it also prints the file date and language. With three `-v` it prints
 archive name, file name, extension and size, and flag if the book is
 marked to be deleted.
 
-Option `-p` provides the path to the directory with the library
+Option `-P` provides the path to the directory with the library
 archives. By default the path is extracted from `m_librarian.conf`,
 section `[library]`, key `path`::
 
     [library]
     path = /var/lib/archives
 
-The option is useful for multiple databases (global option `-d`).
+The option is useful for multiple databases (global option `-D`).
 
 Option `--get` allows to download a book from the library to a local
 file. The option allows to download exactly one book. The simplest way
@@ -193,7 +193,7 @@ Format must not end in directory separator (`/` or `\\`). If specifier
 unconditionally with a dot. That is, format `%f` is equivalent to
 `%f.%e`.
 
-Option `--format format` allows to overwrite this configuration value.
+Option `-F|--format format` allows to overwrite this configuration value.
 
 Option `--get-many N` allows to download many books (at most N, where N
 is an integer). Options `--get-many N` and `--get` are, of course,

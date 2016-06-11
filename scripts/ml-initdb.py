@@ -6,7 +6,7 @@ from m_librarian.glst import import_glst
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Init')
-    parser.add_argument('-d', '--database', help='database URI')
+    parser.add_argument('-D', '--database', help='database URI')
     args = parser.parse_args()
 
     open_db(args.database)

@@ -7,7 +7,7 @@ from m_librarian.inp import import_inpx
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Import')
-    parser.add_argument('-d', '--database', help='database URI')
+    parser.add_argument('-D', '--database', help='database URI')
     parser.add_argument('inpx', nargs='+', help='INPX files to import')
     args = parser.parse_args()
 
