@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 
+from __future__ import print_function
 import argparse
 import sys
 from sqlobject.sqlbuilder import CONCAT
@@ -35,7 +36,7 @@ def _guess_case_sensitivity(values):
 
 
 def print_count(count):
-    print _("Found").encode(default_encoding), ":", count
+    print(_("Found").encode(default_encoding), ":", count)
 
 
 def _search_authors(case_sensitive, search_type, args):
@@ -63,11 +64,11 @@ def _search_authors(case_sensitive, search_type, args):
         return
     count = 0
     for author in authors:
-        print author.fullname.encode(default_encoding), \
-            (u"(%s: %d)" % (_('books'), author.count))\
-            .encode(default_encoding),
+        print(author.fullname.encode(default_encoding),
+            (u"(%s: %d)" % (_('books'), author.count))
+            .encode(default_encoding), end='')
         if args.verbose >= 1:
-            print "(id=%d)" % author.id,
+            print("(id=%d)" % author.id, end='')
         print
         count += 1
     print_count(count)
@@ -157,38 +158,38 @@ def _search_books(case_sensitive, search_type, args):
             sys.exit(1)
     count = 0
     for book in books:
-        print book.title.encode(default_encoding),
+        print(book.title.encode(default_encoding), end='')
         if args.verbose >= 1:
-            print "(id=%d)" % book.id,
+            print("(id=%d)" % book.id, end='')
         print
         if args.verbose >= 1:
-            print " ", _("Author(s)").encode(default_encoding), ":",
+            print(" ", _("Author(s)").encode(default_encoding), ":", end='')
             for author in book.authors:
-                print author.fullname.encode(default_encoding),
+                print(author.fullname.encode(default_encoding), end='')
             print
-            print " ", _("Genre(s)").encode(default_encoding), ":",
+            print(" ", _("Genre(s)").encode(default_encoding), ":", end='')
             for genre in book.genres:
-                print (genre.title or genre.name).encode(default_encoding),
+                print((genre.title or genre.name).encode(default_encoding), end='')
             print
             if book.series:
-                print " ", _("Series").encode(default_encoding), ":",
-                print book.series.encode(default_encoding), \
-                    "(%d)" % book.ser_no
+                print(" ", _("Series").encode(default_encoding), ":", end='')
+                print(book.series.encode(default_encoding),
+                    "(%d)" % book.ser_no)
 
         if args.verbose >= 2:
-            print " ", _("Date").encode(default_encoding), ":", book.date
-            print " ", _("Language").encode(default_encoding), ":", \
-                book.language.name.encode(default_encoding)
+            print(" ", _("Date").encode(default_encoding), ":", book.date)
+            print(" ", _("Language").encode(default_encoding), ":",
+                book.language.name.encode(default_encoding))
 
         if args.verbose >= 3:
-            print " ", _("Archive").encode(default_encoding), ":", book.archive
-            print " ", _("File").encode(default_encoding), ":", book.file
-            print " ", _("Extension").encode(default_encoding), ":", \
-                book.extension.name.encode(default_encoding)
-            print " ", _("Size").encode(default_encoding), ":", \
-                book.size, _("bytes").encode(default_encoding)
-            print " ", _("Deleted").encode(default_encoding), ":", \
-                _(str(book.deleted)).encode(default_encoding)
+            print(" ", _("Archive").encode(default_encoding), ":", book.archive)
+            print(" ", _("File").encode(default_encoding), ":", book.file)
+            print(" ", _("Extension").encode(default_encoding), ":",
+                book.extension.name.encode(default_encoding))
+            print(" ", _("Size").encode(default_encoding), ":",
+                book.size, _("bytes").encode(default_encoding))
+            print(" ", _("Deleted").encode(default_encoding), ":",
+                _(str(book.deleted)).encode(default_encoding))
         if args.get or args.get_many:
             download(book, args.path, args.format)
         count += 1
@@ -208,10 +209,11 @@ def _search_extensions(case_sensitive, search_type, args):
         return
     count = 0
     for ext in extensions:
-        print ext.name.encode(default_encoding), \
+        print(ext.name.encode(default_encoding),
             (u"(%s: %d)" % (_('books'), ext.count)).encode(default_encoding),
+            end='')
         if args.verbose >= 1:
-            print "(id=%d)" % ext.id,
+            print("(id=%d)" % ext.id, end='')
         print
         count += 1
     print_count(count)
@@ -229,10 +231,11 @@ def _search_genres(case_sensitive, search_type, args):
     for genre in genres:
         names = filter(None, (genre.name, genre.title))
         fullname = u' '.join(names)
-        print fullname.encode(default_encoding), \
+        print(fullname.encode(default_encoding),
             (u"(%s: %d)" % (_('books'), genre.count)).encode(default_encoding),
+            end='')
         if args.verbose >= 1:
-            print "(id=%d)" % genre.id,
+            print("(id=%d)" % genre.id, end='')
         print
         count += 1
     print_count(count)
@@ -251,10 +254,11 @@ def _search_languages(case_sensitive, search_type, args):
         return
     count = 0
     for lang in languages:
-        print lang.name.encode(default_encoding), \
+        print(lang.name.encode(default_encoding),
             (u"(%s: %d)" % (_('books'), lang.count)).encode(default_encoding),
+            end='')
         if args.verbose >= 1:
-            print "(id=%d)" % lang.id,
+            print("(id=%d)" % lang.id, end='')
         print
         count += 1
     print_count(count)
@@ -311,7 +315,7 @@ if __name__ == '__main__':
     parser.add_argument('--lid', type=int, help='search by language\'s id')
     parser.add_argument('-P', '--path', help='path to the library archives')
     parser.add_argument('-F', '--format',
-                        help='download format, default is %f')
+                        help='download format, default is %%f')
     parser.add_argument('--get', action='store_true',
                         help='download exactly one book')
     parser.add_argument('--get-many', type=int,

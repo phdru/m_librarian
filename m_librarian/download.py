@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 
+from __future__ import print_function
 import os
 from time import mktime
 from shutil import copyfileobj
@@ -108,7 +109,7 @@ def download(book, path=None, a_format=None):
 
 def test():
     _compile_format()
-    print compiled_format
+    print(compiled_format)
 
 if __name__ == '__main__':
     test()

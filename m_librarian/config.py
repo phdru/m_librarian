@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 
+from __future__ import print_function
 import os
 from ConfigParser import RawConfigParser
 
@@ -50,8 +51,8 @@ def get_config(config_path=None):
 
 def test():
     config_dirs = find_config_dirs()
-    print "Config dirs:", config_dirs
-    print "Config file:", find_config_file(config_dirs)
+    print("Config dirs:", config_dirs)
+    print("Config file:", find_config_file(config_dirs))
 
 if __name__ == '__main__':
     test()

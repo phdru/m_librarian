@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 
+from __future__ import print_function
 import os
 from sqlobject import SQLObject, StringCol, UnicodeCol, IntCol, BoolCol, \
     ForeignKey, DateCol, DatabaseIndex, RelatedJoin, \
@@ -130,7 +131,7 @@ def find_sqlite_dburi(db_dirs=None):
     else:
         # octal; -rw-------;
         # make the database file/directory readable/writeable only by the user
-        os.umask(0066)
+        os.umask(0o66)
         db_dir = db_dirs[0]
         try:
             os.makedirs(db_dir)
@@ -220,8 +221,8 @@ def update_counters():
 
 def test():
     db_dirs = find_sqlite_db_dirs()
-    print "DB dirs:", db_dirs
-    print "DB URI:", find_sqlite_dburi()
+    print("DB dirs:", db_dirs)
+    print("DB URI:", find_sqlite_dburi())
 
 if __name__ == '__main__':
     test()

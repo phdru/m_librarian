@@ -29,7 +29,7 @@ class TestCase(unittest.TestCase):
 def main():
     try:
         unittest.main(testRunner=unittest.TextTestRunner())
-    except SystemExit, msg:
+    except SystemExit as msg:
         result = msg.args[0]
     else:
         result = 0

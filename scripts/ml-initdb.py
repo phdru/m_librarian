@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 
+from __future__ import print_function
 import argparse
 from m_librarian.config import get_config
 from m_librarian.db import open_db, init_db
@@ -18,6 +19,6 @@ if __name__ == '__main__':
     init_db()
     old, new = import_glst()
     if old:
-        print "Imported %d genres (ignored %d existing)" % (new, old)
+        print("Imported %d genres (ignored %d existing)" % (new, old))
     else:
-        print "Imported %d genres" % new
+        print("Imported %d genres" % new)
