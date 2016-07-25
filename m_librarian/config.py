@@ -2,7 +2,10 @@
 
 from __future__ import print_function
 import os
-from ConfigParser import RawConfigParser
+try:
+    from ConfigParser import RawConfigParser
+except ImportError:  # py3
+    from configparser import RawConfigParser
 
 __all__ = ['get_config']
 

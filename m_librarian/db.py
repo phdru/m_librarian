@@ -5,6 +5,7 @@ import os
 from sqlobject import SQLObject, StringCol, UnicodeCol, IntCol, BoolCol, \
     ForeignKey, DateCol, DatabaseIndex, RelatedJoin, \
     connectionForURI, sqlhub, SQLObjectNotFound, dberrors
+from .compat import string_type
 from .config import get_config
 
 __all__ = ['Author', 'Book', 'Extension', 'Genre', 'Language',
@@ -156,7 +157,7 @@ def open_db(db_uri=None):
 
     if connection.dbName == 'sqlite':
         def lower(s):
-            if isinstance(s, basestring):
+            if isinstance(s, string_type):
                 return s.lower()
             return s
 

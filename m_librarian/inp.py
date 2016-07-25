@@ -72,6 +72,7 @@ def import_inp(archive, inp):
             Select(Book.q.file, Book.q.archive == archive))):
         files.add(file)
     for line in inp:
+        line = line.decode('utf-8')
         parts = split_line(line)
         file = parts[5]
         if file not in files:

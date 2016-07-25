@@ -6,6 +6,7 @@ import sys
 from sqlobject.sqlbuilder import CONCAT
 
 from m_lib.defenc import default_encoding
+from m_librarian.compat import string_type
 from m_librarian.config import get_config
 from m_librarian.db import Author, Book, Extension, Genre, Language, open_db
 from m_librarian.download import download
@@ -22,7 +23,7 @@ def _get_values(args, *columns):
     for column in columns:
         value = getattr(args, column)
         if value:
-            if isinstance(value, basestring):
+            if isinstance(value, string_type):
                 value = unicode(value, default_encoding)
             values[column] = value
     return values
@@ -30,7 +31,7 @@ def _get_values(args, *columns):
 
 def _guess_case_sensitivity(values):
     for value in values.values():
-        if isinstance(value, basestring) and not value.islower():
+        if isinstance(value, string_type) and not value.islower():
             return True
     return False
 
