@@ -6,7 +6,6 @@ import sys
 from sqlobject.sqlbuilder import CONCAT
 
 from m_lib.defenc import default_encoding
-from m_librarian.compat import string_type
 from m_librarian.config import get_config
 from m_librarian.db import Author, Book, Extension, Genre, Language, open_db
 from m_librarian.download import download
@@ -15,7 +14,19 @@ from m_librarian.search import mk_search_conditions, \
     search_extensions, search_genres, search_languages
 
 from m_librarian.translations import translations
-_ = translations.ugettext
+_ = getattr(translations, 'ugettext', None) or translations.gettext
+
+
+def decode(value):
+    if isinstance(value, bytes):
+        return value.decode(default_encoding)
+    return value
+
+
+def encode(value):
+    if bytes is str and not isinstance(value, bytes):
+        return value.encode(default_encoding, errors='replace')
+    return value
 
 
 def _get_values(args, *columns):
@@ -23,21 +34,20 @@ def _get_values(args, *columns):
     for column in columns:
         value = getattr(args, column)
         if value:
-            if isinstance(value, string_type):
-                value = unicode(value, default_encoding)
+            value = decode(value)
             values[column] = value
     return values
 
 
 def _guess_case_sensitivity(values):
     for value in values.values():
-        if isinstance(value, string_type) and not value.islower():
+        if not value.islower():
             return True
     return False
 
 
 def print_count(count):
-    print(_("Found").encode(default_encoding), ":", count)
+    print(encode(_("Found")), ":", count)
 
 
 def _search_authors(case_sensitive, search_type, args):
@@ -54,7 +64,7 @@ def _search_authors(case_sensitive, search_type, args):
             expressions.append((
                 CONCAT(Author.q.surname, ' ', Author.q.name, ' ',
                        Author.q.misc_name),
-                unicode(value, default_encoding)
+                decode(value)
             ))
     if case_sensitive is None:
         case_sensitive = _guess_case_sensitivity(values)
@@ -65,12 +75,11 @@ def _search_authors(case_sensitive, search_type, args):
         return
     count = 0
     for author in authors:
-        print(author.fullname.encode(default_encoding),
-            (u"(%s: %d)" % (_('books'), author.count))
-            .encode(default_encoding), end='')
+        print(encode(author.fullname),
+              encode((u"(%s: %d)" % (_('books'), author.count))), end=' ')
         if args.verbose >= 1:
-            print("(id=%d)" % author.id, end='')
-        print
+            print("(id=%d)" % author.id, end=' ')
+        print()
         count += 1
     print_count(count)
 
@@ -105,7 +114,7 @@ def _search_books(case_sensitive, search_type, args):
             expressions.append((
                 CONCAT(Author.q.surname, ' ', Author.q.name, ' ',
                        Author.q.misc_name),
-                unicode(value, default_encoding)
+                decode(value)
             ))
         conditions = mk_search_conditions(
             Author, search_type, case_sensitive, avalues, expressions)
@@ -124,7 +133,7 @@ def _search_books(case_sensitive, search_type, args):
     for column in 'name', 'title':
         value = getattr(args, 'g' + column)
         if value:
-            gvalues[column] = unicode(value, default_encoding)
+            gvalues[column] = decode(value)
     if args.gid:
         gvalues['id'] = args.gid
     if gvalues:
@@ -159,38 +168,36 @@ def _search_books(case_sensitive, search_type, args):
             sys.exit(1)
     count = 0
     for book in books:
-        print(book.title.encode(default_encoding), end='')
+        print(encode(book.title), end=' ')
         if args.verbose >= 1:
-            print("(id=%d)" % book.id, end='')
-        print
+            print("(id=%d)" % book.id, end=' ')
+        print()
         if args.verbose >= 1:
-            print(" ", _("Author(s)").encode(default_encoding), ":", end='')
+            print(" ", encode(_("Author(s)")), ":", end=' ')
             for author in book.authors:
-                print(author.fullname.encode(default_encoding), end='')
-            print
-            print(" ", _("Genre(s)").encode(default_encoding), ":", end='')
+                print(encode(author.fullname), end=' ')
+            print()
+            print(" ", encode(_("Genre(s)")), ":", end=' ')
             for genre in book.genres:
-                print((genre.title or genre.name).encode(default_encoding), end='')
-            print
+                print((encode(genre.title or genre.name)), end=' ')
+            print()
             if book.series:
-                print(" ", _("Series").encode(default_encoding), ":", end='')
-                print(book.series.encode(default_encoding),
-                    "(%d)" % book.ser_no)
+                print(" ", encode(_("Series")), ":", end=' ')
+                print(encode(book.series), "(%d)" % book.ser_no)
 
         if args.verbose >= 2:
-            print(" ", _("Date").encode(default_encoding), ":", book.date)
-            print(" ", _("Language").encode(default_encoding), ":",
-                book.language.name.encode(default_encoding))
+            print(" ", encode(_("Date")), ":", book.date)
+            print(" ", encode(_("Language")), ":", encode(book.language.name))
 
         if args.verbose >= 3:
-            print(" ", _("Archive").encode(default_encoding), ":", book.archive)
-            print(" ", _("File").encode(default_encoding), ":", book.file)
-            print(" ", _("Extension").encode(default_encoding), ":",
-                book.extension.name.encode(default_encoding))
-            print(" ", _("Size").encode(default_encoding), ":",
-                book.size, _("bytes").encode(default_encoding))
-            print(" ", _("Deleted").encode(default_encoding), ":",
-                _(str(book.deleted)).encode(default_encoding))
+            print(" ", encode(_("Archive")), ":", book.archive)
+            print(" ", encode(_("File")), ":", book.file)
+            print(" ", encode(_("Extension")), ":",
+                  encode(book.extension.name))
+            print(" ", encode(_("Size")), ":",
+                  book.size, encode(_("bytes")))
+            print(" ", encode(_("Deleted")), ":",
+                  encode(_(str(book.deleted))))
         if args.get or args.get_many:
             download(book, args.path, args.format)
         count += 1
@@ -210,12 +217,12 @@ def _search_extensions(case_sensitive, search_type, args):
         return
     count = 0
     for ext in extensions:
-        print(ext.name.encode(default_encoding),
-            (u"(%s: %d)" % (_('books'), ext.count)).encode(default_encoding),
-            end='')
+        print(encode(ext.name),
+              encode((u"(%s: %d)" % (_('books'), ext.count))),
+              end=' ')
         if args.verbose >= 1:
-            print("(id=%d)" % ext.id, end='')
-        print
+            print("(id=%d)" % ext.id, end=' ')
+        print()
         count += 1
     print_count(count)
 
@@ -232,12 +239,12 @@ def _search_genres(case_sensitive, search_type, args):
     for genre in genres:
         names = filter(None, (genre.name, genre.title))
         fullname = u' '.join(names)
-        print(fullname.encode(default_encoding),
-            (u"(%s: %d)" % (_('books'), genre.count)).encode(default_encoding),
-            end='')
+        print(encode(fullname),
+              encode((u"(%s: %d)" % (_('books'), genre.count))),
+              end=' ')
         if args.verbose >= 1:
-            print("(id=%d)" % genre.id, end='')
-        print
+            print("(id=%d)" % genre.id, end=' ')
+        print()
         count += 1
     print_count(count)
 
@@ -255,12 +262,12 @@ def _search_languages(case_sensitive, search_type, args):
         return
     count = 0
     for lang in languages:
-        print(lang.name.encode(default_encoding),
-            (u"(%s: %d)" % (_('books'), lang.count)).encode(default_encoding),
-            end='')
+        print(encode(lang.name),
+              encode((u"(%s: %d)" % (_('books'), lang.count))),
+              end=' ')
         if args.verbose >= 1:
-            print("(id=%d)" % lang.id, end='')
-        print
+            print("(id=%d)" % lang.id, end=' ')
+        print()
         count += 1
     print_count(count)
 
@@ -283,7 +290,7 @@ if __name__ == '__main__':
                              help='match the entire string')
     main_parser.add_argument('-c', '--count', action='store_true',
                              help='count instead of output')
-    main_parser.add_argument('-v', '--verbose', action='count',
+    main_parser.add_argument('-v', '--verbose', action='count', default=0,
                              help='output more details about books; '
                              'repeat for even more details')
     subparsers = main_parser.add_subparsers(help='Commands')
