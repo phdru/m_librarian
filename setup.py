@@ -47,7 +47,11 @@ setup(name='m_librarian',
           'Programming Language :: Python :: 2 :: Only',
       ],
       packages=['m_librarian'],
-      package_data={'m_librarian': ['glst/*.txt', 'glst/genres_*.glst']},
+      package_data={'m_librarian': [
+          'glst/*.txt', 'glst/genres_*.glst',
+          'translations/*.mo'
+          ]
+      },
       scripts=['scripts/ml-import.py', 'scripts/ml-initdb.py',
                'scripts/ml-search.py'],
       **kw
