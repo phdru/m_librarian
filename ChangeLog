@@ -1,3 +1,7 @@
+Version 0.0.14 (2016-07-29)
+
+   Python 3: support for Py2 and Py3 (3.4+) with one codebase.
+
 Version 0.0.13 (2016-06-11)
 
    Add option -C|--config file.
