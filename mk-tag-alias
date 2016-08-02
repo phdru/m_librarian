@@ -1,0 +1,5 @@
+#!/bin/sh
+
+exec git config --local alias.tag-with-version \
+   "!GIT_EDITOR='vim -c \"source tag.vim\"' \
+   exec git tag -s \`python setup.py --version\`"
