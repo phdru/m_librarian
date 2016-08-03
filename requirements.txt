@@ -1,6 +1,6 @@
 --trusted-host phdru.name
 --find-links=http://phdru.name/Software/Python/
---install-option="--compile"
+--install-option="--compile --optimize"
 
 argparse; python_version == '2.6'
 SQLObject>=2.2.1; python_version >= '2.6' and python_version < '3.0'
