@@ -36,8 +36,6 @@ Created by Oleg Broytman <phd@phdru.name>.
 Copyright (C) 2015, 2016 PhiloSoft Design.
 
 
-.. _license:
-
 License
 =======
 
