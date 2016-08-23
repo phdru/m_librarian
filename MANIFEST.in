@@ -2,4 +2,4 @@ include docs/genapidocs sample/m_librarian.conf
 include COPYING ChangeLog MANIFEST.in Makefile TODO mk-distr *.txt
 recursive-include docs* Makefile *.py *.rst *.txt *.css *.js *.html *.gif *.png
 recursive-include m_librarian/translations Makefile *.mo *.po
-recursive-include tests Makefile *.py *.inpx
+recursive-include tests Makefile test_config.conf *.py *.inpx
