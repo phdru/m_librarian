@@ -24,13 +24,3 @@ class TestCase(unittest.TestCase):
 
     def import_inpx(self, inpx):
         import_inpx(os.path.join(os.path.dirname(__file__), inpx))
-
-
-def main():
-    try:
-        unittest.main(testRunner=unittest.TextTestRunner())
-    except SystemExit as msg:
-        result = msg.args[0]
-    else:
-        result = 0
-    raise SystemExit(result)

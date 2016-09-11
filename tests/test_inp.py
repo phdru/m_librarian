@@ -1,7 +1,5 @@
-#! /usr/bin/env python
 
-
-from tests import TestCase, main
+from tests import TestCase
 from m_librarian.db import Author, Book
 
 
@@ -13,7 +11,3 @@ class TestInp(TestCase):
         self.import_inpx('test.inpx')
         self.assertEqual(Author.select().count(), 4)
         self.assertEqual(Book.select().count(), 4)
-
-
-if __name__ == "__main__":
-    main()

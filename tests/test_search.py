@@ -1,8 +1,6 @@
-#! /usr/bin/env python
 # coding: utf-8
 
-
-from tests import TestCase, main
+from tests import TestCase
 from m_librarian.db import Author, Book
 from m_librarian.search import mk_search_conditions, \
     search_authors, search_books
@@ -30,7 +28,3 @@ class TestSearch(TestCase):
             search_books('start', False,
                          {'title': u'тест'}, join_expressions).count(),
             2)
-
-
-if __name__ == "__main__":
-    main()
