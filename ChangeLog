@@ -1,6 +1,6 @@
 Version 0.0.15 (2016-07-??)
 
-   Use pytest for testing.
+   Use pytest, coverage and tox for testing.
 
 Version 0.0.14 (2016-07-29)
 
