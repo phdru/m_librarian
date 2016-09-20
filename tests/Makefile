@@ -1,4 +1,4 @@
 
 .PHONY: all
 all:
-	pytest
+	PYTHONPATH=.. pytest
