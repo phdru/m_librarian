@@ -1,10 +1,9 @@
 
-from tests import TestCase
+from dbutils import setup_module, teardown_module  # noqa
 from m_librarian.db import Genre
 from m_librarian.glst import import_glst
 
 
-class TestGlst(TestCase):
-    def test_import_glst(self):
-        import_glst()
-        self.assertEqual(Genre.select().count(), 340)
+def test_import_glst():
+    import_glst()
+    assert Genre.select().count() == 340
