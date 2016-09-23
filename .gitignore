@@ -1,6 +1,6 @@
 /.cache/
 /.tox/
-/SQLObject.egg-info/
+/m_librarian.egg-info/
 /build/
 /data/
 /dist/
