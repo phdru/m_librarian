@@ -1,3 +1,10 @@
 /.cache/
 /.tox/
+/SQLObject.egg-info/
+/build/
+/data/
+/dist/
+/MANIFEST
 *.py[co]
+*.tmp
+*~
