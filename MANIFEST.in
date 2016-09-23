@@ -1,6 +1,6 @@
 global-include Makefile *.py *.rst *.txt
-include docs/genapidocs sample/m_librarian.conf
-include COPYING ChangeLog MANIFEST.in TODO mk-distr
+include sample/m_librarian.conf
+include docs/genapidocs COPYING ChangeLog MANIFEST.in TODO mk-distr
 recursive-include docs* *.css *.js *.html *.gif *.png
 recursive-include m_librarian/translations *.mo *.po
 recursive-include tests test_config.conf *.inpx
