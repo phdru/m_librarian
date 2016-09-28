@@ -4,6 +4,8 @@
 /build/
 /data/
 /dist/
+/htmlcov/
+/.coverage
 /MANIFEST
 *.py[co]
 *.tmp
