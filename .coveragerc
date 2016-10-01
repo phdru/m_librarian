@@ -1,0 +1,4 @@
+[run]
+omit =
+   sqlconvert/__init__.py
+   sqlconvert/__version__.py
