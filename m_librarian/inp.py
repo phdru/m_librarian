@@ -90,6 +90,8 @@ def import_inpx(path):
         sqlhub.doInTransaction(import_inp, archive + '.zip', inp)
         inp.close()
     connection = sqlhub.processConnection
-    if connection.dbName in ('postgres', 'sqlite'):
+    if connection.dbName == 'postgres':
         for table in Author, Book, Extension, Genre, Language:
             connection.query("VACUUM %s" % table.sqlmeta.table)
+    elif connection.dbName == 'sqlite':
+        connection.query("VACUUM")
