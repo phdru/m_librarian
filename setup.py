@@ -4,11 +4,6 @@ from imp import load_source
 from os.path import abspath, dirname, join
 
 try:
-    from ez_setup import use_setuptools
-    use_setuptools()
-except ImportError:
-    pass
-try:
     from setuptools import setup
     is_setuptools = True
 except ImportError:
