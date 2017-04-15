@@ -16,6 +16,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   news
    before_begin
    command_line
 
