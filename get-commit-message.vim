@@ -1,8 +1,8 @@
 set fileencoding=utf-8
-edit ChangeLog
-normal 1G3yy
+edit docs/news.rst
+normal 4G4yy
 buffer 1
-normal 1GPf ;Da:
+normal 1GPjddkf ;Da:
 .
 normal JJ
 s/\.$//
