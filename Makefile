@@ -4,7 +4,7 @@ all:
 	@echo "Nothing to be done for 'all'"
 
 .PHONY: release
-release: tests flake8 html distr
+release: tests flake8 docs distr
 
 .PHONY: distr
 distr:
@@ -13,6 +13,9 @@ distr:
 .PHONY: flake8
 flake8:
 	flake8
+
+.PHONY: docs
+docs: html
 
 .PHONY: html
 html:
