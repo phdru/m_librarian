@@ -14,7 +14,8 @@ Software
 --------
 
 m_Librarian is written in Python and requires Python 2.7. So install
-Python 2.7 first. Install required modules: SQLObject and m_lib.
+Python 2.7 first. Install required modules: SQLObject and m_lib. pip
+`installs <install.html>`_ required modules automatically.
 
 
 Library archives

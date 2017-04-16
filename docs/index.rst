@@ -16,9 +16,10 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   news
    before_begin
+   install
    command_line
+   news
 
 
 Indices and tables
