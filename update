@@ -1,2 +1,0 @@
-#! /bin/sh
-exec "$HOME"/admin/prog/git-scripts/update
