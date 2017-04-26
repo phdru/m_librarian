@@ -4,6 +4,6 @@ normal 4G4yy
 buffer 1
 normal 1GPjddkf ;Da:
 .
-normal JJ
+normal JJdw
 s/\.$//
 update
