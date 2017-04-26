@@ -6,14 +6,14 @@ System-wide
 
 ::
 
-    sudo pip install --find-links=http://phdru.name/Software/Python/ --no-index --install-option='-O2' m_librarian
+    sudo pip install --trusted-host phdru.name --find-links=http://phdru.name/Software/Python/ --install-option='-O2' m_librarian
 
 User mode
 ---------
 
 ::
 
-    pip install --find-links=http://phdru.name/Software/Python/ --no-index --install-option='-O2' --user m_librarian
+    pip install --trusted-host phdru.name --find-links=http://phdru.name/Software/Python/ --install-option='-O2' --user m_librarian
 
 For Python 2.6 the command is easy_install.
 
