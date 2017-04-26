@@ -12,7 +12,7 @@ except ImportError:
 
 kw = {}
 if is_setuptools:
-    kw['install_requires'] = ['SQLObject>=2.2.1', 'm_lib>=2.0']
+    kw['install_requires'] = ['SQLObject>=2.2.1', 'm_lib.defenc>=1.0']
 
 versionpath = join(abspath(dirname(__file__)), 'm_librarian', '__version__.py')
 load_source('m_librarian_version', versionpath)
