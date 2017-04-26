@@ -35,7 +35,7 @@ Credits
 
 Created by Oleg Broytman <phd@phdru.name>.
 
-Copyright (C) 2015, 2016 PhiloSoft Design.
+Copyright (C) 2015-2017 PhiloSoft Design.
 
 
 License

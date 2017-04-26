@@ -1,4 +1,4 @@
-Broytman m_Librarian, Copyright (C) 2015, 2016 PhiloSoft Design
+Broytman m_Librarian, Copyright (C) 2015-2017 PhiloSoft Design
 Автор: Олег Бройтман <phd@phdru.name>
 Лицензия: GPL
 
