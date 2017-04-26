@@ -1,8 +1,10 @@
 News
 ====
 
-Version 0.0.15 (2016-07-??)
+Version 0.0.15 (2017-04-26)
 ---------------------------
+
+* Use m_lib.defenc instead of m_lib; install it from PyPI.
 
 * Use pytest, coverage and tox for testing.
 
