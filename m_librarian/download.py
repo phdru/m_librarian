@@ -111,5 +111,6 @@ def test():
     _compile_format()
     print(compiled_format)
 
+
 if __name__ == '__main__':
     test()

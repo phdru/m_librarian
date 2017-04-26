@@ -225,5 +225,6 @@ def test():
     print("DB dirs:", db_dirs)
     print("DB URI:", find_sqlite_dburi())
 
+
 if __name__ == '__main__':
     test()
