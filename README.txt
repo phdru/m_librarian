@@ -5,3 +5,9 @@ License: GPL
 This hopefully will be a collection of programs to index LibRusEc and
 Flibusta libraries (zipfiles from torrents, actually) and show their
 contents with command-line, web interface and GUI.
+
+Home Page:     http://phdru.name/Software/Python/m_librarian/
+Documentation: http://phdru.name/Software/Python/m_librarian/docs/
+Russian:       http://phdru.name/Software/Python/m_librarian/docs/ru/
+Git repo:      http://git.phdru.name/m_librarian.git/
+Issue tracker: not yet.
