@@ -1,0 +1,11 @@
+#! /bin/sh
+
+web="`git config --get --path htdocs.path`" &&
+
+cd "`dirname \"$0\"`"/docs/_build/html &&
+rsync -ahP --del * --exclude=objects.inv "$web" &&
+
+cd ../../../docs-ru/_build/html &&
+rsync -ahP --del --exclude=objects.inv * "$web"/ru &&
+
+exec chmod -R u=rwX,go=rX "$web"
