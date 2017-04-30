@@ -1,6 +1,7 @@
-Broytman m_Librarian, Copyright (C) 2015-2017 PhiloSoft Design
-Author: Oleg Broytman <phd@phdru.name>
-License: GPL
+m_Librarian.
+Author: Oleg Broytman <phd@phdru.name>.
+Copyright (C) 2015-2017 PhiloSoft Design.
+License: GPL.
 
 This hopefully will be a collection of programs to index LibRusEc and
 Flibusta libraries (zipfiles from torrents, actually) and show their
