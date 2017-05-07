@@ -50,13 +50,14 @@ def _import_glst():
     connection = sqlhub.processConnection
     if connection.dbName == 'postgres':
         connection.query("VACUUM %s" % Genre.sqlmeta.table)
-    elif connection.dbName == 'sqlite':
-        connection.query("VACUUM")
     return old_fb2 + old_nonfb2, new_fb2 + new_nonfb2
 
 
 def import_glst():
     return sqlhub.doInTransaction(_import_glst)
+    connection = sqlhub.processConnection
+    if connection.dbName == 'sqlite':
+        connection.query("VACUUM")
 
 
 def test():
