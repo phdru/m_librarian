@@ -13,9 +13,10 @@ Before you begin you need some preparations.
 Software
 --------
 
-m_Librarian is written in Python and requires Python 2.7. So install
-Python 2.7 first. Install required modules: SQLObject and m_lib.defenc.
-pip `installs <install.html>`_ required modules automatically.
+m_Librarian is written in Python and requires Python (2.7 or 3.4+). So
+install Python first. Install required modules: SQLObject and
+m_lib.defenc. pip `installs <install.html>`_ required modules
+automatically.
 
 
 Library archives
