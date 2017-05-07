@@ -22,8 +22,6 @@ Virtual envs
 
     pip install --trusted-host phdru.name --find-links=http://phdru.name/Software/Python/ --install-option='-O2' m_librarian
 
-For Python 2.6 the command is easy_install.
-
 Installation from sources
 =========================
 
