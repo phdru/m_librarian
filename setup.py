@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 from imp import load_source
 from os.path import abspath, dirname, join
 
@@ -13,6 +14,8 @@ except ImportError:
 kw = {}
 if is_setuptools:
     kw['install_requires'] = ['SQLObject>=2.2.1', 'm_lib.defenc>=1.0']
+    if (sys.version_info[:2] == (2, 6)):
+        kw['install_requires'].append('argparse')
 
 versionpath = join(abspath(dirname(__file__)), 'm_librarian', '__version__.py')
 load_source('m_librarian_version', versionpath)
