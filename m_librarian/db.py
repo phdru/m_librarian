@@ -147,7 +147,7 @@ def open_db(db_uri=None):
     if db_uri is None:
         try:
             db_uri = get_config().get('database', 'URI')
-        except:
+        except Exception:
             db_uri = find_sqlite_dburi()
 
     if '://' not in db_uri:

@@ -21,7 +21,7 @@ def _compile_format():
         compile_format = False
         try:
             format = get_config().get('download', 'format')
-        except:
+        except Exception:
             return
     got_percent = False
     compiled = []
