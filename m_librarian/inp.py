@@ -14,10 +14,10 @@ EOT = chr(4)  # INP field separator
 
 def split_line(line):
     parts = line.strip().split(EOT)
-    l = len(parts)
-    if l < 11:
+    _l = len(parts)
+    if _l < 11:
         raise ValueError('Unknown INP structure: "%s"' % line)
-    if l == 11:  # Standard structure
+    if _l == 11:  # Standard structure
         parts.append(None)  # Emulate lang
     else:  # New structure
         parts = parts[:12]
