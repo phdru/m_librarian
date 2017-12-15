@@ -6,21 +6,21 @@ System-wide
 
 ::
 
-    sudo pip install --trusted-host phdru.name --find-links=http://phdru.name/Software/Python/ --install-option='-O2' m_librarian
+    sudo pip install --trusted-host phdru.name --find-links=http://phdru.name/Software/Python/ m_librarian
 
 User mode
 ---------
 
 ::
 
-    pip install --trusted-host phdru.name --find-links=http://phdru.name/Software/Python/ --install-option='-O2' --user m_librarian
+    pip install --trusted-host phdru.name --find-links=http://phdru.name/Software/Python/ --user m_librarian
 
 Virtual envs
 ------------
 
 ::
 
-    pip install --trusted-host phdru.name --find-links=http://phdru.name/Software/Python/ --install-option='-O2' m_librarian
+    pip install --trusted-host phdru.name --find-links=http://phdru.name/Software/Python/ m_librarian
 
 Installation from sources
 =========================
@@ -30,14 +30,14 @@ command:
 
 ::
 
-    sudo python setup.py install -O2
+    sudo python setup.py install
 
 If you don't want to install it system-wide you can install it in your
 home directory; run run the following command:
 
 ::
 
-    python setup.py install -O2 --user
+    python setup.py install --user
 
 Option '--user' installs m_librarian into
 $HOME/.local/lib/python$MAJOR.$MINOR/site-packages/ where python finds it
