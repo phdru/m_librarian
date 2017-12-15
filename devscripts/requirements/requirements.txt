@@ -1,3 +1,5 @@
+--trusted-host phdru.name
+--find-links=http://phdru.name/Software/Python/
 --install-option=-O2
 
 SQLObject>=2.2.1; python_version >= '2.7' and python_version < '3.0'
