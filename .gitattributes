@@ -1,3 +1,4 @@
 .git* export-ignore
+/README.rus.txt encoding=utf-8
+*.rst encoding=utf-8
 *.txt text
-/README.rus.txt encoding=koi8-r
