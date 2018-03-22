@@ -22,6 +22,14 @@ Virtual envs
 
     pip install --trusted-host phdru.name --find-links=http://phdru.name/Software/Python/ m_librarian
 
+Progress bar
+============
+
+To allow ``ml-import.py`` to display progress bar the program requires
+library ``m_lib``. You can install the library separately using, e.g.,
+command ``pip install m_lib``. Or you can install the library with
+``m_librarian``: ``pip install m_librarian[pbar]``.
+
 Installation from sources
 =========================
 

@@ -1,6 +1,6 @@
 m_Librarian.
 Author: Oleg Broytman <phd@phdru.name>.
-Copyright (C) 2015-2017 PhiloSoft Design.
+Copyright (C) 2015-2018 PhiloSoft Design.
 License: GPL.
 
 This hopefully will be a collection of programs to index LibRusEc and

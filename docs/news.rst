@@ -1,6 +1,12 @@
 News
 ====
 
+Version 0.0.16 (2018-03-22)
+---------------------------
+
+* Script ``ml-import.py`` displays progress bar.
+  Option ``-P`` prevents it.
+
 Version 0.0.15 (2017-04-26)
 ---------------------------
 
@@ -58,18 +64,18 @@ Version 0.0.8 (2016-05-29)
 Version 0.0.7 (2016-05-25)
 ---------------------------
 
-* Extend ml-serach.py to search books by authors, extensions, genres,
+* Extend ml-search.py to search books by authors, extensions, genres,
 * languages.
 
 Version 0.0.6 (2016-05-21)
 ---------------------------
 
-* Extend ml-serach.py to search books by title, series, archive, file.
+* Extend ml-search.py to search books by title, series, archive, file.
 
 Version 0.0.5 (2016-05-14)
 ---------------------------
 
-* Extend script ml-serach.py to search extensions/genres/languages.
+* Extend script ml-search.py to search extensions/genres/languages.
 
 Version 0.0.4 (2016-05-11)
 ---------------------------

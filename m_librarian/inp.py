@@ -80,12 +80,23 @@ def import_inp(archive, inp):
             import_inp_line(archive, parts)
 
 
-def import_inpx(path):
+def import_inpx(path, pbar_cb=None):
     inpx = ZipFile(path)
+    if pbar_cb:
+        inp_count = 0
+        for name in inpx.namelist():
+            ext = os.path.splitext(name)[1]
+            if ext == '.inp':
+                inp_count += 1
+        pbar_cb.set_max(inp_count)
+    inp_count = 0
     for name in inpx.namelist():
         archive, ext = os.path.splitext(name)
         if ext != '.inp':
             continue
+        if pbar_cb:
+            inp_count += 1
+            pbar_cb.display(inp_count)
         inp = inpx.open(name)
         sqlhub.doInTransaction(import_inp, archive + '.zip', inp)
         inp.close()
@@ -95,3 +106,5 @@ def import_inpx(path):
             connection.query("VACUUM %s" % table.sqlmeta.table)
     elif connection.dbName == 'sqlite':
         connection.query("VACUUM")
+    if pbar_cb:
+        pbar_cb.close()

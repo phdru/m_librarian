@@ -13,6 +13,10 @@ except ImportError:
 kw = {}
 if is_setuptools:
     kw['python_requires'] = '>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*'
+    kw['extras_require'] = {
+        'm_lib': ['m_lib>=3.1'],
+        'pbar': ['m_lib>=3.1'],
+    }
 
 versionpath = join(abspath(dirname(__file__)), 'm_librarian', '__version__.py')
 m_librarian_version = load_source('m_librarian_version', versionpath)

@@ -29,12 +29,13 @@ ml-import.py
 
 Usage::
 
-    ml-import.py [-C] [-D] [file.inpx ...]
+    ml-import.py [-C] [-D] [-P] [file.inpx ...]
 
 Options::
 
     -C, --config config      Configuration file
     -D, --database database  Open this database by pathname/db uri
+    -P, --no-pbar            Inhibit progress bar
 
 Initialize database, import genres list and import a list of INPX files
 listed in the command line. On subsequent runs doesn’t destroy DB or
