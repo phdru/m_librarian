@@ -13,6 +13,7 @@ except ImportError:
 kw = {}
 if is_setuptools:
     kw['python_requires'] = '>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*'
+    kw['install_requires'] = ['m_lib.defenc>=1.0']
     kw['extras_require'] = {
         'm_lib': ['m_lib>=3.1'],
         'pbar': ['m_lib>=3.1'],
