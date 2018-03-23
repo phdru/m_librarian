@@ -206,18 +206,42 @@ def insert_author(surname, name, misc_name):
         return Author(surname=surname, name=name, misc_name=misc_name, count=0)
 
 
-def update_counters():
+def update_counters(pbar_cb=None):
+    if pbar_cb:
+        count = 0
+        for table in Author, Extension, Genre, Language:
+            count += table.select().count()
+        pbar_cb.set_max(count)
+
+    if pbar_cb:
+        count = 0
+
     for author in Author.select():
         author.count = AuthorBook.select(AuthorBook.q.author == author).count()
+        if pbar_cb:
+            count += 1
+            pbar_cb.display(count)
 
     for ext in Extension.select():
         ext.count = Book.select(Book.q.extension == ext.id).count()
+        if pbar_cb:
+            count += 1
+            pbar_cb.display(count)
 
     for genre in Genre.select():
         genre.count = BookGenre.select(BookGenre.q.genre == genre).count()
+        if pbar_cb:
+            count += 1
+            pbar_cb.display(count)
 
     for language in Language.select():
         language.count = Book.select(Book.q.language == language.id).count()
+        if pbar_cb:
+            count += 1
+            pbar_cb.display(count)
+
+    if pbar_cb:
+        pbar_cb.close()
 
 
 def test():

@@ -4,6 +4,8 @@ News
 Version 0.0.17 (2018-03-??)
 ---------------------------
 
+* Display progress bar on updating counters.
+
 * Inhibit progress bar if stdout is not terminal.
 
 Version 0.0.16 (2018-03-22)
