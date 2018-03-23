@@ -1,7 +1,7 @@
 News
 ====
 
-Version 0.0.17 (2018-03-??)
+Version 0.0.17 (2018-03-24)
 ---------------------------
 
 * Display progress bar on updating counters.
