@@ -27,8 +27,9 @@ if __name__ == '__main__':
     open_db(args.database)
     init_db()
     import_glst()
+    use_pbar = ttyProgressBar and not args.no_pbar and sys.stdout.isatty()
     for inpx in args.inpx:
-        if ttyProgressBar and not args.no_pbar:
+        if use_pbar:
             if len(inpx) > 25:
                 pbar_fname = inpx[:22] + '...'
             else:
