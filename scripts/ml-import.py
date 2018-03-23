@@ -37,6 +37,7 @@ if __name__ == '__main__':
             sys.stdout.flush()
             pbar = ml_ttyProgressBar()
             import_inpx(inpx, pbar_cb=pbar)
+            print("Ok")
         else:
             import_inpx(inpx)
     update_counters()
