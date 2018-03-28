@@ -2,22 +2,7 @@
 
 from imp import load_source
 from os.path import abspath, dirname, join
-
-try:
-    from setuptools import setup
-    is_setuptools = True
-except ImportError:
-    from distutils.core import setup
-    is_setuptools = False
-
-kw = {}
-if is_setuptools:
-    kw['python_requires'] = '>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*'
-    kw['install_requires'] = ['m_lib.defenc>=1.0']
-    kw['extras_require'] = {
-        'm_lib': ['m_lib>=3.1'],
-        'pbar': ['m_lib>=3.1'],
-    }
+from setuptools import setup
 
 versionpath = join(abspath(dirname(__file__)), 'm_librarian', '__version__.py')
 m_librarian_version = load_source('m_librarian_version', versionpath)
@@ -55,5 +40,10 @@ setup(name='m_librarian',
       },
       scripts=['scripts/ml-import.py', 'scripts/ml-initdb.py',
                'scripts/ml-search.py'],
-      **kw
+      python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
+      install_requires=['m_lib.defenc>=1.0'],
+      extras_require={
+          'm_lib': ['m_lib>=3.1'],
+          'pbar': ['m_lib>=3.1'],
+      },
       )
