@@ -14,6 +14,17 @@ setup(name='m_librarian',
       author='Oleg Broytman',
       author_email='phd@phdru.name',
       url='http://phdru.name/Software/Python/m_librarian/',
+      project_urls={
+          'Homepage': 'http://phdru.name/Software/Python/m_librarian/',
+          'Download':
+              'http://phdru.name/Software/Python/m_librarian/'
+              'm_librarian-%s.tar.bz2' % m_librarian_version.__version__,
+          'Documentation':
+              'http://phdru.name/Software/Python/m_librarian/docs/',
+          'Russian docs':
+              'http://phdru.name/Software/Python/m_librarian/docs/ru/',
+          'Git repo': 'http://git.phdru.name/m_librarian.git/',
+      },
       license='GPL',
       keywords=['books', 'library', 'Flibusta', 'LibRusEc', 'lib.rus.ec'],
       platforms="Any",
