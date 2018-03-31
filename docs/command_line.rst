@@ -253,4 +253,20 @@ Options::
 
 With one option `-v` it also prints database id.
 
+
+ml-web.py
+------------
+
+Usage::
+
+    ml-web.py [-p port]
+
+Options::
+
+    -p, --port port      HTTP port to listen to
+
+Run a web server. If a port is given listen on the given port. Else
+choose a random port. Start a browser (or open a new window of a running
+browser) pointing it to the server.
+
 .. vim: set tw=72 :

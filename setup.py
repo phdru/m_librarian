@@ -44,14 +44,14 @@ setup(name='m_librarian',
           'Programming Language :: Python :: 3.5',
           'Programming Language :: Python :: 3.6',
       ],
-      packages=['m_librarian'],
+      packages=['m_librarian', 'm_librarian.web'],
       package_data={'m_librarian': [
           'glst/*.txt', 'glst/genres_*.glst',
           'translations/*.mo'
           ]
       },
       scripts=['scripts/ml-import.py', 'scripts/ml-initdb.py',
-               'scripts/ml-search.py'],
+               'scripts/ml-search.py', 'scripts/ml-web.py'],
       python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
       install_requires=[
           'SQLObject>=2.2.1; python_version=="2.7"',
@@ -61,5 +61,7 @@ setup(name='m_librarian',
       extras_require={
           'm_lib': ['m_lib>=3.1'],
           'pbar': ['m_lib>=3.1'],
+          'web': ['bottle'],
+          'bottle': ['bottle'],
       },
       )

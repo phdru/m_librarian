@@ -5,3 +5,4 @@
 SQLObject>=2.2.1; python_version >= '2.7' and python_version < '3.0'
 SQLObject>=3.0.0; python_version >= '3.4'
 m_lib.defenc>=1.0
+bottle
