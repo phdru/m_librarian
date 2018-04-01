@@ -59,9 +59,7 @@ setup(name='m_librarian',
           'm_lib.defenc>=1.0',
       ],
       extras_require={
-          'm_lib': ['m_lib>=3.1'],
           'pbar': ['m_lib>=3.1'],
-          'web': ['bottle'],
-          'bottle': ['bottle'],
+          'web': ['bottle', 'Cheetah3'],
       },
       )

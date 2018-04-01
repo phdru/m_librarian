@@ -1,9 +1,10 @@
-from bottle import run
-
+import os
+import sys
 from wsgiref import simple_server
 from wsgiref.handlers import SimpleHandler
 from wsgiref.simple_server import WSGIServer
-from bottle import route
+
+from bottle import route, run
 
 simple_server.ServerHandler = SimpleHandler  # Stop logging to stdout
 
@@ -23,4 +24,7 @@ def quit():
 
 
 def run_server(host='localhost', port=0):
+    # Start here so that bottle can find templates
+    os.chdir(os.path.dirname(__file__))
+    sys.path.insert(0, os.getcwd())  # To import Cheetah templates
     run(host=host, port=port, server_class=QuitWSGIServer, debug=True)

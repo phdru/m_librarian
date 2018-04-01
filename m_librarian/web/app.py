@@ -1,6 +1,7 @@
-from bottle import route
+from bottle import route, cheetah_view
 
 
 @route('/')
-def hello():
-    return "Hello World!"
+@cheetah_view('index.tmpl')
+def index():
+    return {}
