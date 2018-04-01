@@ -1,4 +1,5 @@
 /.cache/
+/.pytest_cache/
 /.tox/
 /m_librarian.egg-info/
 /build/
