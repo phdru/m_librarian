@@ -1,0 +1,18 @@
+#encoding utf-8
+#extends views.layout
+#attr $title = 'Список авторов'
+#def body
+<h1>$title</h1>
+
+#if $authors
+  <table>
+  #for $author in $authors
+  <tr>
+    <td>$author.fullname</td>
+  </tr>
+  #end for
+  </table>
+#else
+  <p>Не найдено ни одного автора!</p>
+#end if
+#end def

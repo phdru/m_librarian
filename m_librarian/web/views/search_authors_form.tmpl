@@ -1,0 +1,16 @@
+#encoding utf-8
+<form action="/search_authors/" method="POST">
+  <input name="search_authors" type="text" style="width: 80%">
+  <br>
+  <input name="search_type" value="start" type="radio">
+  Подстрока в начале
+  <input name="search_type" value="substring" type="radio">
+  Подстрока
+  <input name="search_type" value="full" type="radio">
+  Точное совпадение
+  <br>
+  <input name="case_sensitive" type="checkbox">
+  Различать прописные/строчные
+  <br>
+  <input name="submit" type="submit">
+</form>
