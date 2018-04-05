@@ -52,4 +52,9 @@ def search_authors_post():
     open_db()
     authors = search_authors(search_type, case_sensitive, {}, expressions,
                              orderBy=('surname', 'name', 'misc_name'))
-    return {'authors': list(authors)}
+    return {
+        'authors': list(authors),
+        'search_authors': value,
+        'search_type': search_type,
+        'case_sensitive': case_sensitive,
+    }

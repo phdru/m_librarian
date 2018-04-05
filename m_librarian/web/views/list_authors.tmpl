@@ -2,6 +2,10 @@
 #extends views.layout
 #attr $title = 'Список авторов'
 #def body
+<h1>Поиск авторов</h1>
+#from views.search_authors_form import search_authors_form
+$search_authors_form(searchList=$searchList)
+
 <h1>$title</h1>
 
 #if $authors
