@@ -1,7 +1,9 @@
-from sqlobject.sqlbuilder import CONCAT
-from bottle import cheetah_view, redirect, request, route
+import os
 
-from m_librarian.db import Author, AuthorBook, Book
+from sqlobject.sqlbuilder import CONCAT
+from bottle import cheetah_view, redirect, request, route, static_file
+
+from m_librarian.db import Author, Book
 from m_librarian.search import search_authors
 
 
@@ -69,3 +71,13 @@ def books_by_author(id):
             orderBy=['series', 'ser_no', 'title'],
         )
     }
+
+
+@route('/static/<filename:path>')
+def send_static(filename):
+    return static_file(
+        filename, root=os.path.join(
+            os.path.dirname(__file__),
+            'static'
+        )
+    )

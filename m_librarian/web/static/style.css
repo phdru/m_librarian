@@ -1,0 +1,36 @@
+body {
+   color: #000000;
+   font-family: sans-serif;
+   text-decoration: none;
+   margin: 8pt;
+}
+
+h1, h2, h3, h4, h5, h6  { font-weight: bold; }
+h1                      { font-size: 150%; }
+h2                      { font-size: 140%; }
+h3                      { font-size: 130%; }
+h4                      { font-size: 120%; }
+h5                      { font-size: 110%; }
+h6                      { font-size: 100%; }
+
+p {
+   text-indent: 2em;
+   margin: 0;
+}
+
+p.head {
+   margin-top: 1ex;
+}
+
+table {
+   border: 1px solid black;
+}
+
+td, th {
+   border: 1px solid black;
+   text-align: left;
+}
+
+td.numeric {
+   text-align: right;
+}
