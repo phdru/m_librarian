@@ -1,7 +1,7 @@
 from sqlobject.sqlbuilder import CONCAT
 from bottle import cheetah_view, redirect, request, route
 
-from m_librarian.db import Author, open_db
+from m_librarian.db import Author, AuthorBook, Book
 from m_librarian.search import search_authors
 
 
@@ -49,7 +49,6 @@ def search_authors_post():
         CONCAT(Author.q.surname, ' ', Author.q.name, ' ', Author.q.misc_name),
         decode(value)
     )]
-    open_db()
     authors = search_authors(search_type, case_sensitive, {}, expressions,
                              orderBy=('surname', 'name', 'misc_name'))
     return {
@@ -57,4 +56,16 @@ def search_authors_post():
         'search_authors': value,
         'search_type': search_type,
         'case_sensitive': case_sensitive,
+    }
+
+
+@route('/books-by-author/<id:int>/', method='GET')
+@cheetah_view('books_by_author.tmpl')
+def books_by_author(id):
+    return {
+        'author': Author.get(id),
+        'books': Book.select(
+            Book.j.authors & (Author.q.id == id),
+            orderBy=['series', 'ser_no', 'title'],
+        )
     }

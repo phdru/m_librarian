@@ -12,7 +12,7 @@ $search_authors_form(searchList=$searchList)
   <table>
   #for $author in $authors
   <tr>
-    <td>$author.fullname</td>
+    <td><a href="/books-by-author/$author.id/">$author.fullname</a></td>
   </tr>
   #end for
   </table>

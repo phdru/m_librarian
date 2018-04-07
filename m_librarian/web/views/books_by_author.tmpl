@@ -1,0 +1,32 @@
+#encoding utf-8
+#extends views.layout
+#attr $title = 'Список книг автора $author.fullname'
+#def body
+<h1>$title</h1>
+
+#if $books
+  <table>
+  #set $series = None
+  #for $book in $books
+  #if $book.series != $series
+  #set $series = $book.series
+  #if $book.series
+  <tr>
+    <td colspan=2>Серия: $series</td>
+  </tr>
+  #else
+  <tr>
+    <td colspan=2>Вне серий</td>
+  </tr>
+  #end if
+  #end if
+  <tr>
+    <td style="text-align: right">$book.ser_no</td>
+    <td><a href="/download/$book.id/">$book.title</a></td>
+  </tr>
+  #end for
+  </table>
+#else
+  <p>Не найдено ни одной книги!</p>
+#end if
+#end def

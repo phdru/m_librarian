@@ -6,6 +6,7 @@ import webbrowser
 
 from bottle import thread  # portable import
 
+from m_librarian.db import open_db
 import m_librarian.web.app  # noqa: F401 imported but unused
 from m_librarian.web.server import run_server
 from m_librarian.web.utils import get_open_port
@@ -26,5 +27,6 @@ if __name__ == '__main__':
     else:
         port = get_open_port()
 
+    open_db()
     thread.start_new_thread(start_browser, (port,))
     run_server(port=port)
