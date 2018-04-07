@@ -1,8 +1,8 @@
 #encoding utf-8
 #extends views.layout
-#attr $title = 'Список книг автора $author.fullname'
+#attr $title = 'Список книг автора'
 #def body
-<h1>$title</h1>
+<h1>$title $author.fullname</h1>
 
 #if $books
   <table>
