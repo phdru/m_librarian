@@ -19,6 +19,7 @@ Contents:
 
    before_begin
    command_line
+   news
 
 
 Indices and tables
