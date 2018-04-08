@@ -64,12 +64,12 @@ def _compile_format():
 _library_path = None
 
 
-def download(book, path=None, a_format=None):
-    if path is None:
+def download(book, dest_path=None, lib_path=None, a_format=None):
+    if lib_path is None:
         global _library_path
         if _library_path is None:
             _library_path = get_config().get('library', 'path')
-        path = _library_path
+        lib_path = _library_path
 
     global format, compile_format, compiled_format
     if a_format:
@@ -92,19 +92,20 @@ def download(book, path=None, a_format=None):
     if '%(extension)s' not in compiled_format:
         compiled_format += '.%(extension)s'
     filename = compiled_format % bdict
+    full_path = os.path.join(dest_path, filename)
     try:
-        os.makedirs(os.path.dirname(filename))
+        os.makedirs(os.path.dirname(full_path))
     except OSError:
         pass  # Already exists
-    zf = ZipFile(os.path.join(path, book.archive),  'r')
+    zf = ZipFile(os.path.join(lib_path, book.archive),  'r')
     infile = zf.open('%s.%s' % (book.file, book.extension.name))
-    outfile = open(filename, 'wb')
+    outfile = open(full_path, 'wb')
     copyfileobj(infile, outfile)
     outfile.close()
     infile.close()
     zf.close()
     dt = mktime(book.date.timetuple())
-    os.utime(filename, (dt, dt))
+    os.utime(full_path, (dt, dt))
 
 
 def test():

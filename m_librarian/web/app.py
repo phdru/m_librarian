@@ -1,9 +1,13 @@
+# -*- coding: utf-8 -*-
+
 import os
 
 from sqlobject.sqlbuilder import CONCAT
 from bottle import cheetah_view, redirect, request, route, static_file
 
+from m_librarian.config import get_config
 from m_librarian.db import Author, Book
+from m_librarian.download import download
 from m_librarian.search import search_authors
 
 
@@ -81,3 +85,13 @@ def send_static(filename):
             'static'
         )
     )
+
+
+@route('/download/<id:int>/', method='GET')
+@cheetah_view('download.tmpl')
+def download_book(id):
+    book = Book.get(id)
+    download(book, get_config().get('download', 'path'))
+    return {
+        'message': u'Книга сохранена',
+    }

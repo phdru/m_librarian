@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 import argparse
+import os
 import sys
 from sqlobject.sqlbuilder import CONCAT
 
@@ -199,7 +200,7 @@ def _search_books(case_sensitive, search_type, args):
             print(" ", encode(_("Deleted")), ":",
                   encode(_(str(book.deleted))))
         if args.get or args.get_many:
-            download(book, args.path, args.format)
+            download(book, os.path.curdir, args.path, args.format)
         count += 1
     print_count(count)
 
