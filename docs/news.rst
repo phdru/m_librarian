@@ -7,6 +7,9 @@ Version 0.1.0 (2018-04-08)
 * Web-interface: Search for authors, list books by an author,
   download a book.
 
+* Do not allow to run two instances of `ml-web.py` web-interfaces.
+  The second instance redirects browser to the first one and exits.
+
 * Option `--download-to` provides the path to the download directory
   in script `ml-search.py`.
 

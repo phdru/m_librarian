@@ -9,7 +9,7 @@ from bottle import thread  # portable import
 from m_librarian.db import open_db
 import m_librarian.web.app  # noqa: F401 imported but unused
 from m_librarian.web.server import run_server
-from m_librarian.web.utils import get_open_port
+from m_librarian.web.utils import get_lock, close_lock, get_open_port
 
 
 def start_browser(port):
@@ -27,6 +27,11 @@ if __name__ == '__main__':
     else:
         port = get_open_port()
 
-    open_db()
-    thread.start_new_thread(start_browser, (port,))
-    run_server(port=port)
+    lock_file, old_port = get_lock(port)
+    if lock_file:
+        open_db()
+        thread.start_new_thread(start_browser, (port,))
+        run_server(port=port)
+        close_lock(lock_file)
+    else:  # Another instance of the program is being run at a different port
+        start_browser(old_port)
