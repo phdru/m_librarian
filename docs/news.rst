@@ -7,6 +7,9 @@ Version 0.1.0 (2018-04-08)
 * Web-interface: Search for authors, list books by an author,
   download a book.
 
+* Option `--download-to` provides the path to the download directory
+  in script `ml-search.py`.
+
 Version 0.0.17 (2018-03-24)
 ---------------------------
 

@@ -148,6 +148,7 @@ Options::
     --lid lid              Search by language’s id
     -P, --path path        Path to the directory with the library
                            archives
+    --download-to [path]   Download directory
     -F, --format format    Format of the downloaded file name
     --get                  Download exactly one book
     --get-many N           Download at most this many books
@@ -168,6 +169,14 @@ section `[library]`, key `path`::
     path = /var/lib/archives
 
 The option is useful for multiple databases (global option `-D`).
+
+Option `--download-to` provides the path to the download directory.
+By default the script downloads books to the current directory.
+If the option is used without `path` argument the path is extracted from
+configuration file, section `[download]`, key `path`::
+
+    [download]
+    path = /tmp
 
 Option `--get` allows to download a book from the library to a local
 file. The option allows to download exactly one book. The simplest way
