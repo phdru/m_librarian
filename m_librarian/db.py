@@ -53,7 +53,7 @@ class Book(SQLObject):
     series = UnicodeCol(notNull=True)
     ser_no = IntCol()
     archive = StringCol(notNull=True)
-    file = StringCol(notNull=True)
+    file = UnicodeCol(notNull=True)
     size = IntCol(notNull=True)
     lib_id = StringCol(notNull=True)
     deleted = BoolCol(notNull=True)
