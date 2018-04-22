@@ -11,4 +11,5 @@ Home Page:     http://phdru.name/Software/Python/m_librarian/
 Documentation: http://phdru.name/Software/Python/m_librarian/docs/
 Russian:       http://phdru.name/Software/Python/m_librarian/docs/ru/
 Git repo:      http://git.phdru.name/m_librarian.git/
-Issue tracker: not yet.
+Github repo:   https://github.com/phdru/m_librarian
+Issue tracker: https://github.com/phdru/m_librarian/issues

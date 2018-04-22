@@ -26,6 +26,8 @@ setup(
         'Russian docs':
             'http://phdru.name/Software/Python/m_librarian/docs/ru/',
         'Git repo': 'http://git.phdru.name/m_librarian.git/',
+        'Github repo': 'https://github.com/phdru/m_librarian',
+        'Issue tracker': 'https://github.com/phdru/m_librarian/issues',
     },
     license='GPL',
     keywords=['books', 'library', 'Flibusta', 'LibRusEc', 'lib.rus.ec'],
