@@ -1,7 +1,7 @@
 News
 ====
 
-Version 0.1.0 (2018-04-08)
+Version 0.1.0 (2018-04-25)
 --------------------------
 
 * Web-interface: Search for authors, list books by an author,
