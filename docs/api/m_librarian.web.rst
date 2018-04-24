@@ -6,13 +6,6 @@ m\_librarian.web package
     :undoc-members:
     :show-inheritance:
 
-Subpackages
------------
-
-.. toctree::
-
-    m_librarian.web.views
-
 Submodules
 ----------
 
