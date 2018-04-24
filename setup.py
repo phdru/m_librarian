@@ -18,9 +18,8 @@ setup(
     url='http://phdru.name/Software/Python/m_librarian/',
     project_urls={
         'Homepage': 'http://phdru.name/Software/Python/m_librarian/',
-        'Download':
-            'http://phdru.name/Software/Python/m_librarian/'
-            'm_librarian-%s.tar.bz2' % m_librarian_version.__version__,
+        'Download': 'https://pypi.org/project/m_librarian/%s/'
+        % m_librarian_version.__version__,
         'Documentation':
             'http://phdru.name/Software/Python/m_librarian/docs/',
         'Russian docs':

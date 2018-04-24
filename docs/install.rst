@@ -6,21 +6,21 @@ System-wide
 
 ::
 
-    sudo pip install --trusted-host phdru.name --find-links=http://phdru.name/Software/Python/ m_librarian
+    sudo pip install m_librarian
 
 User mode
 ---------
 
 ::
 
-    pip install --trusted-host phdru.name --find-links=http://phdru.name/Software/Python/ --user m_librarian
+    pip install --user m_librarian
 
 Virtual envs
 ------------
 
 ::
 
-    pip install --trusted-host phdru.name --find-links=http://phdru.name/Software/Python/ m_librarian
+    pip install m_librarian
 
 Progress bar
 ============
