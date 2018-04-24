@@ -1,10 +1,25 @@
-PyPI.
+Next release
+------------
+
+GUI with wxPython. Search authors. List books by an author. Download books.
+
+
+Near future
+-----------
+
+Web: search by book titles.
+
+
+Web, GUI: select and download many books at once.
+
+
+Future
+------
+
+Compression: zip, gz, bz2, xz.
+
+
+Portability and installers.
 
 
 Import from SQL instead of INPX. Import annotations and illustrations.
-
-
-GUI scripts for listing authors, books, series, etc.
-
-
-Installers.
