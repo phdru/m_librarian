@@ -6,4 +6,4 @@ from m_librarian.glst import import_glst
 
 def test_import_glst():
     import_glst()
-    assert Genre.select().count() == 340
+    assert Genre.select().count() == 370

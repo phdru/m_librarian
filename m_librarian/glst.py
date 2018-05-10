@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 import codecs
+from glob import glob
 import os
 from sqlobject import sqlhub, SQLObjectNotFound
 from .db import Genre
@@ -43,14 +44,15 @@ def import_glst_file(glst_filename):
 
 def _import_glst():
     ml_dir = os.path.dirname(__file__)
-    old_fb2, new_fb2 = import_glst_file(
-        os.path.join(ml_dir, 'glst', 'genres_fb2.glst'))
-    old_nonfb2, new_nonfb2 = import_glst_file(
-        os.path.join(ml_dir, 'glst', 'genres_nonfb2.glst'))
+    count_old = count_new = 0
+    for glst_file in glob(os.path.join(ml_dir, 'glst', '*.glst')):
+        _count_old, _count_new = import_glst_file(glst_file)
+        count_old += _count_old
+        count_new += _count_new
     connection = sqlhub.processConnection
     if connection.dbName == 'postgres':
         connection.query("VACUUM %s" % Genre.sqlmeta.table)
-    return old_fb2 + old_nonfb2, new_fb2 + new_nonfb2
+    return count_old, count_new
 
 
 def import_glst():
