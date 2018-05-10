@@ -54,10 +54,11 @@ def _import_glst():
 
 
 def import_glst():
-    return sqlhub.doInTransaction(_import_glst)
+    count_old, count_new = sqlhub.doInTransaction(_import_glst)
     connection = sqlhub.processConnection
     if connection.dbName == 'sqlite':
         connection.query("VACUUM")
+    return count_old, count_new
 
 
 def test():
