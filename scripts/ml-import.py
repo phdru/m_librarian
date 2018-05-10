@@ -26,7 +26,14 @@ if __name__ == '__main__':
 
     open_db(args.database)
     init_db()
-    import_glst()
+
+    count_old, count_new = import_glst()
+    if count_old:
+        print("Imported %d genres (ignored %d existing)" % (
+            count_new, count_old))
+    else:
+        print("Imported %d genres" % count_new)
+
     use_pbar = ttyProgressBar and not args.no_pbar and sys.stdout.isatty()
     for inpx in args.inpx:
         if use_pbar:
