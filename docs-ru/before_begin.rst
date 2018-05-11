@@ -28,8 +28,11 @@ m_lib.defenc.
 | http://torrent.rus.ec/index.php?c=3
 | http://booktracker.org/index.php?c=18
 | https://nnm-club.me/forum/viewtopic.php?t=353958
+| http://rus-tor.com/torrent/543084
 | https://nnm-club.me/forum/viewtopic.php?t=510054
+| http://rus-tor.com/torrent/212528
 | https://nnm-club.me/forum/viewtopic.php?t=521962
+| http://rus-tor.com/torrent/542970
 | https://nnm-club.me/forum/viewtopic.php?t=877707
 
 Кроме самих библиотек вам понадобиться найти для них индексы INPX —
@@ -38,12 +41,13 @@ m_Librarian пока не научился индексировать архив
 Индексы INPX обычно распространяются вместе с программами для работы с
 библиотеками, и такие программы есть в архивах по ссылкам выше.
 Некоторые индексы можно скачать с сайта одной из таких программ
-`MyHomeLib <http://home-lib.net/>`_:
+`MyHomeLib <http://myhomelib.org/>`_:
 
-| http://home-lib.net/download/inpx/librusec_local_fb2.inpx
-| http://home-lib.net/download/inpx/librusec_local_usr.inpx
-| http://home-lib.net/download/inpx/librusec_local_all.inpx
-
+| http://myhomelib.org/download/inpx/librusec_local_fb2.inpx
+| http://myhomelib.org/download/inpx/librusec_local_usr.inpx (не обновляется)
+| http://myhomelib.org/download/inpx/librusec_local_all.inpx (не обновляется)
+| http://nnm-club.me/forum/viewtopic.php?t=875907
+| http://rus-tor.com/torrent/543085
 
 Файл конфигурации
 -----------------
