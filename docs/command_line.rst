@@ -274,8 +274,11 @@ Options::
 
     -p, --port port      HTTP port to listen to
 
-Run a web server. If a port is given listen on the given port. Else
-choose a random port. Start a browser (or open a new window of a running
-browser) pointing it to the server.
+Run a web server. If a port is given listens on the given port else
+chooses a random port. Starts a browser (or open a new window of a
+running browser) pointing it to the server.
+
+If the program is already running the second instance detects the first
+one, starts a browser pointing to running instance and exits.
 
 .. vim: set tw=72 :
