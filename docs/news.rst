@@ -1,6 +1,15 @@
 News
 ====
 
+Version 0.1.1 (2018-05-17)
+--------------------------
+
+* Import all \*.glst files (Flibusta fb2, LibRusEc fb2, non-fb2).
+
+* Convert README.txt to README.rst.
+
+* Import new (17 fields) INP.
+
 Version 0.1.0 (2018-04-25)
 --------------------------
 
