@@ -11,5 +11,5 @@ def test_import_bad_inpx():
 
 def test_import_inpx():
     load_inpx('test.inpx')
-    assert Author.select().count() == 4
-    assert Book.select().count() == 4
+    assert Author.select().count() == 5
+    assert Book.select().count() == 5

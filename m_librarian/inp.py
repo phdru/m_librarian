@@ -17,11 +17,18 @@ def split_line(line):
     _l = len(parts)
     if _l < 11:
         raise ValueError('Unknown INP structure: "%s"' % line)
+    archive = None
     if _l == 11:  # Standard structure
         parts.append(None)  # Emulate lang
-    else:  # New structure
+    elif _l == 15:  # New structure
         parts = parts[:12]
-    return parts
+    elif _l == 17:  # Very new structure
+        archive = parts[12]
+        language = parts[13]
+        parts = parts[:11] + [language]
+    else:  # New structure
+        raise ValueError('Unknown INP structure: "%s"' % line)
+    return archive, parts
 
 
 def import_inp_line(archive, parts):
@@ -66,18 +73,24 @@ def import_inp_line(archive, parts):
 
 
 def import_inp(archive, inp):
+    archives = set()
     files = set()
     connection = sqlhub.processConnection
     for file, in connection.queryAll(connection.sqlrepr(
             Select(Book.q.file, Book.q.archive == archive))):
-        files.add(file)
+        files.add((archive, file))
     for line in inp:
         line = line.decode('utf-8')
-        parts = split_line(line)
+        _archive, parts = split_line(line)
+        if _archive and (_archive not in archives):
+            archives.add(_archive)
+            for file, in connection.queryAll(connection.sqlrepr(
+                    Select(Book.q.file, Book.q.archive == _archive))):
+                files.add((_archive, file))
         file = parts[5]
-        if file not in files:
-            files.add(file)
-            import_inp_line(archive, parts)
+        if (_archive or archive, file) not in files:
+            files.add((_archive or archive, file))
+            import_inp_line(_archive or archive, parts)
 
 
 def import_inpx(path, pbar_cb=None):
