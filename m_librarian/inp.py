@@ -78,7 +78,7 @@ def import_inp(archive, inp):
     connection = sqlhub.processConnection
     for file, in connection.queryAll(connection.sqlrepr(
             Select(Book.q.file, Book.q.archive == archive))):
-        files.add((archive, file))
+        files.add((archive, file.decode('utf-8')))
     for line in inp:
         line = line.decode('utf-8')
         _archive, parts = split_line(line)
@@ -86,7 +86,7 @@ def import_inp(archive, inp):
             archives.add(_archive)
             for file, in connection.queryAll(connection.sqlrepr(
                     Select(Book.q.file, Book.q.archive == _archive))):
-                files.add((_archive, file))
+                files.add((_archive, file.decode('utf-8')))
         file = parts[5]
         if (_archive or archive, file) not in files:
             files.add((_archive or archive, file))
