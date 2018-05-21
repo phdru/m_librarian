@@ -1,5 +1,6 @@
 
 import os
+import sys
 from zipfile import ZipFile
 from sqlobject import sqlhub
 from sqlobject.sqlbuilder import Select
@@ -72,13 +73,21 @@ def import_inp_line(archive, parts):
             book.addGenre(genre_row)
 
 
+if sys.version[0] == 2:
+    def tounicode(s):
+        return s.decode('utf-8')
+else:
+    def tounicode(s):
+        return s
+
+
 def import_inp(archive, inp):
     archives = set()
     files = set()
     connection = sqlhub.processConnection
     for file, in connection.queryAll(connection.sqlrepr(
             Select(Book.q.file, Book.q.archive == archive))):
-        files.add((archive, file.decode('utf-8')))
+        files.add((archive, tounicode(file)))
     for line in inp:
         line = line.decode('utf-8')
         _archive, parts = split_line(line)
@@ -86,7 +95,7 @@ def import_inp(archive, inp):
             archives.add(_archive)
             for file, in connection.queryAll(connection.sqlrepr(
                     Select(Book.q.file, Book.q.archive == _archive))):
-                files.add((_archive, file.decode('utf-8')))
+                files.add((_archive, tounicode(file)))
         file = parts[5]
         if (_archive or archive, file) not in files:
             files.add((_archive or archive, file))
