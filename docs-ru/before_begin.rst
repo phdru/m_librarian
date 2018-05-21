@@ -25,15 +25,21 @@ m_lib.defenc.
 что предварительно скачайте некоторые библиотеки. Вот краткий и совсем
 не исчерпывающий список для скачивания:
 
-| http://torrent.rus.ec/index.php?c=3
-| http://booktracker.org/index.php?c=18
-| https://nnm-club.me/forum/viewtopic.php?t=353958
-| http://rus-tor.com/torrent/543084
-| https://nnm-club.me/forum/viewtopic.php?t=510054
-| http://rus-tor.com/torrent/212528
-| https://nnm-club.me/forum/viewtopic.php?t=521962
-| http://rus-tor.com/torrent/542970
-| https://nnm-club.me/forum/viewtopic.php?t=877707
+|   Библиотека Flibusta.net [fb2]
+|      https://booktracker.org/viewtopic.php?t=46979
+|      https://nnm-club.me/forum/viewtopic.php?t=521962
+|      http://rus-tor.com/torrent/542970
+|   Библиотека Flibusta.net [fb2, usr]
+|      https://booktracker.org/viewtopic.php?t=49016
+|      https://nnm-club.me/forum/viewtopic.php?t=353958
+|      http://rus-tor.com/torrent/543084
+|   Библиотека Либрусек (lib.rus.ec) + MyHomeLib [FB2]
+|      https://booktracker.org/viewtopic.php?t=1198
+|      https://nnm-club.me/forum/viewtopic.php?t=510054
+|      http://rus-tor.com/torrent/212528
+|   Библиотека Либрусек (lib.rus.ec) [ALL]
+|      https://booktracker.org/viewtopic.php?t=79829
+|      https://nnm-club.me/forum/viewtopic.php?t=877707
 
 Кроме самих библиотек вам понадобиться найти для них индексы INPX —
 m_Librarian пока не научился индексировать архивы библиотек.
@@ -46,7 +52,9 @@ m_Librarian пока не научился индексировать архив
 | http://myhomelib.org/download/inpx/librusec_local_fb2.inpx
 | http://myhomelib.org/download/inpx/librusec_local_usr.inpx (не обновляется)
 | http://myhomelib.org/download/inpx/librusec_local_all.inpx (не обновляется)
-| http://nnm-club.me/forum/viewtopic.php?t=875907
+| https://booktracker.org/viewtopic.php?t=64690
+| https://booktracker.org/viewtopic.php?t=74487
+| https://nnm-club.me/forum/viewtopic.php?t=875907
 | http://rus-tor.com/torrent/543085
 
 Файл конфигурации
