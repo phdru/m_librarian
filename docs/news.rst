@@ -1,7 +1,7 @@
 News
 ====
 
-Version 0.1.2 (2018-05-??)
+Version 0.1.2 (2018-05-22)
 --------------------------
 
 * Fix inpx import: decode filenames to unicode.
