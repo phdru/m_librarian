@@ -15,16 +15,16 @@ setup(
     long_description_content_type="text/x-rst",
     author='Oleg Broytman',
     author_email='phd@phdru.name',
-    url='http://phdru.name/Software/Python/m_librarian/',
+    url='https://phdru.name/Software/Python/m_librarian/',
     project_urls={
-        'Homepage': 'http://phdru.name/Software/Python/m_librarian/',
+        'Homepage': 'https://phdru.name/Software/Python/m_librarian/',
         'Download': 'https://pypi.org/project/m_librarian/%s/'
         % m_librarian_version.__version__,
         'Documentation':
-            'http://phdru.name/Software/Python/m_librarian/docs/',
+            'https://phdru.name/Software/Python/m_librarian/docs/',
         'Russian docs':
-            'http://phdru.name/Software/Python/m_librarian/docs/ru/',
-        'Git repo': 'http://git.phdru.name/m_librarian.git/',
+            'https://phdru.name/Software/Python/m_librarian/docs/ru/',
+        'Git repo': 'https://git.phdru.name/m_librarian.git/',
         'Github repo': 'https://github.com/phdru/m_librarian',
         'Issue tracker': 'https://github.com/phdru/m_librarian/issues',
     },

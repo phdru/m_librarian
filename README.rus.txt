@@ -8,8 +8,8 @@ Copyright (C) 2015-2018 PhiloSoft Design.
 индексов в командной строке, в web-интерфейсе и в графическом
 интерфейсе.
 
-Домашняя страница:  http://phdru.name/Software/Python/m_librarian/
-Документация:       http://phdru.name/Software/Python/m_librarian/docs/ru/
-Репозиторий git:    http://git.phdru.name/m_librarian.git/
+Домашняя страница:  https://phdru.name/Software/Python/m_librarian/
+Документация:       https://phdru.name/Software/Python/m_librarian/docs/ru/
+Репозиторий git:    https://git.phdru.name/m_librarian.git/
 Репозиторий Github: https://github.com/phdru/m_librarian
 Баг-трекер:         https://github.com/phdru/m_librarian/issues
