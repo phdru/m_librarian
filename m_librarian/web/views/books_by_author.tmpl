@@ -6,8 +6,9 @@
 <h1>$title $author.fullname</h1>
 
 #if $books
-  <form action="" method="POST" style="height: 80%">
-  <select multiple style="height: 90%">
+  <form action="/download/" method="POST" style="height: 80%">
+  <div style="width: 100%; height: 90%">
+  <select multiple name="books" style="height: 100%">
   #set $series = None
   #for $book in $books
   #if $book.series != $series
@@ -27,6 +28,10 @@ $cgi.escape($series, 1)#slurp
   #end for
   </optgroup>
   </select>
+  </div>
+  <div style="width: 100%; text-align: center">
+  <input type="submit" value="Скачать">
+  </div>
   </form>
 #else
   <p>Не найдено ни одной книги!</p>

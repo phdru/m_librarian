@@ -87,11 +87,19 @@ def send_static(filename):
     )
 
 
-@route('/download/<id:int>/', method='GET')
+@route('/download/', method='POST')
 @cheetah_view('download.tmpl')
-def download_book(id):
-    book = Book.get(id)
-    download(book, get_config().get('download', 'path'))
-    return {
-        'message': u'Книга сохранена',
-    }
+def download_books():
+    books_ids = request.forms.getall('books')
+    download_path = get_config().get('download', 'path')
+    if books_ids:
+        for id in books_ids:
+            book = Book.get(int(id))
+            download(book, download_path)
+        return {
+            'message': u'Книги сохранены.',
+        }
+    else:
+        return {
+            'message': u'Не выбрано книг для сохранения.',
+        }
