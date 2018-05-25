@@ -1,4 +1,5 @@
 #encoding utf-8
+#import cgi
 #extends views.layout
 #attr $title = 'Список книг автора'
 #def body
@@ -16,13 +17,13 @@
   #set $series = $book.series
   <optgroup label="#slurp
   #if $book.series
-$series#slurp
+$cgi.escape($series, 1)#slurp
   #else
 Вне серий#slurp
   #end if
 ">
   #end if
-  <option value="$book.id">$book.ser_no $book.title</option>
+  <option value="$book.id">$book.ser_no $cgi.escape($book.title)</option>
   #end for
   </optgroup>
   </select>
