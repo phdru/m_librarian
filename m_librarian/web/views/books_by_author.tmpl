@@ -5,27 +5,28 @@
 <h1>$title $author.fullname</h1>
 
 #if $books
-  <table>
+  <form action="" method="POST" style="height: 80%">
+  <select multiple style="height: 90%">
   #set $series = None
   #for $book in $books
   #if $book.series != $series
+  #if $series is not None
+  </optgroup>
+  #end if
   #set $series = $book.series
+  <optgroup label="#slurp
   #if $book.series
-  <tr>
-    <td colspan=2>Серия: $series</td>
-  </tr>
+$series#slurp
   #else
-  <tr>
-    <td colspan=2>Вне серий</td>
-  </tr>
+Вне серий#slurp
   #end if
+">
   #end if
-  <tr>
-    <td class="numeric">$book.ser_no</td>
-    <td><a href="/download/$book.id/">$book.title</a></td>
-  </tr>
+  <option value="$book.id">$book.ser_no $book.title</option>
   #end for
-  </table>
+  </optgroup>
+  </select>
+  </form>
 #else
   <p>Не найдено ни одной книги!</p>
 #end if

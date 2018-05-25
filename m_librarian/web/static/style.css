@@ -1,4 +1,11 @@
+html {
+   width: 99%;
+   height: 99%;
+}
+
 body {
+   width: 99%;
+   height: 99%;
    color: #000000;
    font-family: sans-serif;
    text-decoration: none;
@@ -29,8 +36,4 @@ table {
 td, th {
    border: 1px solid black;
    text-align: left;
-}
-
-td.numeric {
-   text-align: right;
 }
