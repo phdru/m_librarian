@@ -1,6 +1,13 @@
 News
 ====
 
+Version 0.1.3 (2018-05-25)
+--------------------------
+
+* Allow to select many books at once.
+
+* Allow to download many books at once.
+
 Version 0.1.2 (2018-05-22)
 --------------------------
 
