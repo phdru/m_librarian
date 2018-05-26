@@ -131,8 +131,16 @@ def search_books_post():
         case_sensitive = _guess_case_sensitivity(value)
     books = search_books(search_type, case_sensitive, {'title': value}, None,
                          orderBy=('title',))
+    books_by_authors = {}
+    for book in books:
+        author = book.authors[0].fullname
+        if author in books_by_authors:
+            books_by_author = books_by_authors[author]
+        else:
+            books_by_author = books_by_authors[author] = []
+        books_by_author.append(book)
     return {
-        'books': list(books),
+        'books_by_author': books_by_authors,
         'search_books': value,
         'search_type': search_type,
         'case_sensitive': case_sensitive,
