@@ -11,7 +11,9 @@ checked#slurp
 #end if
 #end def
 <form action="/search_authors/" method="POST">
-  <input name="search_authors" value="$html_escape($getVar('search_authors', ''))" type="text" style="width: 80%">
+  <div style="width: 100%">
+  <input name="search_authors" value="$html_escape($getVar('search_authors',
+  ''))" type="text" style="width: 100%">
   <br>
   <input name="search_type" value="start" $search_type_checked('start') type="radio">
   Подстрока в начале
@@ -22,6 +24,8 @@ checked#slurp
   <br>
   <input name="case_sensitive" type="checkbox" $case_sensitive_checked>
   Различать прописные/строчные
-  <br>
+  </div>
+  <div style="width: 100%; text-align: center">
   <input name="submit" type="submit">
+  </div>
 </form>
