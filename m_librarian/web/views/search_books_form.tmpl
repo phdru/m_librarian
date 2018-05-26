@@ -1,0 +1,31 @@
+#encoding utf-8
+#from bottle import html_escape
+#def $search_type_checked($value)
+#if $getVar('search_type', '') == $value
+checked#slurp
+#end if
+#end def
+#def $case_sensitive_checked
+#if $getVar('case_sensitive', None)
+checked#slurp
+#end if
+#end def
+<form action="/search_books/" method="POST">
+  <div style="width: 100%">
+  <input name="search_books" value="$html_escape($getVar('search_books',
+  ''))" type="text" style="width: 100%">
+  <br>
+  <input name="search_type" value="start" $search_type_checked('start') type="radio">
+  Подстрока в начале
+  <input name="search_type" value="substring" $search_type_checked('substring') type="radio">
+  Подстрока
+  <input name="search_type" value="full" $search_type_checked('full') type="radio">
+  Точное совпадение
+  <br>
+  <input name="case_sensitive" type="checkbox" $case_sensitive_checked>
+  Различать прописные/строчные
+  </div>
+  <div style="width: 100%; text-align: center">
+  <input name="submit" type="submit">
+  </div>
+</form>

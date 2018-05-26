@@ -8,7 +8,7 @@ from bottle import cheetah_view, redirect, request, route, static_file
 from m_librarian.config import get_config
 from m_librarian.db import Author, Book
 from m_librarian.download import download
-from m_librarian.search import search_authors
+from m_librarian.search import search_authors, search_books
 
 
 @route('/')
@@ -103,3 +103,37 @@ def download_books():
         return {
             'message': u'Не выбрано книг для сохранения.',
         }
+
+
+@route('/search_books', method='GET')
+def _search_books():
+    return redirect('/search_books/')
+
+
+@route('/search_books/', method='GET')
+@cheetah_view('search_books.tmpl')
+def search_books_get():
+    return {}
+
+
+@route('/search_books/', method='POST')
+@cheetah_view('list_books.tmpl')
+def search_books_post():
+    value = request.forms.get('search_books')
+    if not value:
+        return redirect('/search_books/')
+    value = decode(value)
+    search_type = request.forms.get('search_type')
+    if not search_type:
+        search_type = 'start'
+    case_sensitive = request.forms.get('case_sensitive')
+    if case_sensitive is None:
+        case_sensitive = _guess_case_sensitivity(value)
+    books = search_books(search_type, case_sensitive, {'title': value}, None,
+                         orderBy=('title',))
+    return {
+        'books': list(books),
+        'search_books': value,
+        'search_type': search_type,
+        'case_sensitive': case_sensitive,
+    }

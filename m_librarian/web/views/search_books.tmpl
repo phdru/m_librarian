@@ -1,0 +1,9 @@
+#encoding utf-8
+#extends views.layout
+#attr $title = 'Поиск книг'
+#def body
+<h1>$title</h1>
+
+#from views.search_books_form import search_books_form
+$search_books_form(searchList=$searchList)
+#end def
