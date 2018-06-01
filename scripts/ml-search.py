@@ -157,7 +157,8 @@ def _search_books(case_sensitive, search_type, args):
             Language, search_type, case_sensitive, lvalues)
         join_expressions.extend(conditions)
     books = search_books(search_type, case_sensitive, values, join_expressions,
-                         orderBy=('series', 'ser_no', 'title'))
+                         orderBy=('series', 'ser_no', 'title'),
+                         use_filters=args.filters)
     if args.count:
         print_count(books.count())
         return
@@ -332,6 +333,8 @@ if __name__ == '__main__':
     parser.add_argument('--gid', type=int, help='search by genre\'s id')
     parser.add_argument('-l', '--lang', help='search by language')
     parser.add_argument('--lid', type=int, help='search by language\'s id')
+    parser.add_argument('--filters', action='store_true',
+                        help='use filters from config')
     parser.add_argument('-P', '--path', help='path to the library archives')
     parser.add_argument('--download-to', nargs='?',
                         const=None, default=os.path.curdir,

@@ -1,10 +1,12 @@
 News
 ====
 
-Version 0.1.4 (2018-05-??)
+Version 0.1.4 (2018-06-??)
 --------------------------
 
 * Search by book's title.
+
+* Use filters from config.
 
 Version 0.1.3 (2018-05-25)
 --------------------------

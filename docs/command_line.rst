@@ -146,6 +146,7 @@ Options::
     --gid gid              Search by genre’s id
     -l, --lang lang        Search by language
     --lid lid              Search by language’s id
+    --filters              Use filters from config
     -P, --path path        Path to the directory with the library
                            archives
     --download-to [path]   Download directory
@@ -169,6 +170,17 @@ section `[library]`, key `path`::
     path = /var/lib/archives
 
 The option is useful for multiple databases (global option `-D`).
+
+Option `--filters` turns on using filters from config. Currently there
+are two kind of filters: filters on languages and filter on flag
+`deleted`. They are defined in the config file the following way::
+
+    [filters]
+    lang = en ru
+    deleted = 0
+
+`lang` filters is a list of language codes separated by a space.
+`deleted` is a 0/1 flag; 0 hides deleted books from search.
 
 Option `--download-to` provides the path to the download directory.
 By default the script downloads books to the current directory.

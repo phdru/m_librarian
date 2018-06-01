@@ -10,6 +10,11 @@ checked#slurp
 checked#slurp
 #end if
 #end def
+#def $use_filters_check
+#if $getVar('use_filters', $get_config().getint('filters', 'use_in_search_forms'))
+checked#slurp
+#end if
+#end def
 <form action="/search_books/" method="POST">
   <div style="width: 100%">
   <input name="search_books" value="$html_escape($getVar('search_books',
@@ -24,6 +29,8 @@ checked#slurp
   <br>
   <input name="case_sensitive" type="checkbox" $case_sensitive_checked>
   Различать прописные/строчные
+  <input name="use_filters" type="checkbox" $use_filters_check>
+  Использовать фильтры
   </div>
   <div style="width: 100%; text-align: center">
   <input name="submit" type="submit">

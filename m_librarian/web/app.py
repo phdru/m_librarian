@@ -14,7 +14,9 @@ from m_librarian.search import search_authors, search_books
 @route('/')
 @cheetah_view('index.tmpl')
 def index():
-    return {}
+    return {
+        'get_config': get_config,
+    }
 
 
 @route('/search_authors', method='GET')
@@ -68,13 +70,26 @@ def search_authors_post():
 @route('/books-by-author/<id:int>/', method='GET')
 @cheetah_view('books_by_author.tmpl')
 def books_by_author(id):
-    return {
-        'author': Author.get(id),
-        'books': Book.select(
-            Book.j.authors & (Author.q.id == id),
-            orderBy=['series', 'ser_no', 'title'],
-        )
-    }
+    use_filters = get_config().getint('filters', 'use_in_books_list')
+    if use_filters:
+        join_expressions = []
+        join_expressions.append(Book.j.authors)
+        join_expressions.append(Author.q.id == id)
+        books = search_books('full', None, {}, join_expressions,
+                             orderBy=('series', 'ser_no', 'title'),
+                             use_filters=use_filters)
+        return {
+            'author': Author.get(id),
+            'books': books,
+        }
+    else:
+        return {
+            'author': Author.get(id),
+            'books': Book.select(
+                Book.j.authors & (Author.q.id == id),
+                orderBy=['series', 'ser_no', 'title'],
+            )
+        }
 
 
 @route('/static/<filename:path>')
@@ -113,7 +128,9 @@ def _search_books():
 @route('/search_books/', method='GET')
 @cheetah_view('search_books.tmpl')
 def search_books_get():
-    return {}
+    return {
+        'get_config': get_config,
+    }
 
 
 @route('/search_books/', method='POST')
@@ -129,8 +146,9 @@ def search_books_post():
     case_sensitive = request.forms.get('case_sensitive')
     if case_sensitive is None:
         case_sensitive = _guess_case_sensitivity(value)
+    use_filters = request.forms.get('use_filters')
     books = search_books(search_type, case_sensitive, {'title': value}, None,
-                         orderBy=('title',))
+                         orderBy=('title',), use_filters=use_filters)
     books_by_authors = {}
     for book in books:
         author = book.authors[0].fullname

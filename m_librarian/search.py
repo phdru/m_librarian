@@ -1,5 +1,10 @@
+try:
+    from configparser import NoSectionError, NoOptionError
+except ImportError:  # Python 2
+    from ConfigParser import NoSectionError, NoOptionError
 
-from sqlobject.sqlbuilder import AND, func
+from sqlobject.sqlbuilder import AND, OR, func
+from .config import get_config
 from .db import Author, Book, Extension, Genre, Language
 
 __all__ = [
@@ -72,9 +77,34 @@ def search_authors(search_type, case_sensitive, values,
 
 
 def search_books(search_type, case_sensitive, values, join_expressions=None,
-                 orderBy=None):
-    return _search(Book, search_type, case_sensitive, values,
-                   join_expressions=join_expressions, orderBy=orderBy)
+                 orderBy=None, use_filters=False):
+    if use_filters:
+        config = get_config()
+        try:
+            lang_filter = config.get('filters', 'lang')
+        except (NoSectionError, NoOptionError):
+            lang_filter = None
+        try:
+            deleted_filter = config.getint('filters', 'deleted')
+        except (NoSectionError, NoOptionError):
+            deleted_filter = None
+        if lang_filter:
+            if join_expressions is None:
+                join_expressions = []
+            lang_conditions = []
+            for lang in lang_filter.split():
+                lvalues = {'name': lang}
+                conditions = mk_search_conditions(
+                    Language, search_type, case_sensitive, lvalues)
+                lang_conditions.append(conditions)
+            join_expressions.append(Book.j.language)
+            join_expressions.append(OR(*lang_conditions))
+    conditions = mk_search_conditions(
+        Book, search_type, case_sensitive, values,
+        join_expressions=join_expressions)
+    if use_filters and not deleted_filter:
+        conditions.append(Book.q.deleted == False)  # noqa: E712
+    return Book.select(AND(*conditions), orderBy=orderBy)
 
 
 def search_extensions(search_type, case_sensitive, values, orderBy=None):
