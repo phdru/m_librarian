@@ -1,6 +1,5 @@
 
 import os
-import sys
 from zipfile import ZipFile
 from sqlobject import sqlhub
 from sqlobject.sqlbuilder import Select
@@ -73,11 +72,10 @@ def import_inp_line(archive, parts):
             book.addGenre(genre_row)
 
 
-if sys.version[0] == 2:
-    def tounicode(s):
+def tounicode(s):
+    if isinstance(s, bytes):
         return s.decode('utf-8')
-else:
-    def tounicode(s):
+    else:
         return s
 
 
