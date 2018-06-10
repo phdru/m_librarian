@@ -7,6 +7,7 @@ body {
    width: 99%;
    height: 99%;
    color: #000000;
+   background-color: #FFFFFF;
    font-family: sans-serif;
    text-decoration: none;
    margin: 8pt;
@@ -33,7 +34,10 @@ table {
    border: 1px solid black;
 }
 
+tr:hover {
+   background-color: lightgrey;
+}
+
 td, th {
-   border: 1px solid black;
    text-align: left;
 }
