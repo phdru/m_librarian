@@ -1,8 +1,3 @@
-try:
-    from configparser import NoSectionError, NoOptionError
-except ImportError:  # Python 2
-    from ConfigParser import NoSectionError, NoOptionError
-
 from sqlobject.sqlbuilder import AND, OR, func
 from .config import get_config
 from .db import Author, Book, Extension, Genre, Language
@@ -80,14 +75,8 @@ def search_books(search_type, case_sensitive, values, join_expressions=None,
                  orderBy=None, use_filters=False):
     if use_filters:
         config = get_config()
-        try:
-            lang_filter = config.get('filters', 'lang')
-        except (NoSectionError, NoOptionError):
-            lang_filter = None
-        try:
-            deleted_filter = config.getint('filters', 'deleted')
-        except (NoSectionError, NoOptionError):
-            deleted_filter = None
+        lang_filter = config.get('filters', 'lang')
+        deleted_filter = config.getint('filters', 'deleted')
         if lang_filter:
             if join_expressions is None:
                 join_expressions = []

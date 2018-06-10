@@ -19,9 +19,8 @@ def _compile_format():
     global format, compile_format, compiled_format
     if compile_format:
         compile_format = False
-        try:
-            format = get_config().get('download', 'format')
-        except Exception:
+        format = get_config().get('download', 'format')
+        if not format:
             return
     got_percent = False
     compiled = []
@@ -68,7 +67,7 @@ def download(book, dest_path=None, lib_path=None, a_format=None):
     if lib_path is None:
         global _library_path
         if _library_path is None:
-            _library_path = get_config().get('library', 'path')
+            _library_path = get_config().get('library', 'path') or '.'
         lib_path = _library_path
 
     global format, compile_format, compiled_format

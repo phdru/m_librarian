@@ -2,10 +2,6 @@
 
 from __future__ import print_function
 import argparse
-try:
-    from configparser import NoSectionError, NoOptionError
-except ImportError:  # Python 2
-    from ConfigParser import NoSectionError, NoOptionError
 import os
 import sys
 from sqlobject.sqlbuilder import CONCAT
@@ -207,10 +203,8 @@ def _search_books(case_sensitive, search_type, args):
         if args.get or args.get_many:
             download_to = args.download_to
             if download_to is None:
-                try:
-                    download_to = get_config().get('download', 'path')
-                except (NoSectionError, NoOptionError):
-                    download_to = os.path.curdir
+                download_to = get_config().get('download', 'path') \
+                    or os.path.curdir
             download(book, download_to, args.path, args.format)
         count += 1
     print_count(count)

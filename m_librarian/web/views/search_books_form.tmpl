@@ -11,7 +11,7 @@ checked#slurp
 #end if
 #end def
 #def $use_filters_check
-#if $getVar('use_filters', $get_config().getint('filters', 'use_in_search_forms'))
+#if $getVar('use_filters', $get_config().getint('filters', 'use_in_search_forms', 1))
 checked#slurp
 #end if
 #end def

@@ -70,7 +70,7 @@ def search_authors_post():
 @route('/books-by-author/<id:int>/', method='GET')
 @cheetah_view('books_by_author.tmpl')
 def books_by_author(id):
-    use_filters = get_config().getint('filters', 'use_in_books_list')
+    use_filters = get_config().getint('filters', 'use_in_books_list', 1)
     if use_filters:
         join_expressions = []
         join_expressions.append(Book.j.authors)
@@ -106,7 +106,7 @@ def send_static(filename):
 @cheetah_view('download.tmpl')
 def download_books():
     books_ids = request.forms.getall('books')
-    download_path = get_config().get('download', 'path')
+    download_path = get_config().get('download', 'path') or '.'
     if books_ids:
         for id in books_ids:
             book = Book.get(int(id))

@@ -145,10 +145,7 @@ def find_sqlite_dburi(db_dirs=None):
 
 def open_db(db_uri=None):
     if db_uri is None:
-        try:
-            db_uri = get_config().get('database', 'URI')
-        except Exception:
-            db_uri = find_sqlite_dburi()
+        db_uri = get_config().get('database', 'URI') or find_sqlite_dburi()
 
     if '://' not in db_uri:
         db_uri = 'sqlite://' + os.path.abspath(db_uri).replace(os.sep, '/')

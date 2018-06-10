@@ -8,6 +8,8 @@ Version 0.1.4 (2018-06-??)
 
 * Use filters from config.
 
+* Config file, all sections and all key are now completely optional.
+
 Version 0.1.3 (2018-05-25)
 --------------------------
 

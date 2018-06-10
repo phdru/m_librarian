@@ -3,9 +3,10 @@
 from __future__ import print_function
 import os
 try:
-    from ConfigParser import RawConfigParser
+    from ConfigParser import RawConfigParser, NoSectionError, NoOptionError
 except ImportError:  # py3
-    from configparser import RawConfigParser
+    from configparser import RawConfigParser, NoSectionError, NoOptionError
+
 
 __all__ = ['get_config']
 
@@ -25,7 +26,7 @@ def _find_config_dirs_posix():
 def find_config_dirs():
     if os.name == 'posix':
         return _find_config_dirs_posix()
-    raise OSError("Unknow OS")
+    return None
 
 
 def find_config_file(config_dirs=None):
@@ -36,19 +37,42 @@ def find_config_file(config_dirs=None):
         if os.path.exists(ml_conf_file):
             return ml_conf_file
     else:
-        raise IOError("Cannot find m_librarian.conf in %s" % config_dirs)
+        return None
 
 
 _ml_config = None
 
 
+class ConfigWrapper(object):
+    def __init__(self, config):
+        self.config = config
+
+    def get(self, section, option, default=None):
+        try:
+            return self.config.get(section, option)
+        except (NoSectionError, NoOptionError):
+            return default
+
+    def set(self, section, option, value):
+        self.config.set(section, option, value)
+
+    def getint(self, section, option, default=0):
+        try:
+            return self.config.getint(section, option)
+        except (NoSectionError, NoOptionError):
+            return default
+        # Do not catch ValueError here, it must be propagated
+
+
 def get_config(config_path=None):
     global _ml_config
     if _ml_config is None:
+        _ml_config = RawConfigParser()
         if config_path is None:
             config_path = find_config_file()
-        _ml_config = RawConfigParser()
-        _ml_config.read(config_path)
+        if config_path is not None:
+            _ml_config.read(config_path)
+        _ml_config = ConfigWrapper(_ml_config)
     return _ml_config
 
 
