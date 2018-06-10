@@ -106,7 +106,7 @@ def send_static(filename):
 @cheetah_view('download.tmpl')
 def download_books():
     books_ids = request.forms.getall('books')
-    download_path = get_config().get('download', 'path') or '.'
+    download_path = get_config().getpath('download', 'path')
     if books_ids:
         for id in books_ids:
             book = Book.get(int(id))

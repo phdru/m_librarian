@@ -63,6 +63,10 @@ class ConfigWrapper(object):
             return default
         # Do not catch ValueError here, it must be propagated
 
+    def getpath(self, section, option, default=os.path.curdir):
+        path = self.get(section, option, default=default)
+        return os.path.expanduser(os.path.expandvars(path))
+
 
 def get_config(config_path=None):
     global _ml_config

@@ -203,8 +203,7 @@ def _search_books(case_sensitive, search_type, args):
         if args.get or args.get_many:
             download_to = args.download_to
             if download_to is None:
-                download_to = get_config().get('download', 'path') \
-                    or os.path.curdir
+                download_to = get_config().getpath('download', 'path')
             download(book, download_to, args.path, args.format)
         count += 1
     print_count(count)

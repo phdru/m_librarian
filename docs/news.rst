@@ -10,6 +10,8 @@ Version 0.1.4 (2018-06-??)
 
 * Config file, all sections and all key are now completely optional.
 
+* Environment variables are expanded in paths in config file.
+
 Version 0.1.3 (2018-05-25)
 --------------------------
 
