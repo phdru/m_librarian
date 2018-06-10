@@ -8,6 +8,8 @@ Version 0.1.4 (2018-06-??)
 
 * Use filters from config.
 
+* Configure columns for author and book tables.
+
 * Config file, all sections and all key are now completely optional.
 
 * Environment variables are expanded in paths in config file.

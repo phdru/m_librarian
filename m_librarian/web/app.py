@@ -59,11 +59,13 @@ def search_authors_post():
     )]
     authors = search_authors(search_type, case_sensitive, {}, expressions,
                              orderBy=('surname', 'name', 'misc_name'))
+    columns = get_config().getlist('columns', 'author', ['fullname'])
     return {
         'authors': list(authors),
         'search_authors': value,
         'search_type': search_type,
         'case_sensitive': case_sensitive,
+        'columns': columns,
     }
 
 
@@ -71,6 +73,7 @@ def search_authors_post():
 @cheetah_view('books_by_author.tmpl')
 def books_by_author(id):
     use_filters = get_config().getint('filters', 'use_in_books_list', 1)
+    columns = get_config().getlist('columns', 'book', ['title'])
     if use_filters:
         join_expressions = []
         join_expressions.append(Book.j.authors)
@@ -81,6 +84,7 @@ def books_by_author(id):
         return {
             'author': Author.get(id),
             'books': books,
+            'columns': columns,
         }
     else:
         return {
@@ -88,7 +92,8 @@ def books_by_author(id):
             'books': Book.select(
                 Book.j.authors & (Author.q.id == id),
                 orderBy=['series', 'ser_no', 'title'],
-            )
+            ),
+            'columns': columns,
         }
 
 
@@ -157,9 +162,11 @@ def search_books_post():
         else:
             books_by_author = books_by_authors[author] = []
         books_by_author.append(book)
+    columns = get_config().getlist('columns', 'book', ['title'])
     return {
         'books_by_author': books_by_authors,
         'search_books': value,
         'search_type': search_type,
         'case_sensitive': case_sensitive,
+        'columns': columns,
     }

@@ -9,13 +9,14 @@
   <form action="/download/" method="POST" style="height: 80%">
   <table style="width: 100%; height: 90%">
   #set $series = None
+  #set $columns1 = $len($columns)+1
   #for $author in $sorted($books_by_author)
     #set $books = $books_by_author[$author]
     #for $book in $books
     #if $book.series != $series
     #set $series = $book.series
   <tr>
-  <td colspan=2><b>
+  <td colspan="$columns1"><b>
   $author — <i>
   #if $book.series
 $cgi.escape($series, 1)#slurp
@@ -27,12 +28,14 @@ $cgi.escape($series, 1)#slurp
     #end if
   <tr>
   <td><input type=checkbox name=books value="$book.id"></td>
-  <td>$book.ser_no $cgi.escape($book.title)</td>
+  #for $column in $columns
+  <td>$cgi.escape(unicode($getattr($book, $column) or ''))</td>
+  #end for
   </tr>
     #end for
   #end for
   <tr>
-  <td colspan=2 style="text-align: center"><input type="submit" value="Скачать"></td>
+  <td colspan="$columns1" style="text-align: center"><input type="submit" value="Скачать"></td>
   </tr>
   </table>
   </form>

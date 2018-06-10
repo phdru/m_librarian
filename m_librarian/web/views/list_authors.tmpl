@@ -1,4 +1,5 @@
 #encoding utf-8
+#import cgi
 #extends views.layout
 #attr $title = 'Список авторов'
 #def body
@@ -12,7 +13,11 @@ $search_authors_form(searchList=$searchList)
   <table>
   #for $author in $authors
   <tr>
-    <td><a href="/books-by-author/$author.id/">$author.fullname</a></td>
+  #for $column in $columns
+    <td><a href="/books-by-author/$author.id/">
+    $cgi.escape(unicode($getattr($author, $column) or ''))
+    </a></td>
+  #end for
   </tr>
   #end for
   </table>
