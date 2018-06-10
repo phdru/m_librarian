@@ -17,11 +17,12 @@ compiled_format = '%(file)s'
 
 def _compile_format():
     global format, compile_format, compiled_format
-    if compile_format:
-        compile_format = False
-        format = get_config().get('download', 'format')
-        if not format:
-            return
+    if not compile_format:
+        return
+    compile_format = False
+    format = get_config().get('download', 'format')
+    if not format:
+        return
     got_percent = False
     compiled = []
     for c in format:
@@ -72,8 +73,8 @@ def download(book, dest_path=None, lib_path=None, a_format=None):
 
     global format, compile_format, compiled_format
     if a_format:
-        format = a_format
         compile_format = True
+        format = a_format
     _compile_format()
     if compiled_format[-1] in ('\0', '\\', '/'):
         raise ValueError('Bad format: "%s"' % compiled_format)
