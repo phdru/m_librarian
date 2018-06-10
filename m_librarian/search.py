@@ -75,13 +75,13 @@ def search_books(search_type, case_sensitive, values, join_expressions=None,
                  orderBy=None, use_filters=False):
     if use_filters:
         config = get_config()
-        lang_filter = config.get('filters', 'lang')
+        lang_filter = config.getlist('filters', 'lang')
         deleted_filter = config.getint('filters', 'deleted')
         if lang_filter:
             if join_expressions is None:
                 join_expressions = []
             lang_conditions = []
-            for lang in lang_filter.split():
+            for lang in lang_filter:
                 lvalues = {'name': lang}
                 conditions = mk_search_conditions(
                     Language, search_type, case_sensitive, lvalues)

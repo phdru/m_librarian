@@ -63,6 +63,14 @@ class ConfigWrapper(object):
             return default
         # Do not catch ValueError here, it must be propagated
 
+    def getlist(self, section, option, default=None, sep=None):
+        value = self.get(section, option)
+        if not value:
+            if default is None:
+                return []
+            return default
+        return value.split(sep)
+
     def getpath(self, section, option, default=os.path.curdir):
         path = self.get(section, option, default=default)
         return os.path.expanduser(os.path.expandvars(path))
