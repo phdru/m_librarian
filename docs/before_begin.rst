@@ -71,7 +71,7 @@ by SQLObject. Some examples::
    [database]
    URI = sqlite:///full/path/to/database
 
-See some more examples in sample/m_librarian.conf. See detailed
+See some more examples in m_librarian.conf.sample. See detailed
 description for DB URIs in `SQLObject documentation
 <http://sqlobject.org/SQLObject.html#declaring-a-connection>`_.
 

@@ -103,7 +103,7 @@ Database URI
    [database]
    URI = sqlite:///full/path/to/database
 
-Больше примеров есть в файле sample/m_librarian.conf. Детальное описание
+Больше примеров есть в файле m_librarian.conf.sample. Детальное описание
 DB URI есть в `документации на SQLObject
 <http://sqlobject.org/SQLObject.html#declaring-a-connection>`_.
 

@@ -27,11 +27,11 @@ use_in_books_list = 1
 
 [columns]
 # Full list of author columns:
-# columns = surname name misc_name fullname count
+# author = surname name misc_name fullname count
 # Default column is fullname
 author = fullname count
 # Full list of book columns:
-# columns = title series ser_no archive file size lib_id deleted date
+# book = title series ser_no archive file size lib_id deleted date
 # Default column is just title
 book = ser_no title
 
