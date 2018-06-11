@@ -1,7 +1,7 @@
 News
 ====
 
-Version 0.1.4 (2018-06-??)
+Version 0.1.4 (2018-06-11)
 --------------------------
 
 * Search by book's title.
