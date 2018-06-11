@@ -33,8 +33,10 @@ author = fullname count
 # Full list of book columns:
 # book = title series ser_no archive file size lib_id deleted date
 #        author1 author_list
+#        genre1name genre1title genre_name_list genre_title_list
 # author1 is just one author from the list if there are more than 1
 # author_list is a comma-separated list of full names
+# genre1*/genre_*_list is a (one of/list of) genres (names or titles)
 # Default column is just title
 book = ser_no title
 
@@ -46,6 +48,8 @@ book = ser_no title
 # %f - file name in archive
 # %G - genre (one of), name
 # %g - genre (one of), title
+# %J - genres (comma-separated names)
+# %j - genres (comma-separated titles)
 # %l - language
 # %n - series number (or 0)
 # %s - series

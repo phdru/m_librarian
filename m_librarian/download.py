@@ -47,6 +47,10 @@ def _compile_format():
                     new_format = u'%(gname)s'
                 elif c == 'g':
                     new_format = u'%(gtitle)s'
+                elif c == 'J':
+                    new_format = u'%(gname_list)s'
+                elif c == 'j':
+                    new_format = u'%(gtitle_list)s'
                 elif c == 'l':
                     new_format = u'%(language)s'
                 elif c == 'n':
@@ -88,6 +92,8 @@ def download(book, dest_path=None, lib_path=None, a_format=None):
     genre = book.genres[0]
     bdict['gname'] = genre.name
     bdict['gtitle'] = genre.title
+    bdict['gname_list'] = book.genre_name_list
+    bdict['gtitle_list'] = book.genre_title_list
     bdict['language'] = book.language.name
     bdict['ser_no'] = book.ser_no or 0
     bdict['series'] = book.series

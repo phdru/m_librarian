@@ -80,6 +80,22 @@ class Book(SQLObject):
     def author_list(self):
         return u', '.join([a.fullname for a in self.authors])
 
+    @property
+    def genre1name(self):
+        return self.genres[0].name
+
+    @property
+    def genre1title(self):
+        return self.genres[0].title
+
+    @property
+    def genre_name_list(self):
+        return u', '.join([g.name for g in self.genres])
+
+    @property
+    def genre_title_list(self):
+        return u', '.join([g.title for g in self.genres])
+
 
 class BookGenre(SQLObject):
     class sqlmeta:

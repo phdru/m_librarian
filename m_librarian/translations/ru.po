@@ -108,3 +108,15 @@ msgstr "Автор"
 
 msgid "author_list"
 msgstr "Авторы"
+
+msgid "genre1name"
+msgstr "Жанр"
+
+msgid "genre1title"
+msgstr "Жанр"
+
+msgid "genre_name_list"
+msgstr "Список жанров"
+
+msgid "genre_title_list"
+msgstr "Список жанров"
