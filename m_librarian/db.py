@@ -76,6 +76,10 @@ class Book(SQLObject):
     def author1(self):
         return self.authors[0].fullname
 
+    @property
+    def author_list(self):
+        return u', '.join([a.fullname for a in self.authors])
+
 
 class BookGenre(SQLObject):
     class sqlmeta:

@@ -105,3 +105,6 @@ msgstr "Дата"
 
 msgid "author1"
 msgstr "Автор"
+
+msgid "author_list"
+msgstr "Авторы"

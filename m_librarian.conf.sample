@@ -32,14 +32,16 @@ use_in_books_list = 1
 author = fullname count
 # Full list of book columns:
 # book = title series ser_no archive file size lib_id deleted date
-#        author1
+#        author1 author_list
 # author1 is just one author from the list if there are more than 1
+# author_list is a comma-separated list of full names
 # Default column is just title
 book = ser_no title
 
 [download]
 # Download formats:
-# %a - author1 (one of)
+# %A - authors (comma-separated fullnames)
+# %a - author1 (one of, fullname)
 # %e - file extension
 # %f - file name in archive
 # %G - genre (one of), name
