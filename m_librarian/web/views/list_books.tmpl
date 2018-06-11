@@ -37,7 +37,7 @@ $cgi.escape($series, 1)#slurp
   <tr>
   <td><input type=checkbox name=books value="$book.id"></td>
   #for $column in $columns
-  #if $column == 'ser_no'
+  #if $column in ('ser_no', 'size')
   #set $style = ' style="text-align: right; width: 5ex"'
   #else
   #set $style = ''
