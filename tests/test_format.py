@@ -12,4 +12,4 @@ def test_compile_format():
     ml_conf.set('download', 'format', '%a/%s/%n %t')
     download._compile_format()
     assert download.compiled_format == \
-        u'%(author)s/%(series)s/%(ser_no)d %(title)s'
+        u'%(author1)s/%(series)s/%(ser_no)d %(title)s'

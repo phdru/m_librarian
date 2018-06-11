@@ -103,3 +103,5 @@ msgstr "Удалена"
 msgid "date"
 msgstr "Дата"
 
+msgid "author1"
+msgstr "Автор"

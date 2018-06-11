@@ -36,7 +36,7 @@ def _compile_format():
             if got_percent:
                 got_percent = False
                 if c == 'a':
-                    new_format = u'%(author)s'
+                    new_format = u'%(author1)s'
                 elif c == 'e':
                     new_format = u'%(extension)s'
                 elif c == 'f':
@@ -79,7 +79,7 @@ def download(book, dest_path=None, lib_path=None, a_format=None):
     if compiled_format[-1] in ('\0', '\\', '/'):
         raise ValueError('Bad format: "%s"' % compiled_format)
     bdict = {}
-    bdict['author'] = book.authors[0].fullname
+    bdict['author1'] = book.author1
     bdict['extension'] = book.extension.name
     bdict['file'] = book.file
     genre = book.genres[0]

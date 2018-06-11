@@ -156,7 +156,7 @@ def search_books_post():
                          orderBy=('title',), use_filters=use_filters)
     books_by_authors = {}
     for book in books:
-        author = book.authors[0].fullname
+        author = book.author1
         if author in books_by_authors:
             books_by_author = books_by_authors[author]
         else:

@@ -72,6 +72,10 @@ class Book(SQLObject):
     date_idx = DatabaseIndex(date)
     language_idx = DatabaseIndex(language)
 
+    @property
+    def author1(self):
+        return self.authors[0].fullname
+
 
 class BookGenre(SQLObject):
     class sqlmeta:
