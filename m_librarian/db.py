@@ -96,6 +96,14 @@ class Book(SQLObject):
     def genre_title_list(self):
         return u', '.join([g.title for g in self.genres])
 
+    @property
+    def ext(self):
+        return self.extension.name
+
+    @property
+    def lang(self):
+        return self.language.name
+
 
 class BookGenre(SQLObject):
     class sqlmeta:

@@ -120,3 +120,9 @@ msgstr "Список жанров"
 
 msgid "genre_title_list"
 msgstr "Список жанров"
+
+msgid "ext"
+msgstr "Расширение"
+
+msgid "lang"
+msgstr "Язык"
