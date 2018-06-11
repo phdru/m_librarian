@@ -34,7 +34,12 @@ $cgi.escape($series, 1)#slurp
   <tr>
   <td><input type=checkbox name=books value="$book.id"></td>
   #for $column in $columns
-  <td>$cgi.escape(unicode($getattr($book, $column) or ''))</td>
+  #if $column == 'ser_no'
+  #set $style = ' style="text-align: right; width: 5ex"'
+  #else
+  #set $style = ''
+  #end if
+  <td$style>$cgi.escape(unicode($getattr($book, $column) or ''))</td>
   #end for
   </tr>
   #end for

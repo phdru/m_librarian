@@ -40,4 +40,5 @@ tr:hover {
 
 td, th {
    text-align: left;
+   margin-left: 2ex;
 }
