@@ -1,5 +1,6 @@
 #encoding utf-8
 #import cgi
+#from m_librarian.translations import translations
 #extends views.layout
 #attr $title = 'Список книг автора'
 #def body
@@ -8,6 +9,13 @@
 #if $books
   <form action="/download/" method="POST" style="height: 80%">
   <table style="width: 100%; height: 90%">
+  <tr>
+  <td>&nbsp;</td>
+  #set $_ = $getattr($translations, 'ugettext', None) or $translations.gettext
+  #for $column in $columns
+    <td style="text-align: center">$cgi.escape($_($column))</td>
+  #end for
+  </tr>
   #set $series = None
   #set $columns1 = $len($columns)+1
   #for $book in $books

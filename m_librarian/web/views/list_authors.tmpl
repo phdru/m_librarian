@@ -1,5 +1,6 @@
 #encoding utf-8
 #import cgi
+#from m_librarian.translations import translations
 #extends views.layout
 #attr $title = 'Список авторов'
 #def body
@@ -11,6 +12,12 @@ $search_authors_form(searchList=$searchList)
 
 #if $authors
   <table>
+  <tr>
+  #set $_ = $getattr($translations, 'ugettext', None) or $translations.gettext
+  #for $column in $columns
+    <td style="text-align: center">$cgi.escape($_($column))</td>
+  #end for
+  </tr>
   #for $author in $authors
   <tr>
   #for $column in $columns

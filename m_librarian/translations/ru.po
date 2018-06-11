@@ -1,5 +1,5 @@
 # Russian translation
-# Copyright 2016, 2017 (C) PhiloSoft Design
+# Copyright 2016-2018 (C) PhiloSoft Design
 # Created by Oleg Broytman <phd@phdru.name>
 #
 msgid ""
@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 0.0.14\n"
 "Report-Msgid-Bugs-To: Oleg Broytman <phd@phdru.name>\n"
 "POT-Creation-Date: 2016-03-29\n"
-"PO-Revision-Date: 2016-05-15\n"
+"PO-Revision-Date: 2018-06-11\n"
 "Last-Translator: Oleg Broytman <phd@phdru.name>\n"
 "Language: Russian\n"
 "Language-Team: Oleg Broytman <phd@phdru.name>\n"
@@ -60,3 +60,46 @@ msgstr "книг"
 
 msgid "bytes"
 msgstr "байт"
+
+msgid "surname"
+msgstr "Фамилия"
+
+msgid "name"
+msgstr "Имя"
+
+msgid "misc_name"
+msgstr "Отчество"
+
+msgid "fullname"
+msgstr "Полное имя"
+
+msgid "count"
+msgstr "Число книг"
+
+msgid "title"
+msgstr "Название"
+
+msgid "series"
+msgstr "Серия"
+
+msgid "ser_no"
+msgstr "Номер в серии"
+
+msgid "archive"
+msgstr "Архив"
+
+msgid "file"
+msgstr "Файл"
+
+msgid "size"
+msgstr "Размер"
+
+msgid "lib_id"
+msgstr "ID библиотеки"
+
+msgid "deleted"
+msgstr "Удалена"
+
+msgid "date"
+msgstr "Дата"
+
