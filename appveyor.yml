@@ -35,6 +35,14 @@ environment:
       PYTHON_VERSION: "3.6"
       PYTHON_ARCH: "64"
       PYTHON_HOME: "C:\\Python36-x64"
+    - TOXENV: "py37-sqlite-w32"
+      PYTHON_VERSION: "3.7"
+      PYTHON_ARCH: "32"
+      PYTHON_HOME: "C:\\Python37"
+    - TOXENV: "py37-sqlite-w32"
+      PYTHON_VERSION: "3.7"
+      PYTHON_ARCH: "64"
+      PYTHON_HOME: "C:\\Python37-x64"
 
 install:
   # Ensure we use the right python version
