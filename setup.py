@@ -1,8 +1,24 @@
 #!/usr/bin/env python
 
-from imp import load_source
 from os.path import abspath, dirname, join
 from setuptools import setup
+import sys
+
+if sys.version_info[:2] == (2, 7):
+    from imp import load_source
+
+elif sys.version_info >= (3, 4):
+    from importlib.machinery import SourceFileLoader
+    import types
+
+    def load_source(fullname, path):
+        loader = SourceFileLoader(fullname, path)
+        loaded = types.ModuleType(loader.name)
+        loader.exec_module(loaded)
+        return loaded
+
+else:
+    raise ImportError("m_librarian requires Python 2.7 or 3.4+")
 
 versionpath = join(abspath(dirname(__file__)), 'm_librarian', '__version__.py')
 m_librarian_version = load_source('m_librarian_version', versionpath)
