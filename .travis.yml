@@ -4,9 +4,6 @@ branches:
   only:
     - master
 
-# Prefer docker containers
-sudo: required
-
 language: python
 
 python:
