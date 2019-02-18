@@ -4,28 +4,21 @@ from os.path import abspath, dirname, join
 from setuptools import setup
 import sys
 
+versionpath = join(abspath(dirname(__file__)), 'm_librarian', '__version__.py')
+m_librarian_version = {}
+
 if sys.version_info[:2] == (2, 7):
-    from imp import load_source
+    execfile(versionpath, m_librarian_version)
 
 elif sys.version_info >= (3, 4):
-    from importlib.machinery import SourceFileLoader
-    import types
-
-    def load_source(fullname, path):
-        loader = SourceFileLoader(fullname, path)
-        loaded = types.ModuleType(loader.name)
-        loader.exec_module(loaded)
-        return loaded
+    exec(open(versionpath, 'rU').read(), m_librarian_version)
 
 else:
     raise ImportError("m_librarian requires Python 2.7 or 3.4+")
 
-versionpath = join(abspath(dirname(__file__)), 'm_librarian', '__version__.py')
-m_librarian_version = load_source('m_librarian_version', versionpath)
-
 setup(
     name='m_librarian',
-    version=m_librarian_version.__version__,
+    version=m_librarian_version['__version__'],
     description='m_Librarian for LibRusEc/Flibusta libraries',
     long_description=open('README.rst', 'rU').read(),
     long_description_content_type="text/x-rst",
@@ -35,7 +28,7 @@ setup(
     project_urls={
         'Homepage': 'https://phdru.name/Software/Python/m_librarian/',
         'Download': 'https://pypi.org/project/m_librarian/%s/'
-        % m_librarian_version.__version__,
+        % m_librarian_version['__version__'],
         'Documentation':
             'https://phdru.name/Software/Python/m_librarian/docs/',
         'Russian docs':
