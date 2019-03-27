@@ -59,7 +59,8 @@ setup(
     packages=['m_librarian', 'm_librarian.web'],
     package_data={'m_librarian': [
         'glst/*.txt', 'glst/genres_*.glst',
-        'translations/*.mo'
+        'translations/*.mo', 'translations/*.po',
+        'web/static/style.css', 'web/views/*.py', 'web/views/*.tmpl',
         ]
     },
     scripts=['scripts/ml-import.py', 'scripts/ml-initdb.py',
