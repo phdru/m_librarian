@@ -1,11 +1,20 @@
 from fcntl import flock, LOCK_EX, LOCK_UN, LOCK_NB
-from os import path, remove
+from tempfile import gettempdir
+import os
 import socket
 
 
-lock_fname = path.join(
-    path.dirname(path.dirname(path.dirname(__file__))),
-    'tmp', 'm_librarian.lock')
+if os.access('/var/run/lock', os.W_OK):
+    lock_dir = '/var/run/lock'
+else:
+    lock_dir = gettempdir()
+
+if hasattr(os, 'getuid'):
+    suffix = '-%d' % os.getuid()
+else:
+    suffix = ''
+
+lock_fname = os.path.join(lock_dir, 'm_librarian%s.lock' % suffix)
 
 
 def get_lock(port):
@@ -38,7 +47,7 @@ def close_lock(lock_file):
     lock_file = open(lock_fname, 'w')
     lock_file.write('')
     lock_file.close()
-    remove(lock_fname)
+    os.remove(lock_fname)
 
 
 def get_open_port():

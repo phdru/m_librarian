@@ -1,6 +1,12 @@
 News
 ====
 
+Version 0.1.6 (2019-05-??)
+--------------------------
+
+* Store lock file in a shared directory; use ``$UID`` as a suffix
+  to separate lock files for different users.
+
 Version 0.1.5 (2019-02-01)
 --------------------------
 
