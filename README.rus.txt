@@ -13,3 +13,7 @@ Copyright (C) 2015-2018 PhiloSoft Design.
 Репозиторий git:    https://git.phdru.name/m_librarian.git/
 Репозиторий Github: https://github.com/phdru/m_librarian
 Баг-трекер:         https://github.com/phdru/m_librarian/issues
+
+::
+
+    pip install m_librarian

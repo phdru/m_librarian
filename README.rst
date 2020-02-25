@@ -16,3 +16,7 @@ their contents with command-line, web interface and GUI.
 | Git repo:      https://git.phdru.name/m_librarian.git/
 | Github repo:   https://github.com/phdru/m_librarian
 | Issue tracker: https://github.com/phdru/m_librarian/issues
+
+::
+
+    pip install m_librarian
