@@ -4,8 +4,8 @@
 
 %.py: %.tmpl
 	cheetah compile --nobackup $<
-	python    -m compile $@
-	python -O -m compile $@
+	python    -m compileall $@
+	python -O -m compileall $@
 
 
 templates = $(shell echo *.tmpl)
