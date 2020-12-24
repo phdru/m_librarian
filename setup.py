@@ -60,7 +60,7 @@ setup(
     packages=['m_librarian', 'm_librarian.web'],
     package_data={'m_librarian': [
         'glst/*.txt', 'glst/genres_*.glst',
-        'translations/*.mo', 'translations/*.po',
+        'translations_dir/*.mo', 'translations_dir/*.po',
         'web/static/style.css', 'web/views/*.py', 'web/views/*.tmpl',
         ]
     },

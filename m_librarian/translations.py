@@ -6,7 +6,7 @@ import os
 
 def get_translations(language):
     mo_filename = os.path.join(
-        os.path.dirname(__file__), 'translations', language + '.mo')
+        os.path.dirname(__file__), 'translations_dir', language + '.mo')
     if os.path.exists(mo_filename):
         mo_file = open(mo_filename, 'rb')
         translations = gettext.GNUTranslations(mo_file)
