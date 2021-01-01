@@ -1,6 +1,8 @@
 # Heavily inspired by Oliver Grisel's appveyor-demo (https://github.com/ogrisel/python-appveyor-demo)
 version: '{branch}-{build}'
 
+image: Visual Studio 2019
+
 cache:
   - '%LOCALAPPDATA%\pip\Cache'
 
@@ -43,6 +45,14 @@ environment:
       PYTHON_VERSION: "3.8"
       PYTHON_ARCH: "64"
       PYTHON_HOME: "C:\\Python38-x64"
+    - TOXENV: "py39-sqlite-w32"
+      PYTHON_VERSION: "3.9"
+      PYTHON_ARCH: "32"
+      PYTHON_HOME: "C:\\Python39"
+    - TOXENV: "py39-sqlite-w32"
+      PYTHON_VERSION: "3.9"
+      PYTHON_ARCH: "64"
+      PYTHON_HOME: "C:\\Python39-x64"
 
 install:
   # Ensure we use the right python version
