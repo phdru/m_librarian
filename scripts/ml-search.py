@@ -377,7 +377,7 @@ if __name__ == '__main__':
 
     if int(args.start) + int(args.substring) + int(args.full) > 1:
         sys.stderr.write(
-            "Cannot search case sensitive and case insensitive "
+            "Cannot search from start, substring and full "
             "at the same time\n")
         main_parser.print_help()
         sys.exit(1)
