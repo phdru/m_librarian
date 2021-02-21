@@ -153,7 +153,7 @@ def _search_books(case_sensitive, search_type, args):
             Language, search_type, case_sensitive, lvalues)
         join_expressions.extend(conditions)
     books = search_books(search_type, case_sensitive, values, join_expressions,
-                         orderBy=('series', 'ser_no', 'title'),
+                         orderBy=('series', 'ser_no', 'title', '-date'),
                          use_filters=args.filters)
     if args.count:
         print_count(books.count())

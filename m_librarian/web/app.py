@@ -79,7 +79,7 @@ def books_by_author(id):
         join_expressions.append(Book.j.authors)
         join_expressions.append(Author.q.id == id)
         books = search_books('full', None, {}, join_expressions,
-                             orderBy=('series', 'ser_no', 'title'),
+                             orderBy=('series', 'ser_no', 'title', '-date'),
                              use_filters=use_filters)
         return {
             'author': Author.get(id),
