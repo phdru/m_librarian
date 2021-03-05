@@ -70,10 +70,11 @@ def search_authors_post():
 
 
 @route('/books-by-author/<id:int>/', method='GET')
-@cheetah_view('books_by_author.tmpl')
+@cheetah_view('list_books.tmpl')
 def books_by_author(id):
     use_filters = get_config().getint('filters', 'use_in_books_list', 1)
     columns = get_config().getlist('columns', 'book', ['title'])
+    author = Author.get(id)
     if use_filters:
         join_expressions = []
         join_expressions.append(Book.j.authors)
@@ -81,20 +82,16 @@ def books_by_author(id):
         books = search_books('full', None, {}, join_expressions,
                              orderBy=('series', 'ser_no', 'title', '-date'),
                              use_filters=use_filters)
-        return {
-            'author': Author.get(id),
-            'books': books,
-            'columns': columns,
-        }
     else:
-        return {
-            'author': Author.get(id),
-            'books': Book.select(
-                Book.j.authors & (Author.q.id == id),
-                orderBy=['series', 'ser_no', 'title'],
-            ),
-            'columns': columns,
-        }
+        books = Book.select(
+            Book.j.authors & (Author.q.id == id),
+            orderBy=['series', 'ser_no', 'title'],
+        )
+
+    return {
+        'books_by_author': {author.fullname: list(books)},
+        'columns': columns,
+    }
 
 
 @route('/static/<filename:path>')
