@@ -1,13 +1,17 @@
 News
 ====
 
-Version 0.1.6 (2020-12-??)
+Version 0.1.6 (2021-08-??)
 --------------------------
 
 * Store lock file in a shared directory; use ``$UID`` as a suffix
   to separate lock files for different users.
 
 * Enhancement in web-ui: added a link to the root.
+
+* GitHub Actions.
+
+* Stop testing at Travis CI.
 
 Version 0.1.5 (2019-02-01)
 --------------------------
