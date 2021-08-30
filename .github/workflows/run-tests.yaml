@@ -38,8 +38,7 @@ jobs:
           python --version
           python -m pip install --upgrade "pip<21.0" "setuptools<45" wheel
           pip --version
-          python -m pip --version
-          python -m pip install --upgrade virtualenv tox
+          pip install --upgrade virtualenv tox
       - name: Set TOXENV
         run: |
           import os, sys
