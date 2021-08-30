@@ -39,6 +39,20 @@ jobs:
           python -m pip install --upgrade "pip<21.0" "setuptools<45" wheel
           pip --version
           python -m pip --version
-          python -m pip install --upgrade virtualenv tox tox-gh-actions
-      - name: Run tox targets for ${{ matrix.python-version }}
-        run: python -m tox
+          python -m pip install --upgrade virtualenv tox
+      - name: Set TOXENV
+        run: |
+          import os, sys
+          pyver = '%d%d' % tuple(sys.version_info[:2])
+          toxenv = 'py%s-sqlite' % pyver
+          if os.name == 'posix':
+            toxenv += ',py%s-flake8' % pyver
+          elif os.name == 'nt':
+            toxenv += '-w32'
+          with open(os.environ['GITHUB_ENV'], 'a') as f:
+            f.write('TOXENV=' + toxenv + '\n')
+        shell: python
+      - name: Run tox
+        run: |
+          python -c "import os; print(os.environ['TOXENV'])"
+          python -m tox
