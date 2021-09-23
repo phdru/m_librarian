@@ -25,6 +25,8 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+
+      # Setup Python/pip
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
@@ -34,6 +36,8 @@ jobs:
         with:
           path: ${{ matrix.pip-cache-path }}
           key: ${{ runner.os }}-pip
+
+      # Setup tox
       - name: Install dependencies
         run: |
           python --version
@@ -52,6 +56,7 @@ jobs:
           with open(os.environ['GITHUB_ENV'], 'a') as f:
             f.write('TOXENV=' + toxenv + '\n')
         shell: python
+
       - name: Run tox
         run: |
           python -c "import os; print(os.environ['TOXENV'])"
