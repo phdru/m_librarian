@@ -1,7 +1,7 @@
 News
 ====
 
-Version 0.1.6 (2021-08-??)
+Version 0.1.6 (2021-09-24)
 --------------------------
 
 * Store lock file in a shared directory; use ``$UID`` as a suffix
