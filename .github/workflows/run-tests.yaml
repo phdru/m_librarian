@@ -9,7 +9,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: [2.7, 3.5, 3.6, 3.7, 3.8, 3.9]
+        python-version: ["2.7", "3.5", "3.6", "3.7", "3.8", "3.9", "3.10"]
         include:
         - os: ubuntu-latest
           os-name: Linux
@@ -41,7 +41,7 @@ jobs:
       - name: Install dependencies
         run: |
           python --version
-          python -m pip install --upgrade "pip<21.0" "setuptools<45" wheel
+          python -m pip install --upgrade pip setuptools wheel
           pip --version
           pip install --upgrade virtualenv tox
       - name: Set TOXENV
