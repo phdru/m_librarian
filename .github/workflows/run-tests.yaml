@@ -60,4 +60,5 @@ jobs:
       - name: Run tox
         run: |
           python -c "import os; print(os.environ['TOXENV'])"
+          tox --version
           tox
