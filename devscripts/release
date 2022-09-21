@@ -12,5 +12,5 @@ python setup.py sdist &&
 find build -name '*.py[co]' -delete &&
 python setup.py bdist_wheel --universal &&
 
-twine upload --skip-existing dist/* &&
+twine upload --disable-progress-bar --skip-existing dist/* &&
 exec rm -rf build dist m_librarian.egg-info
