@@ -6,6 +6,18 @@
 #def body
 <h1>$title</h1>
 
+<script type="text/javascript" language="Javascript">
+<!--
+function toggleBooks(name, value) {
+  cboxes = document.querySelectorAll(
+    'input[type=checkbox][name^=' + name + '_book]');
+  for (var i = 0; i < cboxes.length; i++) {
+    cboxes[i].checked = value;
+  }
+}
+// -->
+</script>
+
 #if $books_by_author
   <form action="/download/" method="POST" style="height: 80%">
   <table style="width: 100%; height: 90%">
@@ -26,7 +38,9 @@
     #set $series = $book.series
     #set $snum += 1
   <tr>
-  <td colspan="$columns1"><b>
+  <td><input type=checkbox name="a${anum+1}_s${snum}"
+  onClick="toggleBooks(this.name, this.checked)"></td>
+  <td colspan="${columns1-1}"><b>
   $author — <i>
   #if $book.series
 $cgi.escape($series, 1)#slurp

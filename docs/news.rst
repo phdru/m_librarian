@@ -4,6 +4,8 @@ News
 Version 0.1.7 (in development)
 ------------------------------
 
+* Toggle checkboxes for books in series.
+
 * Python 3.11.
 
 Version 0.1.6 (2021-09-24)
