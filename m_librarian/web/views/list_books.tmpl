@@ -16,9 +16,9 @@
     <td style="text-align: center">$cgi.escape($_($column))</td>
   #end for
   </tr>
-  #set $series = None
   #set $columns1 = $len($columns)+1
   #for $author in $sorted($books_by_author)
+    #set $series = None
     #set $books = $books_by_author[$author]
     #for $book in $books
     #if $book.series != $series
