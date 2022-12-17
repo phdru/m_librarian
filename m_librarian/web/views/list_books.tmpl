@@ -8,12 +8,19 @@
 
 <script type="text/javascript" language="Javascript">
 <!--
-function toggleBooks(name, value) {
-  cboxes = document.querySelectorAll(
-    'input[type=checkbox][name^=' + name + '_book]');
+function toggleBooks(selector, value) {
+  cboxes = document.querySelectorAll(selector);
   for (var i = 0; i < cboxes.length; i++) {
     cboxes[i].checked = value;
   }
+}
+
+function toggleAuthor(name, value) {
+  toggleBooks('input[type=checkbox][name^=' + name + ']', value);
+}
+
+function toggleSeries(name, value) {
+  toggleBooks('input[type=checkbox][name^=' + name + '_book]', value);
 }
 // -->
 </script>
@@ -33,13 +40,18 @@ function toggleBooks(name, value) {
     #set $series = None
     #set $snum = 0
     #set $books = $books_by_author[$author]
+  <tr>
+  <td><input type=checkbox name="a${anum+1}_"
+  onClick="toggleAuthor(this.name, this.checked)"></td>
+  <td colspan="${columns1-1}"><b>$author</b></td>
+  </tr>
     #for $book in $books
     #if $book.series != $series
     #set $series = $book.series
     #set $snum += 1
   <tr>
   <td><input type=checkbox name="a${anum+1}_s${snum}"
-  onClick="toggleBooks(this.name, this.checked)"></td>
+  onClick="toggleSeries(this.name, this.checked)"></td>
   <td colspan="${columns1-1}"><b>
   $author — <i>
   #if $book.series
