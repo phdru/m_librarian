@@ -17,12 +17,14 @@
   #end for
   </tr>
   #set $columns1 = $len($columns)+1
-  #for $author in $sorted($books_by_author)
+  #for $anum, $author in $enumerate($sorted($books_by_author))
     #set $series = None
+    #set $snum = 0
     #set $books = $books_by_author[$author]
     #for $book in $books
     #if $book.series != $series
     #set $series = $book.series
+    #set $snum += 1
   <tr>
   <td colspan="$columns1"><b>
   $author — <i>
@@ -35,7 +37,7 @@ $cgi.escape($series, 1)#slurp
   </tr>
     #end if
   <tr>
-  <td><input type=checkbox name=books value="$book.id"></td>
+  <td><input type=checkbox name="a${anum+1}_s${snum}_books" value="$book.id"></td>
   #for $column in $columns
   #if $column in ('ser_no', 'size')
   #set $style = ' style="text-align: right; width: 5ex"'

@@ -107,7 +107,12 @@ def send_static(filename):
 @route('/download/', method='POST')
 @cheetah_view('download.tmpl')
 def download_books():
-    books_ids = request.forms.getall('books')
+    books_ids = []
+    form = request.forms
+    for k in form:
+        if k.split('_')[-1] == 'books':
+            for _id in form.getall(k):
+                books_ids.append(_id)
     download_path = get_config().getpath('download', 'path')
     if books_ids:
         for id in books_ids:
