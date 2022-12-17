@@ -69,22 +69,22 @@ def search_authors_post():
     }
 
 
-@route('/books-by-author/<id:int>/', method='GET')
+@route('/books-by-author/<aid:int>/', method='GET')
 @cheetah_view('list_books.tmpl')
-def books_by_author(id):
+def books_by_author(aid):
     use_filters = get_config().getint('filters', 'use_in_books_list', 1)
     columns = get_config().getlist('columns', 'book', ['title'])
-    author = Author.get(id)
+    author = Author.get(aid)
     if use_filters:
         join_expressions = []
         join_expressions.append(Book.j.authors)
-        join_expressions.append(Author.q.id == id)
+        join_expressions.append(Author.q.id == aid)
         books = search_books('full', None, {}, join_expressions,
                              orderBy=('series', 'ser_no', 'title', '-date'),
                              use_filters=use_filters)
     else:
         books = Book.select(
-            Book.j.authors & (Author.q.id == id),
+            Book.j.authors & (Author.q.id == aid),
             orderBy=['series', 'ser_no', 'title'],
         )
 
@@ -111,12 +111,12 @@ def download_books():
     form = request.forms
     for k in form:
         if k.split('_')[-1] == 'books':
-            for _id in form.getall(k):
-                books_ids.append(_id)
+            for bid in form.getall(k):
+                books_ids.append(bid)
     download_path = get_config().getpath('download', 'path')
     if books_ids:
-        for id in books_ids:
-            book = Book.get(int(id))
+        for bid in books_ids:
+            book = Book.get(int(bid))
             download(book, download_path)
         return {
             'message': u'Книги сохранены.',
