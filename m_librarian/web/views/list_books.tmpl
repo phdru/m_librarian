@@ -15,6 +15,10 @@ function toggleBooks(selector, value) {
   }
 }
 
+function toggleAll(value) {
+  toggleBooks('input[type=checkbox]', value);
+}
+
 function toggleAuthor(name, value) {
   toggleBooks('input[type=checkbox][name^=' + name + ']', value);
 }
@@ -29,7 +33,8 @@ function toggleSeries(name, value) {
   <form action="/download/" method="POST" style="height: 80%">
   <table style="width: 100%; height: 90%">
   <tr>
-  <td>&nbsp;</td>
+  <td><input type=checkbox name="_toggleAll"
+  onClick="toggleAll(this.checked)"></td>
   #set $_ = $getattr($translations, 'ugettext', None) or $translations.gettext
   #for $column in $columns
     <td style="text-align: center">$cgi.escape($_($column))</td>

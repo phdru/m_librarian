@@ -4,7 +4,7 @@ News
 Version 0.1.7 (in development)
 ------------------------------
 
-* Toggle checkboxes for books in series or for an author.
+* Toggle checkboxes for books in series, for an author or all.
 
 * Python 3.11.
 
