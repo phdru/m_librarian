@@ -5,6 +5,7 @@ all:
 
 .PHONY: release
 release: docs distr
+	devscripts/release
 
 .PHONY: distr
 distr:
