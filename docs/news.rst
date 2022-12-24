@@ -1,8 +1,8 @@
 News
 ====
 
-Version 0.1.7 (in development)
-------------------------------
+Version 0.2.0 (2022-12-24)
+--------------------------
 
 * Toggle checkboxes for books in series, for an author or all.
 
