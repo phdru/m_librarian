@@ -77,6 +77,6 @@ setup(
     ],
     extras_require={
         'pbar': ['m_lib>=3.1'],
-        'web': ['bottle', 'Cheetah3'],
+        'web': ['bottle', 'CT3'],
     },
 )
