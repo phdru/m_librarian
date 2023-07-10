@@ -1,6 +1,12 @@
 News
 ====
 
+Version 0.2.0.post1
+-------------------
+
+* GHActions: Install everything from ``conda``.
+  All required Python and PyPy versions are now available from ``conda-forge``.
+
 Version 0.2.0 (2022-12-24)
 --------------------------
 

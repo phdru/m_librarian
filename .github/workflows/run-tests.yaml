@@ -4,6 +4,8 @@ on: [push, pull_request]
 
 jobs:
   run-tests:
+    env:
+      not_in_conda: "[]"
 
     strategy:
       matrix:
@@ -29,12 +31,13 @@ jobs:
       - uses: actions/checkout@v2
       - uses: s-weigand/setup-conda@v1
         with:
+          conda-channels: conda-forge
           python-version: ${{ matrix.python-version }}
-        if: ${{ runner.os == 'Linux' && matrix.python-version != '3.11' }}
+        if: ${{ !contains(fromJSON(env.not_in_conda), matrix.python-version) }}
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-        if: ${{ runner.os != 'Linux' || matrix.python-version == '3.11' }}
+        if: ${{ contains(fromJSON(env.not_in_conda), matrix.python-version) }}
       - name: Cache pip
         uses: actions/cache@v3
         with:
@@ -45,9 +48,10 @@ jobs:
       - name: Install dependencies
         run: |
           python --version
+          python -m ensurepip
           python -m pip install --upgrade pip setuptools wheel
           pip --version
-          pip install --upgrade virtualenv "tox < 4"
+          pip install --upgrade virtualenv "tox >= 3.15, < 4"
       - name: Set TOXENV
         run: |
           import os, sys
@@ -55,16 +59,16 @@ jobs:
           pyver = '%d%d' % tuple(sys.version_info[:2])
           toxenv = 'py%s-sqlite' % pyver
           if os.name == 'posix':
-            if pyver == '27':  # Python 2.7 on Linux requires `$LD_LIBRARY_PATH`
-              ld_library_path = os.path.join(
-                os.path.dirname(os.path.dirname(sys.executable)), 'lib')
-            toxenv += ',py%s-flake8' % pyver
+              if pyver == '27':  # Python 2.7 on Linux requires `$LD_LIBRARY_PATH`
+                  ld_library_path = os.path.join(
+                      os.path.dirname(os.path.dirname(sys.executable)), 'lib')
+              toxenv += ',py%s-flake8' % pyver
           elif os.name == 'nt':
-            toxenv += '-w32'
+              toxenv += '-w32'
           with open(os.environ['GITHUB_ENV'], 'a') as f:
-            if ld_library_path:
-              f.write('LD_LIBRARY_PATH=' + ld_library_path + '\n')
-            f.write('TOXENV=' + toxenv + '\n')
+              if ld_library_path:
+                f.write('LD_LIBRARY_PATH=' + ld_library_path + '\n')
+              f.write('TOXENV=' + toxenv + '\n')
         shell: python
 
       - name: Run tox
