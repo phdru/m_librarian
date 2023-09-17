@@ -4,6 +4,9 @@ News
 Version 0.2.0.post1
 -------------------
 
+Version 0.2.0.post1 (2023-07-13)
+--------------------------------
+
 * GHActions: Install everything from ``conda``.
   All required Python and PyPy versions are now available from ``conda-forge``.
 
