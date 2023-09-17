@@ -4,10 +4,10 @@ News
 Version 0.2.0.post2
 -------------------
 
-* GHActions: Ensure `pip` only if needed
+* GHActions: Ensure ``pip`` only if needed
 
   This is to work around a problem in conda with Python 3.7 -
-  it brings in wrong version of `setuptools` incompatible with Python 3.7.
+  it brings in wrong version of ``setuptools`` incompatible with Python 3.7.
 
 Version 0.2.0.post1 (2023-07-13)
 --------------------------------
