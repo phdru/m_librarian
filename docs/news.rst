@@ -1,8 +1,10 @@
 News
 ====
 
-Version 0.2.0.post2
+Version 0.2.0.post3
 -------------------
+
+* GHActions: Test with Python 3.12.
 
 Version 0.2.0.post2 (2023-09-17)
 --------------------------------
