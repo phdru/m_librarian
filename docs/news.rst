@@ -4,6 +4,9 @@ News
 Version 0.2.0.post2
 -------------------
 
+Version 0.2.0.post2 (2023-09-17)
+--------------------------------
+
 * GHActions: Ensure ``pip`` only if needed
 
   This is to work around a problem in conda with Python 3.7 -
