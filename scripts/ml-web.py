@@ -18,7 +18,7 @@ def start_browser(port):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Init')
+    parser = argparse.ArgumentParser(description='m_Librarin web interface')
     parser.add_argument('-p', '--port', help='HTTP server port')
     args = parser.parse_args()
 

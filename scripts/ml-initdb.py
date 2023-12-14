@@ -6,7 +6,7 @@ from m_librarian.db import open_db, init_db
 from m_librarian.glst import import_glst
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Init')
+    parser = argparse.ArgumentParser(description='Init database')
     parser.add_argument('-C', '--config', help='configuration file')
     parser.add_argument('-D', '--database', help='database URI')
     args = parser.parse_args()

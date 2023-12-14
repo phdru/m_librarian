@@ -13,7 +13,7 @@ if ttyProgressBar:
     from m_librarian.pbar import ml_ttyProgressBar
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Import')
+    parser = argparse.ArgumentParser(description='Import INPX files')
     parser.add_argument('-C', '--config', help='configuration file')
     parser.add_argument('-D', '--database', help='database URI')
     parser.add_argument('-P', '--no-pbar', action='store_true',
