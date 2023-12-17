@@ -5,10 +5,10 @@ import os
 from sqlobject.sqlbuilder import CONCAT
 from bottle import cheetah_view, redirect, request, route, static_file
 
-from m_librarian.config import get_config
-from m_librarian.db import Author, Book
-from m_librarian.download import download
-from m_librarian.search import search_authors, search_books
+from ..config import get_config
+from ..db import Author, Book
+from ..download import download
+from ..search import search_authors, search_books
 
 
 @route('/')
