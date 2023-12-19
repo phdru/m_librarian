@@ -9,8 +9,11 @@ class MainWindow(wx.Frame):
 
     def __init__(self):
         session_config = get_session_config()
+        width = session_config.getint('main_window', 'width', 600)
+        height = session_config.getint('main_window', 'height', 400)
         super(wx.Frame, self).__init__(
             parent=None, id=-1, title=u"m_Librarian",
+            size=wx.Size(width=width, height=height),
         )
         self.InitMenu()
         self.Show(True)
