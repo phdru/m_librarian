@@ -28,6 +28,25 @@ def _find_config_dirs():
 _ml_session_config = None
 
 
+class SessionConfigWrapper(ConfigWrapper):
+    def __init__(self, config, config_path):
+        ConfigWrapper.__init__(self, config)
+        self.config_path = config_path
+
+    def set(self, section, option, value):
+        if not self.config.has_section(section):
+            self.config.add_section(section)
+        super(SessionConfigWrapper, self).set(section, option, value)
+
+    def save(self):
+        if self.config_path is None:
+            config_dirs = _find_config_dirs()
+            self.config_path = \
+                os.path.join(config_dirs[0], 'm_librarian_session.conf')
+        with open(self.config_path, 'wt') as fp:
+            self.config.write(fp)
+
+
 def get_session_config(config_path=None):
     global _ml_session_config
     if _ml_session_config is None:
@@ -38,7 +57,8 @@ def get_session_config(config_path=None):
                 find_config_file(config_dirs, 'm_librarian_session.conf')
         if config_path is not None:
             _ml_session_config.read(config_path)
-        _ml_session_config = ConfigWrapper(_ml_session_config)
+        _ml_session_config = \
+            SessionConfigWrapper(_ml_session_config, config_path)
     return _ml_session_config
 
 

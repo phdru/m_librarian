@@ -2,6 +2,7 @@
 
 import wx, wx.adv
 from ..__version__ import __version__
+from .session_config import get_session_config
 
 
 class MainWindow(wx.Frame):
@@ -21,6 +22,8 @@ class MainWindow(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnAbout, about)
         MenuBar.Append(about_menu, u"&О программе")
 
+        self.Bind(wx.EVT_SIZE, self.OnSize)
+
     def OnQuit(self, event):
         self.Close(True)
 
@@ -36,6 +39,14 @@ class MainWindow(wx.Frame):
         aboutInfo.SetLicense(u'GPL')
         wx.adv.AboutBox(aboutInfo)
 
+    def OnSize(self, event):
+        """Save window size in the session config"""
+        size = event.GetSize()
+        session_config = get_session_config()
+        session_config.set('main_window', 'width', str(size.width))
+        session_config.set('main_window', 'height', str(size.height))
+        session_config.save()
+        event.Skip()  # Call other handlers
 
 class Application(wx.App):
 
