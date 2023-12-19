@@ -7,6 +7,15 @@ from .session_config import get_session_config
 
 class MainWindow(wx.Frame):
 
+    def __init__(self):
+        session_config = get_session_config()
+        super(wx.Frame, self).__init__(
+            parent=None, id=-1, title=u"m_Librarian",
+        )
+        self.InitMenu()
+        self.Show(True)
+        self.Bind(wx.EVT_SIZE, self.OnSize)
+
     def InitMenu(self):
         MenuBar = wx.MenuBar()
         self.SetMenuBar(MenuBar)
@@ -21,8 +30,6 @@ class MainWindow(wx.Frame):
                                   u"&О m_Librarian", u"О m_Librarian")
         self.Bind(wx.EVT_MENU, self.OnAbout, about)
         MenuBar.Append(about_menu, u"&О программе")
-
-        self.Bind(wx.EVT_SIZE, self.OnSize)
 
     def OnQuit(self, event):
         self.Close(True)
@@ -51,8 +58,6 @@ class MainWindow(wx.Frame):
 class Application(wx.App):
 
     def OnInit(self):
-        frame = MainWindow(None, -1, u"m_Librarian")
-        frame.InitMenu()
-        frame.Show(True)
+        frame = MainWindow()
         self.SetTopWindow(frame)
         return True
