@@ -30,6 +30,11 @@ library ``m_lib``. You can install the library separately using, e.g.,
 command ``pip install m_lib``. Or you can install the library with
 ``m_librarian``: ``pip install m_librarian[pbar]``.
 
+Other extras
+============
+
+``pip install m_librarian[web]`` installs libraries needed for web-ui.
+
 Installation from sources
 =========================
 
