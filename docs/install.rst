@@ -35,6 +35,9 @@ Other extras
 
 ``pip install m_librarian[web]`` installs libraries needed for web-ui.
 
+``pip install m_librarian[wx]`` installs a library needed for wx GUI
+(``wxPython``).
+
 Installation from sources
 =========================
 
