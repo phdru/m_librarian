@@ -35,7 +35,7 @@ Credits
 
 Автор: Олег Бройтман <phd@phdru.name>.
 
-Copyright (C) 2015-2018 PhiloSoft Design.
+Copyright (C) 2015-2023 PhiloSoft Design.
 
 
 License
