@@ -1,4 +1,5 @@
-from sqlobject.sqlbuilder import AND, OR, func
+from sqlobject.sqlbuilder import AND, OR, func, CONCAT
+
 from .config import get_config
 from .db import Author, Book, Extension, Genre, Language
 
@@ -109,3 +110,83 @@ def search_genres(search_type, case_sensitive, values, orderBy=None):
 def search_languages(search_type, case_sensitive, values, orderBy=None):
     return _search(Language, search_type, case_sensitive, values,
                    orderBy=orderBy)
+
+
+def decode(value):
+    if isinstance(value, bytes):
+        return value.decode('utf-8')
+    return value
+
+
+def _guess_case_sensitivity(value):
+    return not value.islower()
+
+
+def search_authors_raw(value, search_type, case_sensitive):
+    value = decode(value)
+    if not search_type:
+        search_type = 'start'
+    if case_sensitive is None:
+        case_sensitive = _guess_case_sensitivity(value)
+    expressions = [(
+        CONCAT(Author.q.surname, ' ', Author.q.name, ' ', Author.q.misc_name),
+        decode(value)
+    )]
+    authors = search_authors(search_type, case_sensitive, {}, expressions,
+                             orderBy=('surname', 'name', 'misc_name'))
+    columns = get_config().getlist('columns', 'author', ['fullname'])
+    return {
+        'authors': list(authors),
+        'search_authors': value,
+        'search_type': search_type,
+        'case_sensitive': case_sensitive,
+        'columns': columns,
+    }
+
+
+def books_by_author(aid):
+    use_filters = get_config().getint('filters', 'use_in_books_list', 1)
+    columns = get_config().getlist('columns', 'book', ['title'])
+    author = Author.get(aid)
+    if use_filters:
+        join_expressions = []
+        join_expressions.append(Book.j.authors)
+        join_expressions.append(Author.q.id == aid)
+        books = search_books('full', None, {}, join_expressions,
+                             orderBy=('series', 'ser_no', 'title', '-date'),
+                             use_filters=use_filters)
+    else:
+        books = Book.select(
+            Book.j.authors & (Author.q.id == aid),
+            orderBy=['series', 'ser_no', 'title'],
+        )
+    return {
+        'books_by_author': {author.fullname: list(books)},
+        'columns': columns,
+    }
+
+
+def search_books_raw(value, search_type, case_sensitive, use_filters):
+    value = decode(value)
+    if not search_type:
+        search_type = 'start'
+    if case_sensitive is None:
+        case_sensitive = _guess_case_sensitivity(value)
+    books = search_books(search_type, case_sensitive, {'title': value}, None,
+                         orderBy=('title',), use_filters=use_filters)
+    books_by_authors = {}
+    for book in books:
+        author = book.author1
+        if author in books_by_authors:
+            books_by_author = books_by_authors[author]
+        else:
+            books_by_author = books_by_authors[author] = []
+        books_by_author.append(book)
+    columns = get_config().getlist('columns', 'book', ['title'])
+    return {
+        'books_by_author': books_by_authors,
+        'search_books': value,
+        'search_type': search_type,
+        'case_sensitive': case_sensitive,
+        'columns': columns,
+    }
