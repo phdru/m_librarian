@@ -1,9 +1,10 @@
 #! /usr/bin/env python
 
 from __future__ import print_function
-import codecs
 from glob import glob
+import codecs
 import os
+
 from sqlobject import sqlhub, SQLObjectNotFound
 from .db import Genre
 

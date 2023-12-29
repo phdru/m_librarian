@@ -1,6 +1,8 @@
 
 import os
+
 from sqlobject.tests.dbtest import getConnection
+
 from m_librarian.db import open_db, init_db
 from m_librarian.inp import import_inpx
 

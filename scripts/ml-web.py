@@ -7,9 +7,9 @@ import webbrowser
 from bottle import thread  # portable import
 
 from m_librarian.db import open_db
-import m_librarian.web.app  # noqa: F401 imported but unused
 from m_librarian.web.server import run_server
 from m_librarian.web.utils import get_lock, close_lock, get_open_port
+import m_librarian.web.app  # noqa: F401 imported but unused
 
 
 def start_browser(port):
