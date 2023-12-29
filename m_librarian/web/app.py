@@ -113,8 +113,8 @@ def download_books():
         if k.split('_')[-1] == 'books':
             for bid in form.getall(k):
                 books_ids.append(bid)
-    download_path = get_config().getpath('download', 'path')
     if books_ids:
+        download_path = get_config().getpath('download', 'path')
         for bid in books_ids:
             book = Book.get(int(bid))
             download(book, download_path)
