@@ -1,6 +1,6 @@
 # coding: utf-8
 
-import wx, wx.adv
+import wx, wx.adv  # noqa: E401 multiple imports on one line
 from ..__version__ import __version__
 from .session_config import get_session_config
 
@@ -44,7 +44,8 @@ class MainWindow(wx.Frame):
         aboutInfo.SetDescription(
             u'Библиотекарь для библиотек LibRusEc/Flibusta')
         aboutInfo.AddDeveloper(u'Олег Бройтман')
-        aboutInfo.SetWebSite(u'https://phdru.name/Software/Python/m_librarian/')
+        aboutInfo.SetWebSite(
+            u'https://phdru.name/Software/Python/m_librarian/')
         aboutInfo.SetCopyright(u'(C) 2023 Олег Бройтман')
         aboutInfo.SetLicense(u'GPL')
         wx.adv.AboutBox(aboutInfo)
@@ -57,6 +58,7 @@ class MainWindow(wx.Frame):
         session_config.set('main_window', 'height', str(size.height))
         session_config.save()
         event.Skip()  # Call other handlers
+
 
 class Application(wx.App):
 
