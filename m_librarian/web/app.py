@@ -2,8 +2,8 @@
 
 import os
 
-from sqlobject.sqlbuilder import CONCAT
 from bottle import cheetah_view, redirect, request, route, static_file
+from sqlobject.sqlbuilder import CONCAT
 
 from ..config import get_config
 from ..db import Author, Book

@@ -2,9 +2,11 @@
 
 from __future__ import print_function
 import os
+
 from sqlobject import SQLObject, StringCol, UnicodeCol, IntCol, BoolCol, \
     ForeignKey, DateCol, DatabaseIndex, RelatedJoin, \
     connectionForURI, sqlhub, SQLObjectNotFound, dberrors
+
 from .compat import string_type
 from .config import get_config
 
