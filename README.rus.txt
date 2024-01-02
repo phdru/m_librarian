@@ -1,6 +1,6 @@
 m_Librarian.
 Автор: Олег Бройтман <phd@phdru.name>.
-Copyright (C) 2015-2023 PhiloSoft Design.
+Copyright (C) 2015-2024 PhiloSoft Design.
 Лицензия: GPL.
 
 Здесь будет набор программ для индексации библиотек LibRusEc и Флибуста

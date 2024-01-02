@@ -2,7 +2,7 @@ m_Librarian.
 
 Author: Oleg Broytman <phd@phdru.name>.
 
-Copyright (C) 2015-2023 PhiloSoft Design.
+Copyright (C) 2015-2024 PhiloSoft Design.
 
 License: GPL.
 
