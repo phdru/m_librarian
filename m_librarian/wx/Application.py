@@ -46,7 +46,7 @@ class MainWindow(wx.Frame):
         aboutInfo.AddDeveloper(u'Олег Бройтман')
         aboutInfo.SetWebSite(
             u'https://phdru.name/Software/Python/m_librarian/')
-        aboutInfo.SetCopyright(u'(C) 2023 Олег Бройтман')
+        aboutInfo.SetCopyright(u'(C) 2023, 2024 Олег Бройтман')
         aboutInfo.SetLicense(u'GPL')
         wx.adv.AboutBox(aboutInfo)
 
