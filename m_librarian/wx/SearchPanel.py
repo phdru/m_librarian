@@ -24,3 +24,7 @@ class SearchPanel(wx.Panel):
             majorDimension=1, style=wx.RA_SPECIFY_ROWS
         )
         search_authors_vsizer.Add(search_substr)
+
+        self.search_case = search_case = wx.CheckBox(
+            self, label=u'Различать прописные/строчные')
+        search_authors_vsizer.Add(search_case)
