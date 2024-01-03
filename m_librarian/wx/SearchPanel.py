@@ -28,3 +28,7 @@ class SearchPanel(wx.Panel):
         self.search_case = search_case = wx.CheckBox(
             self, label=u'Различать прописные/строчные')
         search_authors_vsizer.Add(search_case)
+
+        self.search_authors_button = search_authors_button = wx.Button(
+            self, label=u'Искать авторов')
+        search_authors_vsizer.Add(search_authors_button, 0, wx.ALIGN_CENTER, 0)
