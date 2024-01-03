@@ -2,6 +2,7 @@
 
 import wx, wx.adv  # noqa: E401 multiple imports on one line
 from ..__version__ import __version__
+from .SearchPanel import SearchPanel
 from .session_config import get_session_config
 
 
@@ -16,6 +17,7 @@ class MainWindow(wx.Frame):
             size=wx.Size(width=width, height=height),
         )
         self.InitMenu()
+        self.search_panel = search_panel = SearchPanel(self)
         self.Show(True)
         self.Bind(wx.EVT_SIZE, self.OnSize)
 
