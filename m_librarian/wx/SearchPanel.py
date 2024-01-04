@@ -37,4 +37,6 @@ class SearchPanel(wx.Panel):
         search_authors_button.Bind(wx.EVT_BUTTON, self.SearchAuthors)
 
     def SearchAuthors(self, event):
-        pass
+        search_authors = self.search_authors.GetValue()
+        search_substr = self.search_substr.GetSelection()
+        search_case = self.search_case.GetValue()
