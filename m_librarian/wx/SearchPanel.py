@@ -1,6 +1,9 @@
 # coding: utf-8
 
 import wx
+from ..search import search_authors_raw
+
+_search_types = ['start', 'substring', 'full']
 
 
 class SearchPanel(wx.Panel):
@@ -38,5 +41,8 @@ class SearchPanel(wx.Panel):
 
     def SearchAuthors(self, event):
         search_authors = self.search_authors.GetValue()
-        search_substr = self.search_substr.GetSelection()
+        search_substr = _search_types[self.search_substr.GetSelection()]
         search_case = self.search_case.GetValue()
+        if search_case is False:
+            search_case = None
+        search_authors_raw(search_authors, search_substr, search_case)
