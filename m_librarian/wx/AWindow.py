@@ -36,9 +36,12 @@ class AWindow(wx.Frame):
         self.Show(True)
 
     def OnInit(self):
+        if self.Parent:
+            self.Parent.Disable()
         self.InitMenu()
         if self.session_config_section_name:
             self.Bind(wx.EVT_SIZE, self.OnSize)
+        self.Bind(wx.EVT_CLOSE, self.OnClose)
 
     def InitMenu(self):
         MenuBar = wx.MenuBar()
@@ -63,6 +66,11 @@ class AWindow(wx.Frame):
 
     def OnCloseCommand(self, event):
         self.Close(True)
+
+    def OnClose(self, event):
+        if self.Parent:
+            self.Parent.Enable()
+        event.Skip()  # Call other handlers
 
     def OnQuit(self, event):
         wx.GetApp().ExitMainLoop()

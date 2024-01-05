@@ -2,6 +2,8 @@
 
 import wx
 from ..search import search_authors_raw
+from .ListAuthors import ListAuthorsWindow
+
 
 _search_types = ['start', 'substring', 'full']
 
@@ -44,4 +46,6 @@ class SearchPanel(wx.Panel):
         search_case = self.search_case.GetValue()
         if search_case is False:
             search_case = None
-        search_authors_raw(search_authors, search_substr, search_case)
+        search_authors_results = \
+            search_authors_raw(search_authors, search_substr, search_case)
+        ListAuthorsWindow(self.Parent, search_authors_results)
