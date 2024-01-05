@@ -10,7 +10,7 @@ class MainWindow(AWindow):
 
     def OnInit(self):
         AWindow.OnInit(self)
-        self.search_panel = SearchPanel(self)
+        SearchPanel(self)
 
 
 class Application(wx.App):

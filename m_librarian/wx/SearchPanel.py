@@ -10,7 +10,7 @@ class SearchPanel(wx.Panel):
 
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
-        self.search_authors_vsizer = search_authors_vsizer = \
+        search_authors_vsizer = \
             wx.StaticBoxSizer(wx.VERTICAL, self, u'Поиск авторов')
         self.SetSizer(search_authors_vsizer)
 
@@ -34,8 +34,7 @@ class SearchPanel(wx.Panel):
             self, label=u'Различать прописные/строчные')
         search_authors_vsizer.Add(search_case)
 
-        self.search_authors_button = search_authors_button = wx.Button(
-            self, label=u'Искать авторов')
+        search_authors_button = wx.Button(self, label=u'Искать авторов')
         search_authors_vsizer.Add(search_authors_button, 0, wx.ALIGN_CENTER, 0)
         search_authors_button.Bind(wx.EVT_BUTTON, self.SearchAuthors)
 
