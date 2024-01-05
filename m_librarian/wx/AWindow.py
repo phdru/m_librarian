@@ -45,8 +45,14 @@ class AWindow(wx.Frame):
         self.SetMenuBar(MenuBar)
 
         file_menu = wx.Menu()
-        exit = file_menu.Append(wx.ID_EXIT, u"&Выход", u"Выйти из программы")
-        self.Bind(wx.EVT_MENU, self.OnQuit, exit)
+
+        if self.Parent:
+            close_win = \
+                file_menu.Append(wx.ID_CLOSE, u"&Закрыть", u"Закрыть окно")
+            self.Bind(wx.EVT_MENU, self.OnCloseCommand, close_win)
+
+        quit = file_menu.Append(wx.ID_EXIT, u"&Выход", u"Выйти из программы")
+        self.Bind(wx.EVT_MENU, self.OnQuit, quit)
         MenuBar.Append(file_menu, u"&Файл")
 
         about_menu = wx.Menu()
@@ -55,8 +61,11 @@ class AWindow(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnAbout, about)
         MenuBar.Append(about_menu, u"&О программе")
 
-    def OnQuit(self, event):
+    def OnCloseCommand(self, event):
         self.Close(True)
+
+    def OnQuit(self, event):
+        wx.GetApp().ExitMainLoop()
 
     def OnAbout(self, event):
         aboutInfo = wx.adv.AboutDialogInfo()
