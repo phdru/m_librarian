@@ -2,6 +2,7 @@
 
 import wx, wx.grid  # noqa: E401 multiple imports on one line
 from ..compat import string_type, unicode_type
+from ..search import books_by_author
 from ..translations import translations
 from .AWindow import AWindow
 from .ListBooks import ListBooksWindow
@@ -67,7 +68,8 @@ class ListAuthorsPanel(wx.Panel):
     def listBooks(self, row):
         authors = self.search_authors_results['authors']
         author = authors[row]
-        ListBooksWindow(self, author)
+        _books_by_author = books_by_author(author.id)
+        ListBooksWindow(self, _books_by_author)
 
     def OnDClick(self, event):
         row = event.GetRow()
