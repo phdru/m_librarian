@@ -24,18 +24,21 @@ class ListAuthorsPanel(wx.Panel):
 
     def __init__(self, parent, search_authors_results):
         wx.Panel.__init__(self, parent)
+        self.search_authors_results = search_authors_results
+
         list_authors_sizer = wx.BoxSizer(wx.VERTICAL)
         self.SetSizer(list_authors_sizer)
 
-        grid = wx.grid.Grid(self)
+        self.grid = grid = wx.grid.Grid(self)
         list_authors_sizer.Add(grid, 0, wx.EXPAND, 0)
 
-        self.InitGrid(grid, search_authors_results)
+        self.InitGrid()
 
-    def InitGrid(self, grid, search_authors_results):
+    def InitGrid(self):
         _ = getattr(translations, 'ugettext', None) or translations.gettext
-        authors = search_authors_results['authors']
-        columns = search_authors_results['columns']
+        authors = self.search_authors_results['authors']
+        columns = self.search_authors_results['columns']
+        grid = self.grid
         grid.CreateGrid(len(authors), len(columns))
         grid.EnableEditing(False)
         for row in range(len(authors)):
