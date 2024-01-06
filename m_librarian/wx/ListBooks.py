@@ -40,8 +40,9 @@ class ListBooksPanel(wx.Panel):
         columns = self.books_by_author['columns']
         author = next(iter(books_by_author))
         books = books_by_author[author]
+        series = {book.series for book in books}
         grid = self.grid
-        grid.CreateGrid(len(books), len(columns))
+        grid.CreateGrid(len(books) + len(series), len(columns))
         grid.EnableEditing(False)
         for row in range(len(books)):
             grid.SetRowLabelValue(row, str(row))
@@ -53,7 +54,19 @@ class ListBooksPanel(wx.Panel):
                 cell_attr = wx.grid.GridCellAttr()
                 cell_attr.SetAlignment(wx.ALIGN_RIGHT, wx. ALIGN_CENTRE)
                 grid.SetColAttr(col, cell_attr)
-        for row, book in enumerate(books):
+        row = 0
+        series = None
+        for book in books:
+            if book.series != series:
+                if book.series:
+                    value = book.series
+                else:
+                    value = u'Вне серий'
+                grid.SetCellAlignment(row, 0, wx.ALIGN_LEFT, wx. ALIGN_CENTRE)
+                grid.SetCellSize(row, 0, 1, len(columns))
+                grid.SetCellValue(row, 0, u'%s — %s' % (book.author1, value))
+                row += 1
+                series = book.series
             for col, col_name in enumerate(columns):
                 value = getattr(book, col_name)
                 if value is None:
@@ -61,5 +74,6 @@ class ListBooksPanel(wx.Panel):
                 elif not isinstance(value, (string_type, unicode_type)):
                     value = str(value)
                 grid.SetCellValue(row, col, value)
+            row += 1
         grid.AutoSizeColumns()
         grid.AutoSizeRows()
