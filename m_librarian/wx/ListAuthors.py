@@ -4,6 +4,7 @@ import wx, wx.grid  # noqa: E401 multiple imports on one line
 from ..compat import string_type, unicode_type
 from ..translations import translations
 from .AWindow import AWindow
+from .ListBooks import ListBooksWindow
 
 
 class ListAuthorsWindow(AWindow):
@@ -59,3 +60,22 @@ class ListAuthorsPanel(wx.Panel):
                 grid.SetCellValue(row, col, value)
         grid.AutoSizeColumns()
         grid.AutoSizeRows()
+
+        grid.Bind(wx.grid.EVT_GRID_CELL_LEFT_DCLICK, self.OnDClick)
+        grid.Bind(wx.EVT_KEY_DOWN, self.OnKeyDown)
+
+    def listBooks(self, row):
+        authors = self.search_authors_results['authors']
+        author = authors[row]
+        ListBooksWindow(self, author)
+
+    def OnDClick(self, event):
+        row = event.GetRow()
+        self.listBooks(row)
+
+    def OnKeyDown(self, event):
+        if event.GetKeyCode() in (wx.WXK_RETURN, wx.WXK_NUMPAD_ENTER):
+            row = self.grid.GetGridCursorRow()
+            self.listBooks(row)
+        else:
+            event.Skip()
