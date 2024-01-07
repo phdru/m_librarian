@@ -4,42 +4,16 @@ import wx, wx.grid  # noqa: E401 multiple imports on one line
 from ..compat import string_type, unicode_type
 from ..search import books_by_author
 from ..translations import translations
-from .AWindow import AWindow
+from .Grids import GridWindow, GridPanel
 from .ListBooks import ListBooksWindow
 
 
-class ListAuthorsWindow(AWindow):
-
-    session_config_section_name = 'list_authors'
-    window_title = u"m_Librarian: Список авторов"
-
-    def __init__(self, parent, search_authors_results):
-        self.search_authors_results = search_authors_results
-        AWindow.__init__(self, parent)
-
-    def OnInit(self):
-        AWindow.OnInit(self)
-        ListAuthorsPanel(self, self.search_authors_results)
-
-
-class ListAuthorsPanel(wx.Panel):
-
-    def __init__(self, parent, search_authors_results):
-        wx.Panel.__init__(self, parent)
-        self.search_authors_results = search_authors_results
-
-        list_authors_sizer = wx.BoxSizer(wx.VERTICAL)
-        self.SetSizer(list_authors_sizer)
-
-        self.grid = grid = wx.grid.Grid(self)
-        list_authors_sizer.Add(grid, 0, wx.EXPAND, 0)
-
-        self.InitGrid()
+class ListAuthorsPanel(GridPanel):
 
     def InitGrid(self):
         _ = getattr(translations, 'ugettext', None) or translations.gettext
-        authors = self.search_authors_results['authors']
-        columns = self.search_authors_results['columns']
+        authors = self.param['authors']
+        columns = self.param['columns']
         grid = self.grid
         grid.CreateGrid(len(authors), len(columns))
         grid.EnableEditing(False)
@@ -66,7 +40,7 @@ class ListAuthorsPanel(wx.Panel):
         grid.Bind(wx.EVT_KEY_DOWN, self.OnKeyDown)
 
     def listBooks(self, row):
-        authors = self.search_authors_results['authors']
+        authors = self.param['authors']
         author = authors[row]
         _books_by_author = books_by_author(author.id)
         ListBooksWindow(self, _books_by_author)
@@ -81,3 +55,10 @@ class ListAuthorsPanel(wx.Panel):
             self.listBooks(row)
         else:
             event.Skip()
+
+
+class ListAuthorsWindow(GridWindow):
+
+    session_config_section_name = 'list_authors'
+    window_title = u"m_Librarian: Список авторов"
+    GridPanelClass = ListAuthorsPanel

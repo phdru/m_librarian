@@ -3,41 +3,15 @@
 import wx
 from ..compat import string_type, unicode_type
 from ..translations import translations
-from .AWindow import AWindow
+from .Grids import GridWindow, GridPanel
 
 
-class ListBooksWindow(AWindow):
-
-    session_config_section_name = 'list_books'
-    window_title = u"m_Librarian: Список книг"
-
-    def __init__(self, parent, books_by_author):
-        self.books_by_author = books_by_author
-        AWindow.__init__(self, parent)
-
-    def OnInit(self):
-        AWindow.OnInit(self)
-        ListBooksPanel(self, self.books_by_author)
-
-
-class ListBooksPanel(wx.Panel):
-
-    def __init__(self, parent, books_by_author):
-        wx.Panel.__init__(self, parent)
-        self.books_by_author = books_by_author
-
-        list_books_sizer = wx.BoxSizer(wx.VERTICAL)
-        self.SetSizer(list_books_sizer)
-
-        self.grid = grid = wx.grid.Grid(self)
-        list_books_sizer.Add(grid, 0, wx.EXPAND, 0)
-
-        self.InitGrid()
+class ListBooksPanel(GridPanel):
 
     def InitGrid(self):
         _ = getattr(translations, 'ugettext', None) or translations.gettext
-        books_by_author = self.books_by_author['books_by_author']
-        columns = self.books_by_author['columns']
+        books_by_author = self.param['books_by_author']
+        columns = self.param['columns']
         author = next(iter(books_by_author))
         books = books_by_author[author]
         series = {book.series for book in books}
@@ -77,3 +51,10 @@ class ListBooksPanel(wx.Panel):
             row += 1
         grid.AutoSizeColumns()
         grid.AutoSizeRows()
+
+
+class ListBooksWindow(GridWindow):
+
+    session_config_section_name = 'list_books'
+    window_title = u"m_Librarian: Список книг"
+    GridPanelClass = ListBooksPanel
