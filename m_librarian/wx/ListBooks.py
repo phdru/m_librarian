@@ -52,6 +52,14 @@ class ListBooksPanel(GridPanel):
         grid.AutoSizeColumns()
         grid.AutoSizeRows()
 
+    def OnDClick(self, event):
+        pass
+
+    def OnKeyDown(self, event):
+        if event.GetKeyCode() == wx.WXK_ESCAPE:
+            self.Parent.Close()
+        else:
+            event.Skip()
 
 class ListBooksWindow(GridWindow):
 

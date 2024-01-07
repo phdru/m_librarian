@@ -36,9 +36,6 @@ class ListAuthorsPanel(GridPanel):
         grid.AutoSizeColumns()
         grid.AutoSizeRows()
 
-        grid.Bind(wx.grid.EVT_GRID_CELL_LEFT_DCLICK, self.OnDClick)
-        grid.Bind(wx.EVT_KEY_DOWN, self.OnKeyDown)
-
     def listBooks(self, row):
         authors = self.param['authors']
         author = authors[row]
@@ -50,7 +47,9 @@ class ListAuthorsPanel(GridPanel):
         self.listBooks(row)
 
     def OnKeyDown(self, event):
-        if event.GetKeyCode() in (wx.WXK_RETURN, wx.WXK_NUMPAD_ENTER):
+        if event.GetKeyCode() == wx.WXK_ESCAPE:
+            self.Parent.Close()
+        elif event.GetKeyCode() in (wx.WXK_RETURN, wx.WXK_NUMPAD_ENTER):
             row = self.grid.GetGridCursorRow()
             self.listBooks(row)
         else:
