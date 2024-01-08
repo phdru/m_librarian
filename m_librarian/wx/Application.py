@@ -1,6 +1,6 @@
 import wx
 from .AWindow import AWindow
-from .SearchPanel import SearchPanel
+from .SearchPanels import SearchAuthorsPanel, SearchBooksPanel
 
 
 class MainWindow(AWindow):
@@ -10,7 +10,13 @@ class MainWindow(AWindow):
 
     def OnInit(self):
         AWindow.OnInit(self)
-        SearchPanel(self)
+        vsizer = wx.BoxSizer(wx.VERTICAL)
+        self.SetSizer(vsizer)
+
+        search_authors_panel = SearchAuthorsPanel(self)
+        search_books_panel = SearchBooksPanel(self)
+        vsizer.Add(search_authors_panel, 0, wx.EXPAND, 0)
+        vsizer.Add(search_books_panel, 0, wx.EXPAND, 0)
 
 
 class Application(wx.App):
