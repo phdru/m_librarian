@@ -129,9 +129,27 @@ class ListBooksPanel(GridPanel):
                 row += 1
         grid.AutoSizeColumns()
         grid.AutoSizeRows()
+        grid.Bind(wx.grid.EVT_GRID_CELL_LEFT_CLICK, self.OnClick)
+
+    def toggleCB(self, row):
+        value = self.grid.GetCellValue(row, 0)
+        if value:
+            value = ''
+        else:
+            value = '1'
+        self.grid.SetCellValue(row, 0, value)
+
+    def OnClick(self, event):
+        if event.GetCol() > 0:
+            return
+        row = event.GetRow()
+        self.toggleCB(row)
 
     def OnDClick(self, event):
-        pass
+        if event.GetCol() == 0:
+            return
+        row = event.GetRow()
+        self.toggleCB(row)
 
     def OnKeyDown(self, event):
         if event.GetKeyCode() == wx.WXK_ESCAPE:
