@@ -1,15 +1,66 @@
 # coding: utf-8
 
-import wx
+import wx, wx.grid  # noqa: E401 multiple imports on one line
 from ..compat import string_type, unicode_type
 from ..translations import translations
 from .Grids import GridWindow, GridPanel
 
 
+_ = getattr(translations, 'ugettext', None) or translations.gettext
+
+
+class BooksDataTable(wx.grid.GridTableBase):
+    def __init__(self, rows_count, column_names):
+        wx.grid.GridTableBase.__init__(self)
+        self.rows_count = rows_count
+        self.column_names = column_names
+        self.data = []
+        for row in range(rows_count):
+            row_data = []
+            self.data.append(row_data)
+            for col in range(len(column_names)):
+                row_data.append('')
+
+    # required methods for the wxPyGridTableBase interface
+
+    def GetNumberRows(self):
+        return self.rows_count
+
+    def GetNumberCols(self):
+        return len(self.column_names)
+
+    def IsEmptyCell(self, row, col):
+        return False
+
+    # Get/Set values in the table.  The Python version of these
+    # methods can handle any data-type, (as long as the Editor and
+    # Renderer understands the type too,) not just strings as in the
+    # C++ version.
+    def GetValue(self, row, col):
+        return self.data[row][col]
+
+    def SetValue(self, row, col, value):
+        self.data[row][col] = value
+
+    # Optional methods
+
+    # Called when the grid needs to display labels
+    def GetRowLabelValue(self, row):
+        return str(row)
+
+    def GetColLabelValue(self, col):
+        return _(self.column_names[col])
+
+    # Called to determine the kind of editor/renderer to use by
+    # default, doesn't necessarily have to be the same type used
+    # natively by the editor/renderer if they know how to convert.
+    def GetTypeName(self, row, col):
+        return wx.grid.GRID_VALUE_STRING
+
+
 class ListBooksPanel(GridPanel):
 
     def InitGrid(self):
-        _ = getattr(translations, 'ugettext', None) or translations.gettext
         books_by_author = self.param['books_by_author']
         columns = self.param['columns']
         total_rows = 0
@@ -18,13 +69,9 @@ class ListBooksPanel(GridPanel):
             series = {book.series for book in books}
             total_rows += len(books) + len(series) + 1
         grid = self.grid
-        grid.CreateGrid(total_rows, len(columns))
+        grid.SetTable(BooksDataTable(total_rows, columns), takeOwnership=True)
         grid.EnableEditing(False)
-        for row in range(total_rows):
-            grid.SetRowLabelValue(row, str(row))
-            grid.AutoSizeRowLabelSize(row)
         for col, col_name in enumerate(columns):
-            grid.SetColLabelValue(col, _(col_name))
             grid.AutoSizeColLabelSize(col)
             if col_name in ('ser_no', 'size'):
                 cell_attr = wx.grid.GridCellAttr()
