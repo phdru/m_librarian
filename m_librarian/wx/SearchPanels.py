@@ -47,6 +47,9 @@ class SearchPanel(wx.Panel):
 
     def DoSearch(self, event):
         search = self.search.GetValue()
+        if not search:
+            self.search.SetFocus()
+            return
         search_substr = _search_types[self.search_substr.GetSelection()]
         search_case = self.search_case.GetValue()
         if search_case is False:
