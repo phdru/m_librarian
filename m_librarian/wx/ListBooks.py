@@ -16,7 +16,7 @@ class ListBooksPanel(GridPanel):
         for author in books_by_author:
             books = books_by_author[author]
             series = {book.series for book in books}
-            total_rows += len(books) + len(series)
+            total_rows += len(books) + len(series) + 1
         grid = self.grid
         grid.CreateGrid(total_rows, len(columns))
         grid.EnableEditing(False)
@@ -32,6 +32,10 @@ class ListBooksPanel(GridPanel):
                 grid.SetColAttr(col, cell_attr)
         row = 0
         for author in sorted(books_by_author):
+            grid.SetCellAlignment(row, 0, wx.ALIGN_LEFT, wx. ALIGN_CENTRE)
+            grid.SetCellSize(row, 0, 1, len(columns))
+            grid.SetCellValue(row, 0, u'%s' % (author,))
+            row += 1
             books = books_by_author[author]
             series = None
             for book in books:
@@ -40,9 +44,11 @@ class ListBooksPanel(GridPanel):
                         value = book.series
                     else:
                         value = u'Вне серий'
-                    grid.SetCellAlignment(row, 0, wx.ALIGN_LEFT, wx. ALIGN_CENTRE)
+                    grid.SetCellAlignment(row, 0,
+                                          wx.ALIGN_LEFT, wx. ALIGN_CENTRE)
                     grid.SetCellSize(row, 0, 1, len(columns))
-                    grid.SetCellValue(row, 0, u'%s — %s' % (book.author1, value))
+                    grid.SetCellValue(row, 0,
+                                      u'%s — %s' % (book.author1, value))
                     row += 1
                     series = book.series
                 for col, col_name in enumerate(columns):
@@ -64,6 +70,7 @@ class ListBooksPanel(GridPanel):
             self.Parent.Close()
         else:
             event.Skip()
+
 
 class ListBooksWindow(GridWindow):
 
