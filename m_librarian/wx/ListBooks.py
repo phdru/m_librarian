@@ -55,7 +55,23 @@ class BooksDataTable(wx.grid.GridTableBase):
     # default, doesn't necessarily have to be the same type used
     # natively by the editor/renderer if they know how to convert.
     def GetTypeName(self, row, col):
-        return wx.grid.GRID_VALUE_STRING
+        if col == 0:
+            return wx.grid.GRID_VALUE_BOOL
+        else:
+            return wx.grid.GRID_VALUE_STRING
+
+    # Called to determine how the data can be fetched and stored by the
+    # editor and renderer.  This allows you to enforce some type-safety
+    # in the grid.
+    def CanGetValueAs(self, row, col, typeName):
+        colType = self.GetTypeName(row, col)
+        if typeName == colType:
+            return True
+        else:
+            return False
+
+    def CanSetValueAs(self, row, col, typeName):
+        return self.CanGetValueAs(row, col, typeName)
 
 
 class ListBooksPanel(GridPanel):
@@ -63,6 +79,7 @@ class ListBooksPanel(GridPanel):
     def InitGrid(self):
         books_by_author = self.param['books_by_author']
         columns = self.param['columns']
+        columns.insert(0, u'Выбрать')
         total_rows = 0
         for author in books_by_author:
             books = books_by_author[author]
@@ -73,15 +90,19 @@ class ListBooksPanel(GridPanel):
         grid.EnableEditing(False)
         for col, col_name in enumerate(columns):
             grid.AutoSizeColLabelSize(col)
-            if col_name in ('ser_no', 'size'):
+            if col == 0:
+                cell_attr = wx.grid.GridCellAttr()
+                cell_attr.SetAlignment(wx.ALIGN_CENTRE, wx. ALIGN_CENTRE)
+                grid.SetColAttr(col, cell_attr)
+            elif col_name in ('ser_no', 'size'):
                 cell_attr = wx.grid.GridCellAttr()
                 cell_attr.SetAlignment(wx.ALIGN_RIGHT, wx. ALIGN_CENTRE)
                 grid.SetColAttr(col, cell_attr)
         row = 0
         for author in sorted(books_by_author):
-            grid.SetCellAlignment(row, 0, wx.ALIGN_LEFT, wx. ALIGN_CENTRE)
-            grid.SetCellSize(row, 0, 1, len(columns))
-            grid.SetCellValue(row, 0, u'%s' % (author,))
+            grid.SetCellAlignment(row, 1, wx.ALIGN_LEFT, wx. ALIGN_CENTRE)
+            grid.SetCellSize(row, 1, 1, len(columns)-1)
+            grid.SetCellValue(row, 1, u'%s' % (author,))
             row += 1
             books = books_by_author[author]
             series = None
@@ -91,20 +112,20 @@ class ListBooksPanel(GridPanel):
                         value = book.series
                     else:
                         value = u'Вне серий'
-                    grid.SetCellAlignment(row, 0,
+                    grid.SetCellAlignment(row, 1,
                                           wx.ALIGN_LEFT, wx. ALIGN_CENTRE)
-                    grid.SetCellSize(row, 0, 1, len(columns))
-                    grid.SetCellValue(row, 0,
+                    grid.SetCellSize(row, 1, 1, len(columns)-1)
+                    grid.SetCellValue(row, 1,
                                       u'%s — %s' % (book.author1, value))
                     row += 1
                     series = book.series
-                for col, col_name in enumerate(columns):
+                for col, col_name in enumerate(columns[1:]):
                     value = getattr(book, col_name)
                     if value is None:
                         value = u''
                     elif not isinstance(value, (string_type, unicode_type)):
                         value = str(value)
-                    grid.SetCellValue(row, col, value)
+                    grid.SetCellValue(row, col+1, value)
                 row += 1
         grid.AutoSizeColumns()
         grid.AutoSizeRows()
