@@ -15,7 +15,7 @@ class BooksDataTable(wx.grid.GridTableBase):
         self.rows_count = rows_count
         self.column_names = column_names
         self.data = []
-        for row in range(rows_count):
+        for row in range(rows_count + 1):
             row_data = []
             self.data.append(row_data)
             for col in range(len(column_names)):
@@ -86,7 +86,10 @@ class ListBooksPanel(GridPanel):
             series = {book.series for book in books}
             total_rows += len(books) + len(series) + 1
         grid = self.grid
-        grid.SetTable(BooksDataTable(total_rows, columns), takeOwnership=True)
+        grid.SetTable(
+            BooksDataTable(total_rows+1, columns),
+            takeOwnership=True,
+        )
         grid.EnableEditing(False)
         for col, col_name in enumerate(columns):
             grid.AutoSizeColLabelSize(col)
@@ -99,10 +102,16 @@ class ListBooksPanel(GridPanel):
                 cell_attr.SetAlignment(wx.ALIGN_RIGHT, wx. ALIGN_CENTRE)
                 grid.SetColAttr(col, cell_attr)
         row = 0
+        grid.SetCellAlignment(row, 1, wx.ALIGN_CENTRE, wx. ALIGN_CENTRE)
+        grid.SetCellSize(row, 1, 1, len(columns)-1)
+        row = 1
+        self.toggle_rows = toggle_rows = {}  # map {row: [list of subrows]}
         for author in sorted(books_by_author):
             grid.SetCellAlignment(row, 1, wx.ALIGN_LEFT, wx. ALIGN_CENTRE)
             grid.SetCellSize(row, 1, 1, len(columns)-1)
             grid.SetCellValue(row, 1, u'%s' % (author,))
+            author_row = row
+            toggle_rows[author_row] = []
             row += 1
             books = books_by_author[author]
             series = None
@@ -117,6 +126,9 @@ class ListBooksPanel(GridPanel):
                     grid.SetCellSize(row, 1, 1, len(columns)-1)
                     grid.SetCellValue(row, 1,
                                       u'%s — %s' % (book.author1, value))
+                    series_row = row
+                    toggle_rows[author_row].append(row)
+                    toggle_rows[series_row] = []
                     row += 1
                     series = book.series
                 for col, col_name in enumerate(columns[1:]):
@@ -126,7 +138,10 @@ class ListBooksPanel(GridPanel):
                     elif not isinstance(value, (string_type, unicode_type)):
                         value = str(value)
                     grid.SetCellValue(row, col+1, value)
+                toggle_rows[author_row].append(row)
+                toggle_rows[series_row].append(row)
                 row += 1
+        toggle_rows[0] = [row_ for row_ in range(1, row)]
         grid.AutoSizeColumns()
         grid.AutoSizeRows()
         grid.Bind(wx.grid.EVT_GRID_CELL_LEFT_CLICK, self.OnClick)
@@ -138,18 +153,20 @@ class ListBooksPanel(GridPanel):
         else:
             value = '1'
         self.grid.SetCellValue(row, 0, value)
+        toggle_rows = self.toggle_rows
+        if row in toggle_rows:
+            for row_ in toggle_rows[row]:
+                self.grid.SetCellValue(row_, 0, value)
 
     def OnClick(self, event):
         if event.GetCol() > 0:
             return
-        row = event.GetRow()
-        self.toggleCB(row)
+        self.toggleCB(event.GetRow())
 
     def OnDClick(self, event):
         if event.GetCol() == 0:
             return
-        row = event.GetRow()
-        self.toggleCB(row)
+        self.toggleCB(event.GetRow())
 
     def OnKeyDown(self, event):
         if event.GetKeyCode() == wx.WXK_ESCAPE:
