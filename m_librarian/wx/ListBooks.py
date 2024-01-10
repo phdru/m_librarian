@@ -183,10 +183,23 @@ class ListBooksPanel(GridPanel):
 
     def Download(self, event):
         book_by_row = self.book_by_row
-        for row in self.toggle_rows[0]:
-            value = self.grid.GetCellValue(row, 0)
-            if value and row in book_by_row:
-                download(book_by_row[row])
+        found_books = False
+        try:
+            for row in self.toggle_rows[0]:
+                value = self.grid.GetCellValue(row, 0)
+                if value and row in book_by_row:
+                    found_books = True
+                    download(book_by_row[row])
+        except Exception as e:
+            self.report_error(str(e))
+        else:
+            if not found_books:
+                self.report_error(u'Не выбрано книг для сохранения.')
+
+    def report_error(self, error):
+        wx.MessageBox(
+            error, caption='m_Librarian download error',
+            style=wx.OK|wx.ICON_ERROR, parent=self.Parent)
 
 
 class ListBooksWindow(GridWindow):
