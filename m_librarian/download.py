@@ -71,6 +71,8 @@ _library_path = None
 
 
 def download(book, dest_path=None, lib_path=None, a_format=None):
+    if dest_path is None:
+        dest_path = get_config().getpath('download', 'path')
     if lib_path is None:
         global _library_path
         if _library_path is None:

@@ -65,11 +65,10 @@ def download_books():
             for bid in form.getall(k):
                 books_ids.append(bid)
     if books_ids:
-        download_path = get_config().getpath('download', 'path')
         try:
             for bid in books_ids:
                 book = Book.get(int(bid))
-                download(book, download_path)
+                download(book)
         except Exception as e:
             return {
                 'error': str(e),
