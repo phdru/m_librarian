@@ -2,6 +2,7 @@
 
 import wx, wx.grid  # noqa: E401 multiple imports on one line
 from ..compat import string_type, unicode_type
+from ..download import download
 from ..translations import translations
 from .Grids import GridWindow, GridPanel
 
@@ -105,6 +106,7 @@ class ListBooksPanel(GridPanel):
         grid.SetCellAlignment(row, 1, wx.ALIGN_CENTRE, wx. ALIGN_CENTRE)
         grid.SetCellSize(row, 1, 1, len(columns)-1)
         row = 1
+        self.book_by_row = book_by_row = {}  # map {row: book}
         self.toggle_rows = toggle_rows = {}  # map {row: [list of subrows]}
         for author in sorted(books_by_author):
             grid.SetCellAlignment(row, 1, wx.ALIGN_LEFT, wx. ALIGN_CENTRE)
@@ -138,6 +140,7 @@ class ListBooksPanel(GridPanel):
                     elif not isinstance(value, (string_type, unicode_type)):
                         value = str(value)
                     grid.SetCellValue(row, col+1, value)
+                book_by_row[row] = book
                 toggle_rows[author_row].append(row)
                 toggle_rows[series_row].append(row)
                 row += 1
@@ -145,6 +148,10 @@ class ListBooksPanel(GridPanel):
         grid.AutoSizeColumns()
         grid.AutoSizeRows()
         grid.Bind(wx.grid.EVT_GRID_CELL_LEFT_CLICK, self.OnClick)
+
+        search_button = wx.Button(self, label=u'Скачать')
+        self.GetSizer().Add(search_button, 0, wx.ALIGN_CENTER, 0)
+        search_button.Bind(wx.EVT_BUTTON, self.Download)
 
     def toggleCB(self, row):
         value = self.grid.GetCellValue(row, 0)
@@ -173,6 +180,13 @@ class ListBooksPanel(GridPanel):
             self.Parent.Close()
         else:
             event.Skip()
+
+    def Download(self, event):
+        book_by_row = self.book_by_row
+        for row in self.toggle_rows[0]:
+            value = self.grid.GetCellValue(row, 0)
+            if value and row in book_by_row:
+                download(book_by_row[row])
 
 
 class ListBooksWindow(GridWindow):
