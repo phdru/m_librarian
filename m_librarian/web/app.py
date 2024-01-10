@@ -66,15 +66,21 @@ def download_books():
                 books_ids.append(bid)
     if books_ids:
         download_path = get_config().getpath('download', 'path')
-        for bid in books_ids:
-            book = Book.get(int(bid))
-            download(book, download_path)
-        return {
-            'message': u'Книги сохранены.',
-        }
+        try:
+            for bid in books_ids:
+                book = Book.get(int(bid))
+                download(book, download_path)
+        except Exception as e:
+            return {
+                'error': str(e),
+            }
+        else:
+            return {
+                'message': u'Книги сохранены.',
+            }
     else:
         return {
-            'message': u'Не выбрано книг для сохранения.',
+            'error': u'Не выбрано книг для сохранения.',
         }
 
 

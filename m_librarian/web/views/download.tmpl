@@ -4,5 +4,9 @@
 #def body
 <h1>$title</h1>
 
+#if $getVar('error', None)
+<p style="color: red">$error</p>
+#else
 <p>$message</p>
+#end if
 #end def
