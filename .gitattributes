@@ -1,4 +1,5 @@
 .git* export-ignore
 /README.rus.txt encoding=utf-8
+*.py encoding=utf-8
 *.rst encoding=utf-8
 *.txt text

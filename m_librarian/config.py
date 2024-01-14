@@ -29,11 +29,11 @@ def find_config_dirs():
     return None
 
 
-def find_config_file(config_dirs=None):
+def find_config_file(config_dirs=None, config_filename='m_librarian.conf'):
     if config_dirs is None:
         config_dirs = find_config_dirs()
     for d in config_dirs:
-        ml_conf_file = os.path.join(d, 'm_librarian.conf')
+        ml_conf_file = os.path.join(d, config_filename)
         if os.path.exists(ml_conf_file):
             return ml_conf_file
     else:

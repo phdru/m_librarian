@@ -79,5 +79,6 @@ setup(
     extras_require={
         'pbar': ['m_lib>=3.1'],
         'web': ['bottle', 'CT3'],
+        'wx': ['wxPython'],
     },
 )
