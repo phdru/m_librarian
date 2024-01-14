@@ -1,16 +1,13 @@
 Next release
 ------------
 
-GUI with wxPython. Search authors. List books by an author. Download books.
+Installers.
 
 
 Future
 ------
 
 Compression: zip, gz, bz2, xz.
-
-
-Portability and installers.
 
 
 Import from SQL instead of INPX. Import annotations and illustrations.
