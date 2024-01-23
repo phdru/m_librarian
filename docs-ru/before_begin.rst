@@ -27,19 +27,19 @@ m_lib.defenc.
 
 |   Библиотека Flibusta.net [fb2]
 |      https://booktracker.org/viewtopic.php?t=46979
-|      https://nnm-club.me/forum/viewtopic.php?t=521962
-|      http://rus-tor.com/torrent/542970
+|      https://nnmclub.to/forum/viewtopic.php?t=521962
+|      http://rutor.info/torrent/703143
 |   Библиотека Flibusta.net [fb2, usr]
 |      https://booktracker.org/viewtopic.php?t=49016
-|      https://nnm-club.me/forum/viewtopic.php?t=353958
-|      http://rus-tor.com/torrent/543084
+|      https://nnmclub.to/forum/viewtopic.php?t=353958
+|      http://rutor.info/torrent/703146
 |   Библиотека Либрусек (lib.rus.ec) + MyHomeLib [FB2]
 |      https://booktracker.org/viewtopic.php?t=1198
-|      https://nnm-club.me/forum/viewtopic.php?t=510054
-|      http://rus-tor.com/torrent/212528
+|      https://nnmclub.to/forum/viewtopic.php?t=1689402
+|      http://rutor.info/torrent/962201
 |   Библиотека Либрусек (lib.rus.ec) [ALL]
 |      https://booktracker.org/viewtopic.php?t=79829
-|      https://nnm-club.me/forum/viewtopic.php?t=877707
+|      https://nnmclub.to/forum/viewtopic.php?t=877707
 
 Кроме самих библиотек вам понадобиться найти для них индексы INPX —
 m_Librarian пока не научился индексировать архивы библиотек.
@@ -54,8 +54,8 @@ m_Librarian пока не научился индексировать архив
 | http://myhomelib.org/download/inpx/librusec_local_all.inpx (не обновляется)
 | https://booktracker.org/viewtopic.php?t=64690
 | https://booktracker.org/viewtopic.php?t=74487
-| https://nnm-club.me/forum/viewtopic.php?t=875907
-| http://rus-tor.com/torrent/543085
+| https://nnmclub.to/forum/viewtopic.php?t=875907
+| http://rutor.info/torrent/543085
 
 Файл конфигурации
 -----------------
