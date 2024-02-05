@@ -181,7 +181,7 @@ class ListBooksPanel(GridPanel):
         else:
             event.Skip()
 
-    def Download(self, event):
+    def Download(self, event=None):
         book_by_row = self.book_by_row
         found_books = False
         try:
@@ -207,3 +207,15 @@ class ListBooksWindow(GridWindow):
     session_config_section_name = 'list_books'
     window_title = u"m_Librarian: Список книг"
     GridPanelClass = ListBooksPanel
+
+    def InitMenu(self):
+        GridWindow.InitMenu(self)
+
+        download_menu = wx.Menu()
+        download = download_menu.Append(wx.ID_SAVE,
+                                        u"&Скачать", u"Скачать")
+        self.Bind(wx.EVT_MENU, self.OnDownload, download)
+        self.GetMenuBar().Append(download_menu, u"&Скачать")
+
+    def OnDownload(self, event):
+        self.panel.Download()
