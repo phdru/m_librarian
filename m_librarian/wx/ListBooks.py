@@ -199,7 +199,7 @@ class ListBooksPanel(GridPanel):
     def report_error(self, error):
         wx.MessageBox(
             error, caption='m_Librarian download error',
-            style=wx.OK|wx.ICON_ERROR, parent=self.Parent)
+            style=wx.OK | wx.ICON_ERROR, parent=self.Parent)
 
 
 class ListBooksWindow(GridWindow):
