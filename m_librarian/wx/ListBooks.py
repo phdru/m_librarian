@@ -193,8 +193,15 @@ class ListBooksPanel(GridPanel):
         except Exception as e:
             self.report_error(str(e))
         else:
-            if not found_books:
+            if found_books:
+                self.report_success(u'Книги сохранены.')
+            else:
                 self.report_error(u'Не выбрано книг для сохранения.')
+
+    def report_success(self, message):
+        wx.MessageBox(
+            message, caption='m_Librarian download finished',
+            style=wx.OK, parent=self.Parent)
 
     def report_error(self, error):
         wx.MessageBox(
