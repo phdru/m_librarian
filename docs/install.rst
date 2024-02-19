@@ -36,7 +36,16 @@ Other extras
 ``pip install m_librarian[web]`` installs libraries needed for web-ui.
 
 ``pip install m_librarian[wx]`` installs a library needed for wx GUI
-(``wxPython``).
+(``wxPython``). Should work for non-Linux platforms, but for Linux
+``wxPython`` should be installed separately either using system package
+manager, or from https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ ,
+or using ``conda``::
+
+    conda create -n wx27 python=2.7 wxpython
+    conda activate wx27
+
+Python 2.7 is used here just an example, the librarin works with any
+Python version, 2.7 and 3.4+.
 
 Installation from sources
 =========================
