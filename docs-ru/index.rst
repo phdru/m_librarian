@@ -18,6 +18,7 @@ Contents:
    :maxdepth: 2
 
    before_begin
+   install
    command_line
    news
 
