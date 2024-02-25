@@ -108,6 +108,7 @@ class ListBooksPanel(GridPanel):
         row = 1
         self.book_by_row = book_by_row = {}  # map {row: book}
         self.toggle_rows = toggle_rows = {}  # map {row: [list of subrows]}
+        autowrap_renderer = wx.grid.GridCellAutoWrapStringRenderer()
         for author in sorted(books_by_author):
             grid.SetCellAlignment(row, 1, wx.ALIGN_LEFT, wx. ALIGN_CENTRE)
             grid.SetCellSize(row, 1, 1, len(columns)-1)
@@ -134,6 +135,12 @@ class ListBooksPanel(GridPanel):
                     row += 1
                     series = book.series
                 for col, col_name in enumerate(columns[1:]):
+                    if col_name in (
+                        'author1', 'author_list', 'authors',
+                        'genre1name', 'genre1title', 'genre_name_list',
+                        'genres', 'title',
+                    ):
+                        grid.SetCellRenderer(row, col+1, autowrap_renderer)
                     value = getattr(book, col_name)
                     if value is None:
                         value = u''
