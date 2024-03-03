@@ -2,7 +2,7 @@
 import os
 from zipfile import ZipFile
 
-from sqlobject import sqlhub
+from sqlobject import dberrors, sqlhub
 from sqlobject.sqlbuilder import Select
 
 from .db import Author, Book, Extension, Genre, Language, \
@@ -71,7 +71,10 @@ def import_inp_line(archive, parts):
     for genre in genres.split(':'):
         if genre:
             genre_row = insert_name(Genre, genre, title=genre)
-            book.addGenre(genre_row)
+            try:
+                book.addGenre(genre_row)
+            except dberrors.DuplicateEntryError:
+                pass  # The genre has already been added
 
 
 def tounicode(s):
