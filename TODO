@@ -1,6 +1,9 @@
 Next release
 ------------
 
+Get rid of ``import cgi``.
+
+
 List of authors, list of books -
 do not select when clicking on column/row titles.
 
