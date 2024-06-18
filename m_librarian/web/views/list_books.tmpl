@@ -1,5 +1,4 @@
 #encoding utf-8
-#import cgi
 #from m_librarian.translations import translations
 #extends views.layout
 #attr $title = 'Список книг'
@@ -30,6 +29,7 @@ function toggleSeries(name, value) {
 </script>
 
 #if $books_by_author
+#filter WebSafe
   <form action="/download/" method="POST" style="height: 80%">
   <table style="width: 100%; height: 90%">
   <tr>
@@ -37,7 +37,7 @@ function toggleSeries(name, value) {
   onClick="toggleAll(this.checked)"></td>
   #set $_ = $getattr($translations, 'ugettext', None) or $translations.gettext
   #for $column in $columns
-    <td style="text-align: center">$cgi.escape($_($column))</td>
+    <td style="text-align: center">$_($column)</td>
   #end for
   </tr>
   #set $columns1 = $len($columns)+1
@@ -60,7 +60,7 @@ function toggleSeries(name, value) {
   <td colspan="${columns1-1}"><b>
   $author — <i>
   #if $book.series
-$cgi.escape($series, 1)#slurp
+$series, 1#slurp
   #else
 Вне серий#slurp
   #end if
@@ -75,7 +75,7 @@ $cgi.escape($series, 1)#slurp
   #else
   #set $style = ''
   #end if
-  <td$style>$cgi.escape(unicode($getattr($book, $column) or ''))</td>
+  <td$style>$unicode($getattr($book, $column) or '')</td>
   #end for
   </tr>
     #end for
@@ -85,6 +85,7 @@ $cgi.escape($series, 1)#slurp
   </tr>
   </table>
   </form>
+#end filter WebSafe
 #else
   <p>Не найдено ни одной книги!</p>
 #end if
