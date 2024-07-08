@@ -16,7 +16,7 @@ class BooksDataTable(wx.grid.GridTableBase):
         self.rows_count = rows_count
         self.column_names = column_names
         self.data = []
-        for row in range(rows_count + 1):
+        for row in range(rows_count + 2):
             row_data = []
             self.data.append(row_data)
             for col in range(len(column_names)):
