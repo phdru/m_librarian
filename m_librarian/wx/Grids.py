@@ -16,6 +16,8 @@ class GridPanel(wx.Panel):
 
         grid.Bind(wx.grid.EVT_GRID_CELL_LEFT_DCLICK, self.OnDClick)
         grid.Bind(wx.EVT_KEY_DOWN, self.OnKeyDown)
+        grid.Bind(wx.grid.EVT_GRID_LABEL_LEFT_CLICK, self.OnLabelClick)
+        grid.Bind(wx.grid.EVT_GRID_LABEL_RIGHT_CLICK, self.OnLabelClick)
 
         self.InitGrid()
         grid.SetFocus()
@@ -40,6 +42,9 @@ class GridPanel(wx.Panel):
 
     def OnSetFocus(self, event):
         self.grid.SetFocus()
+
+    def OnLabelClick(self, event):
+        event.Veto()
 
 
 class GridWindow(AWindow):
