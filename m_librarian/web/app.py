@@ -28,9 +28,25 @@ def search_authors_get():
     return {}
 
 
-@route('/search_authors/', method='POST')
+@route('/list_authors', method='GET')
+def _list_authors():
+    return redirect('/list_authors/')
+
+
+@route('/list_authors/', method='GET')
 @cheetah_view('list_authors.tmpl')
-def search_authors_post():
+def list_authors_get():
+    value = request.query.get('search_authors')
+    if not value:
+        return redirect('/search_authors/')
+    search_type = request.query.get('search_type')
+    case_sensitive = request.query.get('case_sensitive')
+    return search_authors_raw(value, search_type, case_sensitive)
+
+
+@route('/list_authors/', method='POST')
+@cheetah_view('list_authors.tmpl')
+def list_authors_post():
     value = request.forms.get('search_authors')
     if not value:
         return redirect('/search_authors/')
