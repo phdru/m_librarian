@@ -15,7 +15,22 @@ $search_authors_form(searchList=$searchList)
   <tr>
   #set $_ = $getattr($translations, 'ugettext', None) or $translations.gettext
   #for $column in $columns
-    <td style="text-align: center">$_($column)</td>
+    <td style="text-align: center">$_($column)
+    #if $sort in ($column, '+'+$column, '-'+$column)
+      #if $sort in ($column, '+'+$column)
+        #set $sort_param='-'+$column
+        #set $sort_sign='↓'
+      #elif $sort == '-'+$column
+        #set $sort_param=$quote('+')+$column
+        #set $sort_sign='↑'
+      #end if
+    #else
+      #set $sort_param=$quote('+')+$column
+      #set $sort_sign='↓'
+    #end if
+    #set $case_param='1' if $case_sensitive else ''
+    <a href="/list_authors/?search_authors=$search_authors&search_type=$search_type&case_sensitive=$case_param&sort=$sort_param">$sort_sign</a>
+    </td>
   #end for
   </tr>
   #for $author in $authors

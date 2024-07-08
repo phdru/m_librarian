@@ -1,3 +1,8 @@
+try:
+  from urllib.parse import quote
+except ImportError:
+  from urllib import quote
+
 from sqlobject.sqlbuilder import AND, OR, func, CONCAT
 
 from .config import get_config
@@ -122,7 +127,7 @@ def _guess_case_sensitivity(value):
     return not value.islower()
 
 
-def search_authors_raw(value, search_type, case_sensitive):
+def search_authors_raw(value, search_type, case_sensitive, sort=None):
     value = decode(value)
     if not search_type:
         search_type = 'start'
@@ -132,15 +137,42 @@ def search_authors_raw(value, search_type, case_sensitive):
         CONCAT(Author.q.surname, ' ', Author.q.name, ' ', Author.q.misc_name),
         decode(value)
     )]
-    authors = search_authors(search_type, case_sensitive, {}, expressions,
-                             orderBy=('surname', 'name', 'misc_name'))
     columns = get_config().getlist('columns', 'author', ['fullname'])
+    orderby_columns = columns[:]
+    try:
+        idx = orderby_columns.index('fullname')
+    except ValueError:
+        pass
+    else:
+        orderby_columns[idx:idx+1] = ('surname', 'name', 'misc_name')
+    if sort:
+        if sort[0] in '+-':
+            sort_order = sort[0]
+            sort_key = sort[1:]
+        else:
+            sort_order = '+'
+            sort_key = sort
+            sort = sort_order+sort_key
+        if sort_key == 'fullname':
+            orderby_columns = (sort_order+'surname',
+                               sort_order+'name', sort_order+'misc_name')
+        elif sort_key == 'count':
+            orderby_columns = (sort_order+'count', sort_order+'surname',
+                               sort_order+'name', sort_order+'misc_name')
+        else:
+            orderby_columns = [sort_order+sort_key]
+    else:
+        sort = '+' + columns[0]
+    authors = search_authors(search_type, case_sensitive, {}, expressions,
+                             orderBy=orderby_columns)
     return {
         'authors': list(authors),
         'search_authors': value,
         'search_type': search_type,
         'case_sensitive': case_sensitive,
         'columns': columns,
+        'sort': sort,
+        'quote': quote,
     }
 
 

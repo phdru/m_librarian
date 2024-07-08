@@ -41,7 +41,8 @@ def list_authors_get():
         return redirect('/search_authors/')
     search_type = request.query.get('search_type')
     case_sensitive = request.query.get('case_sensitive')
-    return search_authors_raw(value, search_type, case_sensitive)
+    sort = request.query.get('sort')
+    return search_authors_raw(value, search_type, case_sensitive, sort)
 
 
 @route('/list_authors/', method='POST')
@@ -52,7 +53,8 @@ def list_authors_post():
         return redirect('/search_authors/')
     search_type = request.forms.get('search_type')
     case_sensitive = request.forms.get('case_sensitive')
-    return search_authors_raw(value, search_type, case_sensitive)
+    sort = request.forms.get('sort')
+    return search_authors_raw(value, search_type, case_sensitive, sort)
 
 
 @route('/books-by-author/<aid:int>/', method='GET')
