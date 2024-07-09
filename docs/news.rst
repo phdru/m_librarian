@@ -1,8 +1,10 @@
 News
 ====
 
-Version 0.3.2 (2024-03-??)
+Version 0.4.0 (2024-07-09)
 --------------------------
+
+* Sort list of authors by clicking on column labels.
 
 * Fix a bug with adding the same genre to a book.
 
