@@ -96,21 +96,21 @@ class ListBooksPanel(GridPanel):
             grid.AutoSizeColLabelSize(col)
             if col == 0:
                 cell_attr = wx.grid.GridCellAttr()
-                cell_attr.SetAlignment(wx.ALIGN_CENTRE, wx. ALIGN_CENTRE)
+                cell_attr.SetAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
                 grid.SetColAttr(col, cell_attr)
             elif col_name in ('ser_no', 'size'):
                 cell_attr = wx.grid.GridCellAttr()
-                cell_attr.SetAlignment(wx.ALIGN_RIGHT, wx. ALIGN_CENTRE)
+                cell_attr.SetAlignment(wx.ALIGN_RIGHT, wx.ALIGN_CENTRE)
                 grid.SetColAttr(col, cell_attr)
         row = 0
-        grid.SetCellAlignment(row, 1, wx.ALIGN_CENTRE, wx. ALIGN_CENTRE)
+        grid.SetCellAlignment(row, 1, wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
         grid.SetCellSize(row, 1, 1, len(columns)-1)
         row = 1
         self.book_by_row = book_by_row = {}  # map {row: book}
         self.toggle_rows = toggle_rows = {}  # map {row: [list of subrows]}
         autowrap_renderer = wx.grid.GridCellAutoWrapStringRenderer()
         for author in sorted(books_by_author):
-            grid.SetCellAlignment(row, 1, wx.ALIGN_LEFT, wx. ALIGN_CENTRE)
+            grid.SetCellAlignment(row, 1, wx.ALIGN_LEFT, wx.ALIGN_CENTRE)
             grid.SetCellSize(row, 1, 1, len(columns)-1)
             grid.SetCellValue(row, 1, u'%s' % (author,))
             author_row = row
@@ -125,7 +125,7 @@ class ListBooksPanel(GridPanel):
                     else:
                         value = u'Вне серий'
                     grid.SetCellAlignment(row, 1,
-                                          wx.ALIGN_LEFT, wx. ALIGN_CENTRE)
+                                          wx.ALIGN_LEFT, wx.ALIGN_CENTRE)
                     grid.SetCellSize(row, 1, 1, len(columns)-1)
                     grid.SetCellValue(row, 1,
                                       u'%s — %s' % (book.author1, value))

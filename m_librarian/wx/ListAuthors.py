@@ -25,7 +25,7 @@ class ListAuthorsPanel(GridPanel):
             grid.AutoSizeColLabelSize(col)
             if col_name == 'count':
                 cell_attr = wx.grid.GridCellAttr()
-                cell_attr.SetAlignment(wx.ALIGN_RIGHT, wx. ALIGN_CENTRE)
+                cell_attr.SetAlignment(wx.ALIGN_RIGHT, wx.ALIGN_CENTRE)
                 grid.SetColAttr(col, cell_attr)
         for row, author in enumerate(authors):
             for col, col_name in enumerate(columns):
