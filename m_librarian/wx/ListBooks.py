@@ -156,9 +156,9 @@ class ListBooksPanel(GridPanel):
         grid.AutoSizeRows()
         grid.Bind(wx.grid.EVT_GRID_CELL_LEFT_CLICK, self.OnClick)
 
-        search_button = wx.Button(self, label=u'Скачать')
-        self.GetSizer().Add(search_button, 0, wx.ALIGN_CENTER, 0)
-        search_button.Bind(wx.EVT_BUTTON, self.Download)
+        dnld_button = wx.Button(self, label=u'Скачать')
+        self.GetSizer().Add(dnld_button, 0, wx.ALIGN_CENTER, 0)
+        dnld_button.Bind(wx.EVT_BUTTON, self.Download)
 
     def toggleCB(self, row):
         value = self.grid.GetCellValue(row, 0)
