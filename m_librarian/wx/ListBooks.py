@@ -156,10 +156,6 @@ class ListBooksPanel(GridPanel):
         grid.AutoSizeRows()
         grid.Bind(wx.grid.EVT_GRID_CELL_LEFT_CLICK, self.OnClick)
 
-        dnld_button = wx.Button(self, label=u'Скачать')
-        self.GetSizer().Add(dnld_button, 0, wx.ALIGN_CENTER, 0)
-        dnld_button.Bind(wx.EVT_BUTTON, self.Download)
-
     def toggleCB(self, row):
         value = self.grid.GetCellValue(row, 0)
         if value:
@@ -221,6 +217,28 @@ class ListBooksWindow(GridWindow):
     session_config_section_name = 'list_books'
     window_title = u"m_Librarian: Список книг"
     GridPanelClass = ListBooksPanel
+
+    def OnInit(self):
+        GridWindow.OnInit(self)
+        self.button_panel = button_panel = wx.Panel(self)
+
+        vsizer = wx.BoxSizer(wx.VERTICAL)
+        self.SetSizer(vsizer)
+
+        vsizer.Add(self.panel, 10, wx.EXPAND, 0)
+        vsizer.Add(button_panel, 1, wx.EXPAND, 0)
+
+        hsizer = wx.BoxSizer(wx.HORIZONTAL)
+        button_panel.SetSizer(hsizer)
+
+        hsizer.AddStretchSpacer(1)
+        dnld_button = wx.Button(button_panel, label=u'Скачать')
+        hsizer.Add(dnld_button, 0, wx.ALIGN_CENTER_VERTICAL, 0)
+        hsizer.AddStretchSpacer(1)
+        dnld_button.Bind(wx.EVT_BUTTON, self.OnDownload)
+
+        for panel in self.panel, button_panel:
+            panel.SetMinSize(wx.Size(100, 100))
 
     def InitMenu(self):
         GridWindow.InitMenu(self)
