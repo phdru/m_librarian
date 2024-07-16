@@ -37,7 +37,7 @@ function toggleSeries(name, value) {
   onClick="toggleAll(this.checked)"></td>
   #set $_ = $getattr($translations, 'ugettext', None) or $translations.gettext
   #for $column in $columns
-    <td style="text-align: center">$_($column)</td>
+    <td class="center">$_($column)</td>
   #end for
   </tr>
   #set $columns1 = $len($columns)+1
@@ -81,7 +81,7 @@ $series, 1#slurp
     #end for
   #end for
   <tr>
-  <td colspan="$columns1" style="text-align: center"><input type="submit" value="Скачать"></td>
+  <td colspan="$columns1" class="center"><input type="submit" value="Скачать"></td>
   </tr>
   </table>
   </form>

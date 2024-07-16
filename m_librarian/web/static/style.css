@@ -44,3 +44,11 @@ td, th {
    padding-right: 5px;
    border-left: 1px solid black;
 }
+
+.long {
+   width: 100%;
+}
+
+.center {
+   text-align: center;
+}

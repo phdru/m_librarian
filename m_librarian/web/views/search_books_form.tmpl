@@ -16,9 +16,9 @@ checked#slurp
 #end if
 #end def
 <form action="/search_books/" method="POST">
-  <div style="width: 100%">
+  <div class="long">
   <input name="search_books" value="$html_escape($getVar('search_books',
-  ''))" type="text" style="width: 100%">
+  ''))" type="text" class="long">
   <br>
   <input name="search_type" value="start" $search_type_checked('start') type="radio">
   Подстрока в начале
@@ -32,7 +32,7 @@ checked#slurp
   <input name="use_filters" type="checkbox" $use_filters_check>
   Использовать фильтры
   </div>
-  <div style="width: 100%; text-align: center">
+  <div class="long center">
   <input name="submit" type="submit" value="Искать книги">
   </div>
 </form>

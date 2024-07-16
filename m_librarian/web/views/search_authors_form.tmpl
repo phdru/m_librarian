@@ -11,9 +11,9 @@ checked#slurp
 #end if
 #end def
 <form action="/list_authors/" method="POST">
-  <div style="width: 100%">
+  <div class="long">
   <input name="search_authors" value="$html_escape($getVar('search_authors',
-  ''))" type="text" style="width: 100%">
+  ''))" type="text" class="long">
   <br>
   <input name="search_type" value="start" $search_type_checked('start') type="radio">
   Подстрока в начале
@@ -25,7 +25,7 @@ checked#slurp
   <input name="case_sensitive" type="checkbox" $case_sensitive_checked>
   Различать прописные/строчные
   </div>
-  <div style="width: 100%; text-align: center">
+  <div class="long center">
   <input name="submit" type="submit" value="Искать авторов">
   </div>
 </form>

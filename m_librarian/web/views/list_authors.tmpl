@@ -15,7 +15,7 @@ $search_authors_form(searchList=$searchList)
   <tr>
   #set $_ = $getattr($translations, 'ugettext', None) or $translations.gettext
   #for $column in $columns
-    <td style="text-align: center">$_($column)
+    <td class="center">$_($column)
     #if $sort in ($column, '+'+$column, '-'+$column)
       #if $sort in ($column, '+'+$column)
         #set $sort_param='-'+$column
