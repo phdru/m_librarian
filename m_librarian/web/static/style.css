@@ -52,3 +52,16 @@ td, th {
 .center {
    text-align: center;
 }
+
+#list_books {
+   width: 100%;
+   margin-bottom: 3ex;
+}
+
+#bottom {
+   position: fixed;
+   bottom: 0;
+   width: 100%;
+   height: 3ex;
+   background-color: white;
+}

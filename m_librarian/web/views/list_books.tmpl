@@ -31,7 +31,7 @@ function toggleSeries(name, value) {
 #if $books_by_author
 #filter WebSafe
   <form action="/download/" method="POST" style="height: 80%">
-  <table style="width: 100%; height: 90%">
+  <table id="list_books">
   <tr>
   <td><input type=checkbox name="_toggleAll"
   onClick="toggleAll(this.checked)"></td>
@@ -80,10 +80,10 @@ $series, 1#slurp
   </tr>
     #end for
   #end for
-  <tr>
-  <td colspan="$columns1" class="center"><input type="submit" value="Скачать"></td>
-  </tr>
   </table>
+  <div id="bottom" class="center">
+  <input type="submit" value="Скачать">
+  </div>
   </form>
 #end filter WebSafe
 #else
