@@ -1,6 +1,11 @@
 News
 ====
 
+Version 0.4.1 (2024-07-18)
+--------------------------
+
+* Fix button "Save" at the bottom of the screen to be always visible.
+
 Version 0.4.0 (2024-07-09)
 --------------------------
 
