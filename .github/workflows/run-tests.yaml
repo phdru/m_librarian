@@ -29,15 +29,19 @@ jobs:
 
       # Setup Python/pip
       - uses: actions/checkout@v4
-      - uses: s-weigand/setup-conda@v1
+      - uses: conda-incubator/setup-miniconda@v3
         with:
-          conda-channels: conda-forge
+          miniforge-version: latest
           python-version: ${{ matrix.python-version }}
         if: ${{ !contains(fromJSON(env.not_in_conda), matrix.python-version) }}
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
         if: ${{ contains(fromJSON(env.not_in_conda), matrix.python-version) }}
+      - uses: actions/cache@v3
+        with:
+          path: ~/conda_pkgs_dir
+          key: ${{ runner.os }}-conda
       - name: Cache pip
         uses: actions/cache@v3
         with:
@@ -52,8 +56,10 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           pip --version
           pip install --upgrade virtualenv "tox >= 3.15, < 4"
+        shell: bash -el {0}
       - name: Set TOXENV
         run: |
+          python -c "
           import os, sys
           ld_library_path = None
           pyver = '%d%d' % tuple(sys.version_info[:2])
@@ -67,12 +73,14 @@ jobs:
               toxenv += '-w32'
           with open(os.environ['GITHUB_ENV'], 'a') as f:
               if ld_library_path:
-                f.write('LD_LIBRARY_PATH=' + ld_library_path + '\n')
+                  f.write('LD_LIBRARY_PATH=' + ld_library_path + '\n')
               f.write('TOXENV=' + toxenv + '\n')
-        shell: python
+          "
+        shell: bash -el {0}
 
       - name: Run tox
         run: |
           python -c "import os; print(os.environ['TOXENV'])"
           tox --version
           tox
+        shell: bash -el {0}
