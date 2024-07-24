@@ -14,6 +14,14 @@ jobs:
         exclude:
         - os: windows-latest
           python-version: "2.7"
+        - os: macos-latest
+          python-version: "2.7"
+        - os: macos-latest
+          python-version: "3.5"
+        - os: macos-latest
+          python-version: "3.6"
+        - os: macos-latest
+          python-version: "3.7"
         include:
         - os: ubuntu-latest
           os-name: Linux
