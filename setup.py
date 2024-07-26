@@ -41,8 +41,10 @@ setup(
     keywords=['books', 'library', 'Flibusta', 'LibRusEc', 'lib.rus.ec'],
     platforms="Any",
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 4 - Beta',
         'Environment :: Console',
+        'Environment :: Web Environment',
+        'Environment :: X11 Applications',
         'Intended Audience :: End Users/Desktop',
         'License :: OSI Approved :: GNU General Public License (GPL)',
         'Natural Language :: English',
