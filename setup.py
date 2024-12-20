@@ -76,7 +76,10 @@ setup(
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
     install_requires=[
         'SQLObject>=2.2.1; python_version=="2.7"',
-        'SQLObject>=3.0.0; python_version>="3.4"',
+        'SQLObject>=3.0.0; python_version>="3.4" and python_version<="3.12"',
+        "SQLObject @ "
+        "git+https://github.com/sqlobject/sqlobject.git#egg=sqlobject"
+        " ; python_version >= '3.13'",
         'm_lib.defenc>=1.0',
     ],
     extras_require={
