@@ -6,7 +6,7 @@ Version 0.4.2 (2024-??-??)
 
 * CI(GHActions): Switch to ``setup-miniconda``.
 
-* Tests, CI(GHActions): Python 3.13.
+* Tests, CI(GHActions): Python 3.13, 3.14.
 
 Version 0.4.1 (2024-07-18)
 --------------------------
