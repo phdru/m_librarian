@@ -78,7 +78,7 @@ setup(
     install_requires=[
         'SQLObject>=2.2.1; python_version=="2.7"',
         'SQLObject>=3.0.0; python_version>="3.4"',
-        'm_lib.defenc>=1.0',
+        'm_lib_defenc>=1.1.1',
     ],
     extras_require={
         'pbar': ['m_lib>=3.1'],
