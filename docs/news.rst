@@ -1,7 +1,7 @@
 News
 ====
 
-Version 0.4.2 (2024-??-??)
+Version 0.4.2 (2025-11-06)
 --------------------------
 
 * CI(GHActions): Switch to ``setup-miniconda``.
